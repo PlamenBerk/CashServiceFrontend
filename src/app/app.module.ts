@@ -8,6 +8,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatRippleModule, MatInputModule, MatFormFieldModule, MatButtonModule } from '@angular/material';
 import { CashRegisterService } from './providers/cash-register.service';
 import {HttpClientModule} from '@angular/common/http';
+import {MatTabsModule} from '@angular/material/tabs';
+
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import {HttpClientModule} from '@angular/common/http';
     MatFormFieldModule,
     MatInputModule,
     MatRippleModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTabsModule
     
   ],
   providers: [CashRegisterService],
