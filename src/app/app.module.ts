@@ -9,6 +9,7 @@ import { MatRippleModule, MatInputModule, MatFormFieldModule, MatButtonModule } 
 import { CashRegisterService } from './providers/cash-register.service';
 import {HttpClientModule} from '@angular/common/http';
 import {MatTabsModule} from '@angular/material/tabs';
+import { HttpModule } from '@angular/http';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatInputModule,
     MatRippleModule,
     HttpClientModule,
-    MatTabsModule
+    MatTabsModule,
+    HttpModule
     
   ],
   providers: [CashRegisterService],
