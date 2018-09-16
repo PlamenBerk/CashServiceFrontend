@@ -3,40 +3,59 @@
 <mat-tab-group [(selectedIndex)]="selectedTab">
   <mat-tab label="First">
 
+
+
     <mat-form-field>
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
     </mat-form-field>
 
-    <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
-      <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay; let i=index">
-        <th mat-header-cell *matHeaderCellDef> {{columnHeaders[i]}}</th>
-        <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
-      </ng-container>
+    <div class="example-container mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
 
-      <ng-container matColumnDef="expandedDetail">
-        
-        <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+        <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay; let i=index">
+          <th mat-header-cell *matHeaderCellDef> {{columnHeaders[i]}}</th>
+          <td mat-cell *matCellDef="let element"> 
+            <div *ngIf="column == 'Actions'">
+                <button mat-icon-button class="edit_button" (click)="editClient(element)" (click)="$event.stopPropagation()">
+                    <mat-icon svgIcon="icon_edit">home</mat-icon>
+                  </button>
+            </div>
+            {{element[column]}} 
+          </td>
+          
+        </ng-container>
 
-          <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true" class="header-table"></tr>
+        <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row" (click)="showSites(element)">
+        </tr>
 
-            <div class="example-element-name"> {{element.name}} </div>
-            <div class="example-element-name"> {{element.address}} </div>
-
-          </div>
-
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-      <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row" [class.example-expanded-row]="expandedElement === element"
-        (click)="expandedElement = element" (click)="showSites(element)">
-      </tr>
-      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
-
-    </table>
+      </table>
+    </div>
 
 
+
+
+
+    <mat-form-field class="input-field">
+      <input matInput (keyup)="applyFilter2($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+    <div class="example-container mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource2" multiTemplateDataRows class="mat-elevation-z8">
+
+        <ng-container matColumnDef="{{columnSite}}" *ngFor="let columnSite of columnsToDisplay2; let i=index">
+          <th mat-header-cell *matHeaderCellDef> {{columnHeadersSites[i]}}</th>
+          <td mat-cell *matCellDef="let element"> {{element[columnSite]}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay2; sticky: true" class="header-table"></tr>
+        <tr mat-row *matRowDef="let element; columns: columnsToDisplay2;" class="example-element-row" [class.example-expanded-row]="expandedElement === element"
+          (click)="expandedElement = element" (click)="showSites(element)">
+        </tr>
+
+      </table>
+    </div>
   </mat-tab>
+
   <mat-tab label="Second"> Content 2 </mat-tab>
   <mat-tab label="Third"> Content 3 </mat-tab>
 </mat-tab-group>
