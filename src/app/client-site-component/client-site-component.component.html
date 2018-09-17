@@ -6,21 +6,21 @@
 
 
     <mat-form-field>
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Филтър">
     </mat-form-field>
 
     <div class="example-container mat-elevation-z8">
-      <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
+      <table mat-table [dataSource]="dataSourceClients" multiTemplateDataRows>
 
         <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay; let i=index">
           <th mat-header-cell *matHeaderCellDef> {{columnHeaders[i]}}</th>
           <td mat-cell *matCellDef="let element">
             <div *ngIf="column == 'Actions'">
-              <button mat-icon-button class="edit_button" (click)="editClient(element)" (click)="$event.stopPropagation()">
+              <button mat-icon-button class="edit_button" (click)="editClient(element)" (click)="$event.stopPropagation()" matTooltip="Редактиране на клиент">
                 <mat-icon svgIcon="icon_edit">home</mat-icon>
               </button>
-              <button mat-icon-button class="edit_button" (click)="addClient()" (click)="$event.stopPropagation()">
-                <mat-icon svgIcon="icon_add">home</mat-icon>
+              <button mat-icon-button class="edit_button" (click)="addClient()" (click)="$event.stopPropagation()" matTooltip="Добавяне на нов клиент">
+                <mat-icon svgIcon="icon_add">home2</mat-icon>
               </button>
             </div>
             {{element[column]}}
@@ -40,7 +40,7 @@
 
 
     <mat-form-field class="input-field">
-      <input matInput (keyup)="applyFilter2($event.target.value)" placeholder="Filter">
+      <input matInput (keyup)="applyFilter2($event.target.value)" placeholder="Филтър">
     </mat-form-field>
     <div class="example-container mat-elevation-z8">
       <table mat-table [dataSource]="dataSource2" multiTemplateDataRows class="mat-elevation-z8">

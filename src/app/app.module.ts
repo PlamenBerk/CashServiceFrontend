@@ -13,6 +13,8 @@ import { HttpModule } from '@angular/http';
 import {MatDialogModule} from '@angular/material/dialog';
 import { CustomDialogComponent } from './custom-dialog/custom-dialog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { AddClientCustomDialogComponent } from './add-client-custom-dialog/add-client-custom-dialog.component';
 
 
 @NgModule({
@@ -20,9 +22,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AppComponent,
     ClientSiteComponentComponent,
     CustomDialogComponent,
-    CustomDialogComponent
+    CustomDialogComponent,
+    AddClientCustomDialogComponent
   ],
-  entryComponents: [CustomDialogComponent],
+  entryComponents: [CustomDialogComponent,AddClientCustomDialogComponent],
   imports: [
     BrowserModule,
     MatTableModule,
@@ -37,7 +40,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatIconModule,
     MatDialogModule,
     FormsModule,
-    ReactiveFormsModule    
+    ReactiveFormsModule,
+    MatTooltipModule  
   ],
   providers: [CashRegisterService],
   bootstrap: [ClientSiteComponentComponent]

@@ -10,6 +10,7 @@ import { MatIconRegistry } from "@angular/material/icon";
 import { DomSanitizer } from '../../../node_modules/@angular/platform-browser';
 import { CustomDialogComponent } from '../custom-dialog/custom-dialog.component';
 import { Injectable } from '@angular/core';
+import { AddClientCustomDialogComponent } from '../add-client-custom-dialog/add-client-custom-dialog.component';
 
 @Component({
   selector: 'client-site-component',
@@ -30,18 +31,18 @@ export class ClientSiteComponentComponent {
   clientResults: Array<any>;
   siteResults: Array<any>;
   tempRow: number;
-  dataSource;
-  dataSource2;
+  dataSourceClients;
+  dataSourceSites;
   columnsToDisplay = ['name', 'bulstat', 'egn', 'address', 'tdd', 'comment', 'managerName', 'managerPhone', 'Actions'];
   columnsToDisplay2 = ['name', 'address', 'phone'];
 
   columnHeaders = ['Име', 'Бул', 'ЕГН', 'Адрес', 'ТДД', 'Коментар', 'Мениджър', 'Телефон', 'Действия'];
   columnHeadersSites = ['Име', 'Адрес', 'телефон'];
 
-  constructor(private clientService: CashRegisterService, private siteService: SiteServiceService, private matIconRegistry: MatIconRegistry, sanitizer: DomSanitizer, public dialog: MatDialog) {
+  constructor(private clientService: CashRegisterService, private siteService: SiteServiceService, private matIconRegistry: MatIconRegistry, sanitizer: DomSanitizer, public dialogEditClient: MatDialog, private dialogNewClient: MatDialog) {
     this.matIconRegistry.addSvgIcon(
       'icon_add',
-      sanitizer.bypassSecurityTrustResourceUrl('../../assets/icons/add_icon.svg'),
+      sanitizer.bypassSecurityTrustResourceUrl('../../assets/icons/client_add_icon.svg'),
     ).addSvgIcon(
       'icon_edit',
       sanitizer.bypassSecurityTrustResourceUrl('../../assets/icons/Edit_Icon.svg'),
@@ -53,16 +54,16 @@ export class ClientSiteComponentComponent {
     this.clientResults = [];
     this.clientService.getAllClients().subscribe(clientResults => {
       this.clientResults = clientResults;
-      this.dataSource = new MatTableDataSource(this.clientResults);
+      this.dataSourceClients = new MatTableDataSource(this.clientResults);
     })
   }
 
   applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.dataSourceClients.filter = filterValue.trim().toLowerCase();
   }
 
   applyFilter2(filterValue: string) {
-    this.dataSource2.filter = filterValue.trim().toLowerCase();
+    this.dataSourceSites.filter = filterValue.trim().toLowerCase();
   }
 
   showSites(row: any) {
@@ -70,14 +71,14 @@ export class ClientSiteComponentComponent {
     this.siteResults = [];
     this.siteService.getSitesForClient(row.id).subscribe(siteResults => {
       this.siteResults = siteResults;
-      this.dataSource2 = new MatTableDataSource(this.siteResults);
+      this.dataSourceSites = new MatTableDataSource(this.siteResults);
     })
   }
 
   editClient(element: any) {
     this.tempRow = element.id;
 
-    const dialogRef = this.dialog.open(CustomDialogComponent, {
+    const dialogRef = this.dialogEditClient.open(CustomDialogComponent, {
       
       data: {
         id:element.id,
@@ -93,17 +94,22 @@ export class ClientSiteComponentComponent {
     });
   
     dialogRef.afterClosed().subscribe(result => {
-      this.dataSource.data[this.tempRow-1].address = result.address;
-      this.dataSource.data[this.tempRow-1].name = result.name;
-      this.dataSource.data[this.tempRow-1].bulstat = result.bulstat;
-      this.dataSource.data[this.tempRow-1].comment = result.comment;
-      this.dataSource.data[this.tempRow-1].egn = result.egn;
-      this.dataSource.data[this.tempRow-1].tdd = result.tdd;
-      this.dataSource.data[this.tempRow-1].managerName = result.managerName;
-      this.dataSource.data[this.tempRow-1].managerPhone = result.managerPhone;
+      this.dataSourceClients.data[this.tempRow-1].address = result.address;
+      this.dataSourceClients.data[this.tempRow-1].name = result.name;
+      this.dataSourceClients.data[this.tempRow-1].bulstat = result.bulstat;
+      this.dataSourceClients.data[this.tempRow-1].comment = result.comment;
+      this.dataSourceClients.data[this.tempRow-1].egn = result.egn;
+      this.dataSourceClients.data[this.tempRow-1].tdd = result.tdd;
+      this.dataSourceClients.data[this.tempRow-1].managerName = result.managerName;
+      this.dataSourceClients.data[this.tempRow-1].managerPhone = result.managerPhone;
     });
   }
 
+  addClient(){
+    const dialogRef = this.dialogNewClient.open(AddClientCustomDialogComponent, {
+      
+    });
+  }
 
 
 }

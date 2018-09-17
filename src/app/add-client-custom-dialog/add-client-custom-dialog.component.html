@@ -1,0 +1,65 @@
+<div class="md-dialog-container">
+  <form [formGroup]="form" (ngSubmit)="submit(form)">
+    <h1 mat-dialog-title>Нов клиент</h1>
+
+    <mat-dialog-content>
+      <ol>
+        <li>
+          <mat-form-field>
+            <input matInput formControlName="clientName" placeholder="Име на клиента">
+          </mat-form-field>
+        </li>
+
+        <li>
+          <mat-form-field>
+            <input matInput formControlName="clientBulstat" placeholder="Булстат">
+          </mat-form-field>
+        </li>
+
+        <li>
+          <mat-form-field>
+            <input matInput formControlName="clientEgn" placeholder="ЕГН">
+          </mat-form-field>
+        </li>
+
+        <li>
+          <mat-form-field>
+            <input matInput formControlName="clientAddress" placeholder="Адрес">
+          </mat-form-field>
+        </li>
+
+        <li>
+          <mat-form-field>
+            <input matInput formControlName="clientTDD" placeholder="ТДД">
+          </mat-form-field>
+        </li>
+
+        <li>
+          <mat-form-field>
+            <input matInput formControlName="clientComment" placeholder="Коментар">
+          </mat-form-field>
+        </li>
+
+        <li>
+          <mat-form-field>
+            <input matInput formControlName="manName" placeholder="Мениджър">
+          </mat-form-field>
+        </li>
+
+        <li>
+          <mat-form-field>
+            <input matInput formControlName="manPhone" placeholder="Телефон">
+          </mat-form-field>
+        </li>
+      </ol>
+    </mat-dialog-content>
+
+
+    <mat-dialog-actions>
+      <button mat-button type="submit">Add</button>
+      <button mat-button type="close" (click)="closeDialog()">Cancel</button>
+    </mat-dialog-actions>
+
+
+  </form>
+</div>
