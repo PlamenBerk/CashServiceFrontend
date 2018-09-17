@@ -40,9 +40,13 @@ export class ClientSiteComponentComponent {
 
   constructor(private clientService: CashRegisterService, private siteService: SiteServiceService, private matIconRegistry: MatIconRegistry, sanitizer: DomSanitizer, public dialog: MatDialog) {
     this.matIconRegistry.addSvgIcon(
+      'icon_add',
+      sanitizer.bypassSecurityTrustResourceUrl('../../assets/icons/add_icon.svg'),
+    ).addSvgIcon(
       'icon_edit',
-      sanitizer.bypassSecurityTrustResourceUrl('../../assets/icons/Edit_Icon.svg')
+      sanitizer.bypassSecurityTrustResourceUrl('../../assets/icons/Edit_Icon.svg'),
     );
+   
   }
 
   ngOnInit() {

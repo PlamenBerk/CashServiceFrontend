@@ -14,15 +14,18 @@
 
         <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay; let i=index">
           <th mat-header-cell *matHeaderCellDef> {{columnHeaders[i]}}</th>
-          <td mat-cell *matCellDef="let element"> 
+          <td mat-cell *matCellDef="let element">
             <div *ngIf="column == 'Actions'">
-                <button mat-icon-button class="edit_button" (click)="editClient(element)" (click)="$event.stopPropagation()">
-                    <mat-icon svgIcon="icon_edit">home</mat-icon>
-                  </button>
+              <button mat-icon-button class="edit_button" (click)="editClient(element)" (click)="$event.stopPropagation()">
+                <mat-icon svgIcon="icon_edit">home</mat-icon>
+              </button>
+              <button mat-icon-button class="edit_button" (click)="addClient()" (click)="$event.stopPropagation()">
+                <mat-icon svgIcon="icon_add">home</mat-icon>
+              </button>
             </div>
-            {{element[column]}} 
+            {{element[column]}}
           </td>
-          
+
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true" class="header-table"></tr>
