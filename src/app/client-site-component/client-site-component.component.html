@@ -3,9 +3,12 @@
 <mat-tab-group [(selectedIndex)]="selectedTab">
   <mat-tab label="First">
 
+    <button mat-icon-button class="add_client_button" (click)="addClient()" (click)="$event.stopPropagation()" matTooltip="Добавяне на нов клиент">
+      <mat-icon svgIcon="icon_add">home2</mat-icon>
+      Добави нов клиент
+    </button>
 
-
-    <mat-form-field>
+    <mat-form-field class="filter">
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Филтър">
     </mat-form-field>
 
@@ -19,7 +22,7 @@
               <button mat-icon-button class="edit_button" (click)="editClient(element)" (click)="$event.stopPropagation()" matTooltip="Редактиране на клиент">
                 <mat-icon svgIcon="icon_edit">home</mat-icon>
               </button>
-              <button mat-icon-button class="edit_button" (click)="addClient()" (click)="$event.stopPropagation()" matTooltip="Добавяне на нов клиент">
+              <button mat-icon-button class="edit_button" (click)="addSiteForClient(element.id)" (click)="$event.stopPropagation()" matTooltip="Добавяне на нов клиент">
                 <mat-icon svgIcon="icon_add">home2</mat-icon>
               </button>
             </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit  } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MatTableDataSource, MatDialog } from '@angular/material';
 import { CashRegisterService } from '../providers/cash-register.service';
@@ -11,6 +11,7 @@ import { DomSanitizer } from '../../../node_modules/@angular/platform-browser';
 import { CustomDialogComponent } from '../custom-dialog/custom-dialog.component';
 import { Injectable } from '@angular/core';
 import { AddClientCustomDialogComponent } from '../add-client-custom-dialog/add-client-custom-dialog.component';
+import { AddSiteCustomDialogComponent } from '../add-site-custom-dialog/add-site-custom-dialog.component';
 
 @Component({
   selector: 'client-site-component',
@@ -39,7 +40,7 @@ export class ClientSiteComponentComponent {
   columnHeaders = ['Име', 'Бул', 'ЕГН', 'Адрес', 'ТДД', 'Коментар', 'Мениджър', 'Телефон', 'Действия'];
   columnHeadersSites = ['Име', 'Адрес', 'телефон'];
 
-  constructor(private clientService: CashRegisterService, private siteService: SiteServiceService, private matIconRegistry: MatIconRegistry, sanitizer: DomSanitizer, public dialogEditClient: MatDialog, private dialogNewClient: MatDialog) {
+  constructor(private clientService: CashRegisterService, private siteService: SiteServiceService, private matIconRegistry: MatIconRegistry, sanitizer: DomSanitizer, public dialogEditClient: MatDialog, private dialogNewClient: MatDialog, private dialogNewSite: MatDialog) {
     this.matIconRegistry.addSvgIcon(
       'icon_add',
       sanitizer.bypassSecurityTrustResourceUrl('../../assets/icons/client_add_icon.svg'),
@@ -47,7 +48,7 @@ export class ClientSiteComponentComponent {
       'icon_edit',
       sanitizer.bypassSecurityTrustResourceUrl('../../assets/icons/Edit_Icon.svg'),
     );
-   
+
   }
 
   ngOnInit() {
@@ -79,9 +80,9 @@ export class ClientSiteComponentComponent {
     this.tempRow = element.id;
 
     const dialogRef = this.dialogEditClient.open(CustomDialogComponent, {
-      
+
       data: {
-        id:element.id,
+        id: element.id,
         clientName: element.name,
         clientBulstat: element.bulstat,
         clientEgn: element.egn,
@@ -92,24 +93,52 @@ export class ClientSiteComponentComponent {
         manPhone: element.managerPhone
       }
     });
-  
+
     dialogRef.afterClosed().subscribe(result => {
-      this.dataSourceClients.data[this.tempRow-1].address = result.address;
-      this.dataSourceClients.data[this.tempRow-1].name = result.name;
-      this.dataSourceClients.data[this.tempRow-1].bulstat = result.bulstat;
-      this.dataSourceClients.data[this.tempRow-1].comment = result.comment;
-      this.dataSourceClients.data[this.tempRow-1].egn = result.egn;
-      this.dataSourceClients.data[this.tempRow-1].tdd = result.tdd;
-      this.dataSourceClients.data[this.tempRow-1].managerName = result.managerName;
-      this.dataSourceClients.data[this.tempRow-1].managerPhone = result.managerPhone;
+      this.dataSourceClients.data[this.tempRow - 1].address = result.address;
+      this.dataSourceClients.data[this.tempRow - 1].name = result.name;
+      this.dataSourceClients.data[this.tempRow - 1].bulstat = result.bulstat;
+      this.dataSourceClients.data[this.tempRow - 1].comment = result.comment;
+      this.dataSourceClients.data[this.tempRow - 1].egn = result.egn;
+      this.dataSourceClients.data[this.tempRow - 1].tdd = result.tdd;
+      this.dataSourceClients.data[this.tempRow - 1].managerName = result.managerName;
+      this.dataSourceClients.data[this.tempRow - 1].managerPhone = result.managerPhone;
     });
   }
 
-  addClient(){
+  addClient() {
+
     const dialogRef = this.dialogNewClient.open(AddClientCustomDialogComponent, {
-      
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('aaaaaaaaaa',result);
+      if (result.name == "" || result.name.isEmpty) {
+        console.log('closedDialog');
+      } else {
+        const tempData = this.dataSourceClients.data;
+        tempData.push(result);
+        this.dataSourceClients.data = tempData;
+      }
     });
   }
 
+  addSiteForClient(clientId: number) {
+    const dialogRef = this.dialogNewSite.open(AddSiteCustomDialogComponent, {
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      if (result.name == "" || result.name.isEmpty) {
+        console.log('close add site dialog');
+      } else {
+        const tempData = this.dataSourceSites.data;
+        tempData.push(result);
+        this.dataSourceSites.data = tempData;
+      }
+    });
+  }
 
 }

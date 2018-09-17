@@ -15,6 +15,7 @@ import { CustomDialogComponent } from './custom-dialog/custom-dialog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { AddClientCustomDialogComponent } from './add-client-custom-dialog/add-client-custom-dialog.component';
+import { AddSiteCustomDialogComponent } from './add-site-custom-dialog/add-site-custom-dialog.component';
 
 
 @NgModule({
@@ -23,9 +24,10 @@ import { AddClientCustomDialogComponent } from './add-client-custom-dialog/add-c
     ClientSiteComponentComponent,
     CustomDialogComponent,
     CustomDialogComponent,
-    AddClientCustomDialogComponent
+    AddClientCustomDialogComponent,
+    AddSiteCustomDialogComponent
   ],
-  entryComponents: [CustomDialogComponent,AddClientCustomDialogComponent],
+  entryComponents: [CustomDialogComponent,AddClientCustomDialogComponent,AddSiteCustomDialogComponent],
   imports: [
     BrowserModule,
     MatTableModule,

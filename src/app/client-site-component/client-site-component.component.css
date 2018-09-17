@@ -15,6 +15,15 @@ table {
     color: #000000;
   }
 
+  .add_client_button{
+    color: #000000;
+    margin-left: 10px;
+  }
+
+  .filter{
+    margin-left: 130px;
+  }
+
   tr.example-detail-row {
     height: 0;
   }

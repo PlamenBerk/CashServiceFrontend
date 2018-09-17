@@ -4,6 +4,9 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
+import { ClientManagerDTO, Client, Manager } from '../ClientDTO/clientManagerDTO';
+import { CashRegisterService } from '../providers/cash-register.service';
+import { ClientDTO } from '../ClientDTO/clientDTO';
 
 @Component({
   selector: 'app-add-client-custom-dialog',
@@ -12,8 +15,9 @@ import { Validators } from '@angular/forms';
 })
 export class AddClientCustomDialogComponent implements OnInit {
   form: FormGroup;
+  clientResult: ClientDTO;
 
-  constructor(private formBuilder: FormBuilder,private dialogRef: MatDialogRef<AddClientCustomDialogComponent>,@Inject(MAT_DIALOG_DATA) public data: any) { }
+  constructor(private clientService: CashRegisterService, private formBuilder: FormBuilder, private dialogRef: MatDialogRef<AddClientCustomDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -28,12 +32,34 @@ export class AddClientCustomDialogComponent implements OnInit {
     })
   }
 
-  closeDialog(){
-    this.dialogRef.close();
+  closeDialog() {
+    this.dialogRef.close(1);
   }
 
   submit(form) {
-    
+
+    if (form.valid) {
+      let clientManagerDto = new ClientManagerDTO(
+        new Client(
+          this.form.controls['clientAddress'].value,
+          this.form.controls['clientBulstat'].value,
+          this.form.controls['clientComment'].value,
+          this.form.controls['clientEgn'].value,
+          this.form.controls['clientName'].value,
+          this.form.controls['clientTDD'].value),
+        new Manager(
+          this.form.controls['manName'].value,
+          this.form.controls['manPhone'].value)
+      );
+
+      this.clientService.createNewClient(clientManagerDto).subscribe(clientResult => {
+        this.clientResult = clientResult;
+        this.dialogRef.close(this.clientResult);
+      })
+
+
+    }
+
   }
 
 }

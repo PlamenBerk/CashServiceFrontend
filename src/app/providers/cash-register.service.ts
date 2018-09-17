@@ -13,6 +13,28 @@ export class CashRegisterService {
   
   constructor(private http: Http) { }
 
+  createNewClient(newClient: ClientManagerDTO):Observable<ClientDTO>{
+    let apiURL = 'http://localhost:8080/client-management/client';
+    return this.http.post(apiURL,newClient).pipe(
+      map(res => {
+        var result = res.json();
+        console.log('in service',result);
+          return new ClientDTO(
+            result.id,
+            result.name,
+            result.bulstat,
+            result.address,
+            result.comment,
+            result.egn,
+            result.tdd,
+            result.manager.name,
+            result.manager.phone
+          );
+      })
+    );
+    return null;
+  }
+
   updateClientInfo(editedClient: ClientManagerDTO,id : number ):Observable<ClientDTO>{
     let apiURL = 'http://localhost:8080/client-management/client/'+id;
     return this.http.put(apiURL,editedClient).pipe(
@@ -29,8 +51,6 @@ export class CashRegisterService {
             result.manager.name,
             result.manager.phone
           );
-        
-        
       })
     );
   }
