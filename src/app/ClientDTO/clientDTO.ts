@@ -20,4 +20,5 @@ export class ClientDTO {
         this.managerName = managerName;
         this.managerPhone = managerPhone;
      }
+
 }

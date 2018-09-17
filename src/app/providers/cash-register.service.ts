@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from "rxjs/operators";
 import { Http, Headers, RequestOptions } from '@angular/http';
-import { ClientDTO } from '../ClientDTO/cliendDTO';
+import { ClientDTO } from '../ClientDTO/clientDTO';
+import { ClientManagerDTO } from '../ClientDTO/clientManagerDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +13,32 @@ export class CashRegisterService {
   
   constructor(private http: Http) { }
 
+  updateClientInfo(editedClient: ClientManagerDTO,id : number ):Observable<ClientDTO>{
+    let apiURL = 'http://localhost:8080/client-management/client/'+id;
+    return this.http.put(apiURL,editedClient).pipe(
+      map(res => {
+        var result = res.json();
+          return new ClientDTO(
+            result.id,
+            result.name,
+            result.bulstat,
+            result.address,
+            result.comment,
+            result.egn,
+            result.tdd,
+            result.manager.name,
+            result.manager.phone
+          );
+        
+        
+      })
+    );
+  }
+
   getAllClients(): Observable<ClientDTO[]> {
     let apiURL = `http://localhost:8080/client-management/client`;
     return this.http.get(apiURL).pipe(
       map(res => {
-        console.log('in service',res.json());
         return res.json().map(item => {
           return new ClientDTO(
             item.id,

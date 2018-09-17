@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit  } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MatTableDataSource, MatDialog } from '@angular/material';
 import { CashRegisterService } from '../providers/cash-register.service';
@@ -9,6 +9,7 @@ import { SiteServiceService } from '../providers/site-service.service';
 import { MatIconRegistry } from "@angular/material/icon";
 import { DomSanitizer } from '../../../node_modules/@angular/platform-browser';
 import { CustomDialogComponent } from '../custom-dialog/custom-dialog.component';
+import { Injectable } from '@angular/core';
 
 @Component({
   selector: 'client-site-component',
@@ -22,11 +23,13 @@ import { CustomDialogComponent } from '../custom-dialog/custom-dialog.component'
     ]),
   ],
 })
+@Injectable()
 export class ClientSiteComponentComponent {
   private selectedTab = 0;
   expandedRow: number;
   clientResults: Array<any>;
   siteResults: Array<any>;
+  tempRow: number;
   dataSource;
   dataSource2;
   columnsToDisplay = ['name', 'bulstat', 'egn', 'address', 'tdd', 'comment', 'managerName', 'managerPhone', 'Actions'];
@@ -65,14 +68,15 @@ export class ClientSiteComponentComponent {
       this.siteResults = siteResults;
       this.dataSource2 = new MatTableDataSource(this.siteResults);
     })
-
   }
 
   editClient(element: any) {
-    console.log('element',element.id);
+    this.tempRow = element.id;
+
     const dialogRef = this.dialog.open(CustomDialogComponent, {
       
       data: {
+        id:element.id,
         clientName: element.name,
         clientBulstat: element.bulstat,
         clientEgn: element.egn,
@@ -83,10 +87,16 @@ export class ClientSiteComponentComponent {
         manPhone: element.managerPhone
       }
     });
-
+  
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-
+      this.dataSource.data[this.tempRow-1].address = result.address;
+      this.dataSource.data[this.tempRow-1].name = result.name;
+      this.dataSource.data[this.tempRow-1].bulstat = result.bulstat;
+      this.dataSource.data[this.tempRow-1].comment = result.comment;
+      this.dataSource.data[this.tempRow-1].egn = result.egn;
+      this.dataSource.data[this.tempRow-1].tdd = result.tdd;
+      this.dataSource.data[this.tempRow-1].managerName = result.managerName;
+      this.dataSource.data[this.tempRow-1].managerPhone = result.managerPhone;
     });
   }
 
