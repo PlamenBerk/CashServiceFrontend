@@ -21,9 +21,9 @@ export class EditSiteCustomDialogComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      siteName: [this.data.siteName, Validators.compose([Validators.required,Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
-      siteAddress: [this.data.siteAddress, Validators.compose([Validators.required,Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
-      sitePhone: [this.data.sitePhone, Validators.compose([Validators.required,Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])]
+      siteName: [this.data.elementCopy.name, Validators.compose([Validators.required,Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
+      siteAddress: [this.data.elementCopy.address, Validators.compose([Validators.required,Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
+      sitePhone: [this.data.elementCopy.phone, Validators.compose([Validators.required,Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])]
     })
   }
 
@@ -38,10 +38,9 @@ export class EditSiteCustomDialogComponent implements OnInit {
         this.form.controls['siteName'].value,
         this.form.controls['siteAddress'].value,
         this.form.controls['sitePhone'].value);
-
-      this.siteService.editSite(siteDTO,this.data.siteId).subscribe(siteResult => {
+        
+      this.siteService.editSite(siteDTO,this.data.elementCopy.id).subscribe(siteResult => {
         this.siteResult = siteResult;
-        console.log('returned element from backend (new)',this.siteResult);
         this.dialogRef.close(this.siteResult);
       })
     }

@@ -103,30 +103,12 @@ export class ClientSiteComponentComponent {
     const dialogRef = this.dialogEditClient.open(CustomDialogComponent, {
 
       data: {
-        test:copy
-        // id: element.id,
-        // clientName: element.name,
-        // clientBulstat: element.bulstat,
-        // clientEgn: element.egn,
-        // clientAddress: element.address,
-        // clientTDD: element.tdd,
-        // clientComment: element.comment,
-        // manName: element.managerName,
-        // manPhone: element.managerPhone
-        
+        elementCopy:copy
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       Object.assign(element,result);
-      // this.dataSourceClients.data[this.tempRow - 1].address = result.address;
-      // this.dataSourceClients.data[this.tempRow - 1].name = result.name;
-      // this.dataSourceClients.data[this.tempRow - 1].bulstat = result.bulstat;
-      // this.dataSourceClients.data[this.tempRow - 1].comment = result.comment;
-      // this.dataSourceClients.data[this.tempRow - 1].egn = result.egn;
-      // this.dataSourceClients.data[this.tempRow - 1].tdd = result.tdd;
-      // this.dataSourceClients.data[this.tempRow - 1].managerName = result.managerName;
-      // this.dataSourceClients.data[this.tempRow - 1].managerPhone = result.managerPhone;
     });
   }
 
@@ -150,14 +132,11 @@ export class ClientSiteComponentComponent {
   }
 
   editSite(element: any) {
-    console.log('selected element for edit (old)',element);
+    var copy = Object.assign({}, element);
     const dialogRef = this.dialogEditSite.open(EditSiteCustomDialogComponent, {
 
       data: {
-        siteId: element.id,
-        siteName: element.name,
-        siteAddress: element.address,
-        sitePhone: element.phone
+        elementCopy: copy
       }
     });
 
@@ -165,10 +144,7 @@ export class ClientSiteComponentComponent {
       if (!result) {
         console.log('close edit site dialog');
       } else {
-        console.log('elementfromDS',this.dataSourceSites.data);
-        this.dataSourceSites.data[element.id - 1].name = result.name;
-        this.dataSourceSites.data[element.id - 1].address = result.address;
-        this.dataSourceSites.data[element.id - 1].phone = result.phone;
+        Object.assign(element,result);
       }
     });
   }
