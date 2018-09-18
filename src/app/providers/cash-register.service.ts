@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from "rxjs/operators";
 import { Http, Headers, RequestOptions } from '@angular/http';
-import { ClientDTO } from '../ClientDTO/clientDTO';
-import { ClientManagerDTO } from '../ClientDTO/clientManagerDTO';
+import { ClientDTO } from '../DTOs/clientDTO';
+import { ClientManagerDTO } from '../DTOs/clientManagerDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +32,6 @@ export class CashRegisterService {
           );
       })
     );
-    return null;
   }
 
   updateClientInfo(editedClient: ClientManagerDTO,id : number ):Observable<ClientDTO>{

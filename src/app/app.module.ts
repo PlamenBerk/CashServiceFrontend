@@ -11,11 +11,12 @@ import {HttpClientModule} from '@angular/common/http';
 import {MatTabsModule} from '@angular/material/tabs';
 import { HttpModule } from '@angular/http';
 import {MatDialogModule} from '@angular/material/dialog';
-import { CustomDialogComponent } from './custom-dialog/custom-dialog.component';
+import { CustomDialogComponent } from './edit-client-custom-dialog/custom-dialog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { AddClientCustomDialogComponent } from './add-client-custom-dialog/add-client-custom-dialog.component';
 import { AddSiteCustomDialogComponent } from './add-site-custom-dialog/add-site-custom-dialog.component';
+import { EditSiteCustomDialogComponent } from './edit-site-custom-dialog/edit-site-custom-dialog.component';
 
 
 @NgModule({
@@ -25,9 +26,10 @@ import { AddSiteCustomDialogComponent } from './add-site-custom-dialog/add-site-
     CustomDialogComponent,
     CustomDialogComponent,
     AddClientCustomDialogComponent,
-    AddSiteCustomDialogComponent
+    AddSiteCustomDialogComponent,
+    EditSiteCustomDialogComponent
   ],
-  entryComponents: [CustomDialogComponent,AddClientCustomDialogComponent,AddSiteCustomDialogComponent],
+  entryComponents: [CustomDialogComponent,AddClientCustomDialogComponent,AddSiteCustomDialogComponent,EditSiteCustomDialogComponent],
   imports: [
     BrowserModule,
     MatTableModule,

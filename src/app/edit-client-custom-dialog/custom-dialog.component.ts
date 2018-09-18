@@ -3,8 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '../../../node_modules/@angul
 import { MatDialogRef } from '../../../node_modules/@angular/material';
 import {MAT_DIALOG_DATA} from '@angular/material'
 import { CashRegisterService } from '../providers/cash-register.service';
-import { ClientDTO } from '../ClientDTO/clientDTO';
-import { ClientManagerDTO, Client, Manager } from '../ClientDTO/clientManagerDTO';
+import { ClientDTO } from '../DTOs/clientDTO';
+import { ClientManagerDTO, Client, Manager } from '../DTOs/clientManagerDTO';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -23,15 +23,16 @@ export class CustomDialogComponent implements OnInit {
    }
 
   ngOnInit() {
+    console.table(this.data.test);
     this.form = this.formBuilder.group({
-      clientName: [this.data.clientName, Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
-      clientBulstat: [this.data.clientBulstat, Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
-      clientEgn: [this.data.clientEgn, Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
-      clientAddress: [this.data.clientAddress, Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
-      clientTDD: [this.data.clientTDD, Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
-      clientComment: [this.data.clientComment, Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
-      manName: [this.data.manName, Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
-      manPhone: [this.data.manPhone, Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
+      clientName: [this.data.test.name, Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
+      clientBulstat: [this.data.test.bulstat, Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
+      clientEgn: [this.data.test.egn, Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
+      clientAddress: [this.data.test.address, Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
+      clientTDD: [this.data.test.tdd, Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
+      clientComment: [this.data.test.comment, Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
+      manName: [this.data.test.managerName, Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
+      manPhone: [this.data.test.managerPhone, Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
     })
   }
 
@@ -41,7 +42,7 @@ export class CustomDialogComponent implements OnInit {
 
   submit(form) {
        
-    if(form.valid){
+    if(this.form.valid){
       let clientManagerDto = new ClientManagerDTO(
         new Client(
           this.form.controls['clientAddress'].value,
@@ -54,8 +55,10 @@ export class CustomDialogComponent implements OnInit {
           this.form.controls['manName'].value,
           this.form.controls['manPhone'].value)
       );
+      // todo vijjjj si tukaaa service shto ne ti dava otg....s
+      console.log('huj',clientManagerDto);
 
-      this.clientService.updateClientInfo(clientManagerDto,this.data.id).subscribe(clientResult => {
+      this.clientService.updateClientInfo(clientManagerDto,this.data.test.id).subscribe(clientResult => {
         this.clientResult = clientResult;
         this.dialogRef.close(this.clientResult);
       })

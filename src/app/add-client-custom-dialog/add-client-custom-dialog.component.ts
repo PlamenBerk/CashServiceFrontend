@@ -4,9 +4,9 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
-import { ClientManagerDTO, Client, Manager } from '../ClientDTO/clientManagerDTO';
+import { ClientManagerDTO, Client, Manager } from '../DTOs/clientManagerDTO';
 import { CashRegisterService } from '../providers/cash-register.service';
-import { ClientDTO } from '../ClientDTO/clientDTO';
+import { ClientDTO } from '../DTOs/clientDTO';
 
 @Component({
   selector: 'app-add-client-custom-dialog',
@@ -17,19 +17,22 @@ export class AddClientCustomDialogComponent implements OnInit {
   form: FormGroup;
   clientResult: ClientDTO;
 
-  constructor(private clientService: CashRegisterService, private formBuilder: FormBuilder, private dialogRef: MatDialogRef<AddClientCustomDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
+  constructor(private clientService: CashRegisterService, private formBuilder: FormBuilder, private dialogRef: MatDialogRef<AddClientCustomDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
+    
+   }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      clientName: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
-      clientBulstat: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
-      clientEgn: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
-      clientAddress: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
-      clientTDD: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
+      clientName: ['', Validators.compose([Validators.required,Validators.minLength(2),Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
+      clientBulstat: ['', Validators.compose([Validators.minLength(2),Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
+      clientEgn: ['', Validators.compose([Validators.minLength(2),Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
+      clientAddress: ['', Validators.compose([Validators.required,Validators.minLength(2),Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
+      clientTDD: ['', Validators.compose([Validators.required,Validators.minLength(2),Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
       clientComment: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
-      manName: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
-      manPhone: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
+      manName: ['', Validators.compose([Validators.required,Validators.minLength(2),Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
+      manPhone: ['', Validators.compose([Validators.required,Validators.minLength(2),Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
     })
+    this.form.setErrors({ 'invalid': true });
   }
 
   closeDialog() {
@@ -38,7 +41,8 @@ export class AddClientCustomDialogComponent implements OnInit {
 
   submit(form) {
 
-    if (form.valid) {
+    if (this.form.valid) {
+      console.log('vleznah vuv valid');
       let clientManagerDto = new ClientManagerDTO(
         new Client(
           this.form.controls['clientAddress'].value,
@@ -51,13 +55,13 @@ export class AddClientCustomDialogComponent implements OnInit {
           this.form.controls['manName'].value,
           this.form.controls['manPhone'].value)
       );
-
+      
       this.clientService.createNewClient(clientManagerDto).subscribe(clientResult => {
         this.clientResult = clientResult;
         this.dialogRef.close(this.clientResult);
       })
-
-
+    }else{
+      this.dialogRef.close(this.form.valid);
     }
 
   }

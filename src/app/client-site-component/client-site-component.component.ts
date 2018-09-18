@@ -8,10 +8,11 @@ import { ComponentFactory } from '@angular/core';
 import { SiteServiceService } from '../providers/site-service.service';
 import { MatIconRegistry } from "@angular/material/icon";
 import { DomSanitizer } from '../../../node_modules/@angular/platform-browser';
-import { CustomDialogComponent } from '../custom-dialog/custom-dialog.component';
+import { CustomDialogComponent } from '../edit-client-custom-dialog/custom-dialog.component';
 import { Injectable } from '@angular/core';
 import { AddClientCustomDialogComponent } from '../add-client-custom-dialog/add-client-custom-dialog.component';
 import { AddSiteCustomDialogComponent } from '../add-site-custom-dialog/add-site-custom-dialog.component';
+import { EditSiteCustomDialogComponent } from '../edit-site-custom-dialog/edit-site-custom-dialog.component';
 
 @Component({
   selector: 'client-site-component',
@@ -35,12 +36,12 @@ export class ClientSiteComponentComponent {
   dataSourceClients;
   dataSourceSites;
   columnsToDisplay = ['name', 'bulstat', 'egn', 'address', 'tdd', 'comment', 'managerName', 'managerPhone', 'Actions'];
-  columnsToDisplay2 = ['name', 'address', 'phone'];
+  columnsToDisplay2 = ['name', 'address', 'phone', 'Actions'];
 
   columnHeaders = ['Име', 'Бул', 'ЕГН', 'Адрес', 'ТДД', 'Коментар', 'Мениджър', 'Телефон', 'Действия'];
-  columnHeadersSites = ['Име', 'Адрес', 'телефон'];
+  columnHeadersSites = ['Име', 'Адрес', 'телефон', 'Действия'];
 
-  constructor(private clientService: CashRegisterService, private siteService: SiteServiceService, private matIconRegistry: MatIconRegistry, sanitizer: DomSanitizer, public dialogEditClient: MatDialog, private dialogNewClient: MatDialog, private dialogNewSite: MatDialog) {
+  constructor(private clientService: CashRegisterService, private siteService: SiteServiceService, private matIconRegistry: MatIconRegistry, sanitizer: DomSanitizer, public dialogEditClient: MatDialog, private dialogNewClient: MatDialog, private dialogNewSite: MatDialog, private dialogEditSite: MatDialog) {
     this.matIconRegistry.addSvgIcon(
       'icon_add',
       sanitizer.bypassSecurityTrustResourceUrl('../../assets/icons/client_add_icon.svg'),
@@ -68,7 +69,7 @@ export class ClientSiteComponentComponent {
   }
 
   showSites(row: any) {
-    console.log(row);
+
     this.siteResults = [];
     this.siteService.getSitesForClient(row.id).subscribe(siteResults => {
       this.siteResults = siteResults;
@@ -76,36 +77,7 @@ export class ClientSiteComponentComponent {
     })
   }
 
-  editClient(element: any) {
-    this.tempRow = element.id;
-
-    const dialogRef = this.dialogEditClient.open(CustomDialogComponent, {
-
-      data: {
-        id: element.id,
-        clientName: element.name,
-        clientBulstat: element.bulstat,
-        clientEgn: element.egn,
-        clientAddress: element.address,
-        clientTDD: element.tdd,
-        clientComment: element.comment,
-        manName: element.managerName,
-        manPhone: element.managerPhone
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.dataSourceClients.data[this.tempRow - 1].address = result.address;
-      this.dataSourceClients.data[this.tempRow - 1].name = result.name;
-      this.dataSourceClients.data[this.tempRow - 1].bulstat = result.bulstat;
-      this.dataSourceClients.data[this.tempRow - 1].comment = result.comment;
-      this.dataSourceClients.data[this.tempRow - 1].egn = result.egn;
-      this.dataSourceClients.data[this.tempRow - 1].tdd = result.tdd;
-      this.dataSourceClients.data[this.tempRow - 1].managerName = result.managerName;
-      this.dataSourceClients.data[this.tempRow - 1].managerPhone = result.managerPhone;
-    });
-  }
-
+  // --------- Client functionality ----------------
   addClient() {
 
     const dialogRef = this.dialogNewClient.open(AddClientCustomDialogComponent, {
@@ -113,8 +85,7 @@ export class ClientSiteComponentComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('aaaaaaaaaa',result);
-      if (result.name == "" || result.name.isEmpty) {
+      if (!result) {
         console.log('closedDialog');
       } else {
         const tempData = this.dataSourceClients.data;
@@ -124,19 +95,80 @@ export class ClientSiteComponentComponent {
     });
   }
 
-  addSiteForClient(clientId: number) {
-    const dialogRef = this.dialogNewSite.open(AddSiteCustomDialogComponent, {
+  editClient(element: any) {
+    var copy = Object.assign({}, element);
+    console.log('copy',copy);
+    this.tempRow = element.id;
 
+    const dialogRef = this.dialogEditClient.open(CustomDialogComponent, {
+
+      data: {
+        test:copy
+        // id: element.id,
+        // clientName: element.name,
+        // clientBulstat: element.bulstat,
+        // clientEgn: element.egn,
+        // clientAddress: element.address,
+        // clientTDD: element.tdd,
+        // clientComment: element.comment,
+        // manName: element.managerName,
+        // manPhone: element.managerPhone
+        
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-      if (result.name == "" || result.name.isEmpty) {
+      Object.assign(element,result);
+      // this.dataSourceClients.data[this.tempRow - 1].address = result.address;
+      // this.dataSourceClients.data[this.tempRow - 1].name = result.name;
+      // this.dataSourceClients.data[this.tempRow - 1].bulstat = result.bulstat;
+      // this.dataSourceClients.data[this.tempRow - 1].comment = result.comment;
+      // this.dataSourceClients.data[this.tempRow - 1].egn = result.egn;
+      // this.dataSourceClients.data[this.tempRow - 1].tdd = result.tdd;
+      // this.dataSourceClients.data[this.tempRow - 1].managerName = result.managerName;
+      // this.dataSourceClients.data[this.tempRow - 1].managerPhone = result.managerPhone;
+    });
+  }
+
+  // --------------- Site functionality
+  addSiteForClient(clientId: number) {
+    const dialogRef = this.dialogNewSite.open(AddSiteCustomDialogComponent, {
+      data: {
+        clientId: clientId
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
         console.log('close add site dialog');
       } else {
         const tempData = this.dataSourceSites.data;
         tempData.push(result);
         this.dataSourceSites.data = tempData;
+      }
+    });
+  }
+
+  editSite(element: any) {
+    console.log('selected element for edit (old)',element);
+    const dialogRef = this.dialogEditSite.open(EditSiteCustomDialogComponent, {
+
+      data: {
+        siteId: element.id,
+        siteName: element.name,
+        siteAddress: element.address,
+        sitePhone: element.phone
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
+        console.log('close edit site dialog');
+      } else {
+        console.log('elementfromDS',this.dataSourceSites.data);
+        this.dataSourceSites.data[element.id - 1].name = result.name;
+        this.dataSourceSites.data[element.id - 1].address = result.address;
+        this.dataSourceSites.data[element.id - 1].phone = result.phone;
       }
     });
   }
