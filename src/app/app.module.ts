@@ -17,6 +17,10 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import { AddClientCustomDialogComponent } from './add-client-custom-dialog/add-client-custom-dialog.component';
 import { AddSiteCustomDialogComponent } from './add-site-custom-dialog/add-site-custom-dialog.component';
 import { EditSiteCustomDialogComponent } from './edit-site-custom-dialog/edit-site-custom-dialog.component';
+import { SiteServiceService } from './providers/site-service.service';
+import { DeviceModelService } from './providers/device-model.service';
+import { AddDeviceModelDialogComponent } from './add-device-model-dialog/add-device-model-dialog.component';
+import { EditDeviceModelDialogComponent } from './edit-device-model-dialog/edit-device-model-dialog.component';
 
 
 @NgModule({
@@ -27,9 +31,12 @@ import { EditSiteCustomDialogComponent } from './edit-site-custom-dialog/edit-si
     CustomDialogComponent,
     AddClientCustomDialogComponent,
     AddSiteCustomDialogComponent,
-    EditSiteCustomDialogComponent
+    EditSiteCustomDialogComponent,
+    AddDeviceModelDialogComponent,
+    EditDeviceModelDialogComponent,
+    
   ],
-  entryComponents: [CustomDialogComponent,AddClientCustomDialogComponent,AddSiteCustomDialogComponent,EditSiteCustomDialogComponent],
+  entryComponents: [CustomDialogComponent,AddClientCustomDialogComponent,AddSiteCustomDialogComponent,EditSiteCustomDialogComponent,AddDeviceModelDialogComponent,EditDeviceModelDialogComponent],
   imports: [
     BrowserModule,
     MatTableModule,
@@ -47,7 +54,7 @@ import { EditSiteCustomDialogComponent } from './edit-site-custom-dialog/edit-si
     ReactiveFormsModule,
     MatTooltipModule  
   ],
-  providers: [CashRegisterService],
+  providers: [CashRegisterService, SiteServiceService, DeviceModelService],
   bootstrap: [ClientSiteComponentComponent]
 })
 export class AppModule { }

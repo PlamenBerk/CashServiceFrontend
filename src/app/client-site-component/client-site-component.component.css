@@ -2,9 +2,16 @@ table {
     width: 100%;
   }
   
+  .centerr{
+    margin: auto;
+    width: 95%;
+    padding: 10px;
+  }
+
   .example-container {
     height: 300px;
     overflow: auto;
+    width: 100%;
   }
 
   .header-table{

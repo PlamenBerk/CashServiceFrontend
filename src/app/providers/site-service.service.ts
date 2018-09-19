@@ -44,15 +44,11 @@ export class SiteServiceService {
   }
 
   getSitesForClient(id: number): Observable<FullSiteDTO[]> {
-    console.log('id',id);
     this.id = id;
-
     var params = {"clientId": this.id.toString()};
-
     let apiURL = `http://localhost:8080/site-management/site`;
     return this.http.get(apiURL,{params: params}).pipe(
       map(res => {
-        console.log('in site service',res.json());
         return res.json().map(item => {
           return new FullSiteDTO(
             item.id,
