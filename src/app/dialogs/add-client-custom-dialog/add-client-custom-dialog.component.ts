@@ -4,9 +4,9 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
-import { ClientManagerDTO, Client, Manager } from '../DTOs/clientManagerDTO';
-import { CashRegisterService } from '../providers/cash-register.service';
-import { ClientDTO } from '../DTOs/clientDTO';
+import { ClientManagerDTO, Client, Manager } from '../../DTOs/clientManagerDTO';
+import { CashRegisterService } from '../../providers/cash-register.service';
+import { ClientDTO } from '../../DTOs/clientDTO';
 
 @Component({
   selector: 'app-add-client-custom-dialog',

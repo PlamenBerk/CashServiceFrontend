@@ -1,10 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '../../../node_modules/@angular/forms';
-import { MatDialogRef } from '../../../node_modules/@angular/material';
+import { FormGroup, FormBuilder, Validators } from '../../../../node_modules/@angular/forms';
+import { MatDialogRef } from '../../../../node_modules/@angular/material';
 import {MAT_DIALOG_DATA} from '@angular/material'
-import { CashRegisterService } from '../providers/cash-register.service';
-import { ClientDTO } from '../DTOs/clientDTO';
-import { ClientManagerDTO, Client, Manager } from '../DTOs/clientManagerDTO';
+import { CashRegisterService } from '../../providers/cash-register.service';
+import { ClientDTO } from '../../DTOs/clientDTO';
+import { ClientManagerDTO, Client, Manager } from '../../DTOs/clientManagerDTO';
 import { Observable } from 'rxjs';
 
 @Component({

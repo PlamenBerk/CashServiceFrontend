@@ -3,10 +3,10 @@ import { FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { DeviceModelService } from '../providers/device-model.service';
+import { DeviceModelService } from '../../providers/device-model.service';
 import { Validators } from '@angular/forms';
-import { DeviceModel } from '../DTOs/deviceModel';
-import { FullDeviceModel } from '../DTOs/fullDeviceModel';
+import { DeviceModel } from '../../DTOs/deviceModel';
+import { FullDeviceModel } from '../../DTOs/fullDeviceModel';
 
 @Component({
   selector: 'app-edit-device-model-dialog',

@@ -32,6 +32,15 @@ export class DeviceModelService {
     );
   }
 
+  getAllDeviceModelsJSON(): Observable<FullDeviceModel[]>{
+    let apiURL = 'http://localhost:8080/device-model-management/device-model';
+    return this.http.get(apiURL).pipe(
+      map(res => {
+        return res.json();
+      })
+    );
+  }
+
   addNewDeviceModel(deviceModelDTO: DeviceModel): Observable<FullDeviceModel>{
     let apiURL = 'http://localhost:8080/device-model-management/device-model';
     return this.http.post(apiURL,deviceModelDTO).pipe(

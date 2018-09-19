@@ -8,15 +8,16 @@ import { ComponentFactory } from '@angular/core';
 import { SiteServiceService } from '../providers/site-service.service';
 import { MatIconRegistry } from "@angular/material/icon";
 import { DomSanitizer } from '../../../node_modules/@angular/platform-browser';
-import { CustomDialogComponent } from '../edit-client-custom-dialog/custom-dialog.component';
+import { CustomDialogComponent } from '../dialogs/edit-client-custom-dialog/custom-dialog.component';
 import { Injectable } from '@angular/core';
-import { AddClientCustomDialogComponent } from '../add-client-custom-dialog/add-client-custom-dialog.component';
-import { AddSiteCustomDialogComponent } from '../add-site-custom-dialog/add-site-custom-dialog.component';
-import { EditSiteCustomDialogComponent } from '../edit-site-custom-dialog/edit-site-custom-dialog.component';
+import { AddClientCustomDialogComponent } from '../dialogs/add-client-custom-dialog/add-client-custom-dialog.component';
+import { AddSiteCustomDialogComponent } from '../dialogs/add-site-custom-dialog/add-site-custom-dialog.component';
+import { EditSiteCustomDialogComponent } from '../dialogs/edit-site-custom-dialog/edit-site-custom-dialog.component';
 import { MatTabChangeEvent } from '@angular/material';
 import { DeviceModelService } from '../providers/device-model.service';
-import { AddDeviceModelDialogComponent } from '../add-device-model-dialog/add-device-model-dialog.component';
-import { EditDeviceModelDialogComponent } from '../edit-device-model-dialog/edit-device-model-dialog.component';
+import { AddDeviceModelDialogComponent } from '../dialogs/add-device-model-dialog/add-device-model-dialog.component';
+import { EditDeviceModelDialogComponent } from '../dialogs/edit-device-model-dialog/edit-device-model-dialog.component';
+import { AddDeviceCustomDialogComponent } from '../dialogs/add-device-custom-dialog/add-device-custom-dialog.component';
 
 @Component({
   selector: 'client-site-component',
@@ -52,7 +53,7 @@ export class ClientSiteComponentComponent {
   columnHeadersDevices = ['asdas', 'asdasd', 'asdasd', 'asdasd'];
   columnHeadersDevicesModels = ['Производител', 'Модел', 'Свидетелство', 'Сериен номер префикс', 'Фискален номер префикс', 'Действия'];
 
-  constructor(private clientService: CashRegisterService, private deviceModelService: DeviceModelService ,private siteService: SiteServiceService, private matIconRegistry: MatIconRegistry, sanitizer: DomSanitizer, public dialogEditClient: MatDialog, private dialogNewClient: MatDialog, private dialogNewSite: MatDialog, private dialogEditSite: MatDialog, private dialogAddNewDeviceModel: MatDialog, private dialogEditDeviceModel: MatDialog) {
+  constructor(private clientService: CashRegisterService, private deviceModelService: DeviceModelService ,private siteService: SiteServiceService, private matIconRegistry: MatIconRegistry, sanitizer: DomSanitizer, public dialogEditClient: MatDialog, private dialogNewClient: MatDialog, private dialogNewSite: MatDialog, private dialogEditSite: MatDialog, private dialogAddNewDeviceModel: MatDialog, private dialogEditDeviceModel: MatDialog, private dialogEditDevice: MatDialog, private dialogAddDevice: MatDialog) {
     this.matIconRegistry.addSvgIcon(
       'icon_add',
       sanitizer.bypassSecurityTrustResourceUrl('../../assets/icons/client_add_icon.svg'),
@@ -216,6 +217,25 @@ export class ClientSiteComponentComponent {
         console.log('close edit site dialog');
       } else {
         Object.assign(element, result);
+      }
+    });
+  }
+
+  // ------- Device functionality ----------
+  addDeviceForSite(siteId: any){
+    const dialogRef = this.dialogAddDevice.open(AddDeviceCustomDialogComponent, {
+      data: {
+        element: siteId
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
+        console.log('close add site dialog');
+      } else {
+        const tempData = this.dataSourceDevices.data;
+        tempData.push(result);
+        this.dataSourceDevices.data = tempData;
       }
     });
 

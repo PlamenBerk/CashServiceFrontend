@@ -1,9 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '../../../node_modules/@angular/material';
-import { FormBuilder, FormGroup, Validators } from '../../../node_modules/@angular/forms';
-import { SiteDTO } from '../DTOs/siteDTO';
-import { SiteServiceService } from '../providers/site-service.service';
-import { FullSiteDTO } from '../DTOs/fullSiteDTO';
+import { MAT_DIALOG_DATA, MatDialogRef } from '../../../../node_modules/@angular/material';
+import { FormBuilder, FormGroup, Validators } from '../../../../node_modules/@angular/forms';
+import { SiteDTO } from '../../DTOs/siteDTO';
+import { SiteServiceService } from '../../providers/site-service.service';
+import { FullSiteDTO } from '../../DTOs/fullSiteDTO';
 
 @Component({
   selector: 'app-add-site-custom-dialog',

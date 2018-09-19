@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { DeviceModelService } from '../providers/device-model.service';
+import { DeviceModelService } from '../../providers/device-model.service';
 import { Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
-import { DeviceModel } from '../DTOs/deviceModel';
-import { FullDeviceModel } from '../DTOs/fullDeviceModel';
+import { DeviceModel } from '../../DTOs/deviceModel';
+import { FullDeviceModel } from '../../DTOs/fullDeviceModel';
 
 @Component({
   selector: 'app-add-device-model-dialog',

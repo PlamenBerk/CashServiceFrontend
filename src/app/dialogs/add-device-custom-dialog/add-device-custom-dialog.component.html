@@ -1,0 +1,63 @@
+<div class="md-dialog-container">
+  <h1 mat-dialog-title>Нов обект</h1>
+
+
+  <mat-dialog-content>
+    <ol>
+
+      <li>
+        <mat-select placeholder="Favorite food" [(ngModel)]="selectedValue" name="model">
+          <mat-option *ngFor="let modelD of deviceModels" [value]="modelD.id">
+              {{modelD.model}}
+          </mat-option>
+        </mat-select>
+      </li>
+    </ol>
+
+    <form [formGroup]="form" (ngSubmit)="submit(form)">
+
+      <ol>
+
+        <li>
+          <mat-form-field>
+            <input matInput formControlName="SIM" placeholder="СИМ IMSI">
+          </mat-form-field>
+        </li>
+
+        <li>
+          <mat-form-field>
+            <input matInput formControlName="deviceNumPostfix" placeholder="Сериен номер">
+          </mat-form-field>
+        </li>
+
+        <li>
+          <mat-form-field>
+            <input matInput formControlName="fiscalNumPostfix" placeholder="Фискална памет">
+          </mat-form-field>
+        </li>
+
+        <li>
+          <mat-form-field>
+            <input matInput formControlName="napNumber" placeholder="НАП номер">
+          </mat-form-field>
+        </li>
+
+        <li>
+          <mat-form-field>
+            <input matInput formControlName="napDate" placeholder="НАП дата">
+          </mat-form-field>
+        </li>
+
+      </ol>
+
+
+
+      <mat-dialog-actions>
+        <button mat-button type="submit">Добави</button>
+        <button mat-button type="close" (click)="closeDialog()">Затвори</button>
+      </mat-dialog-actions>
+
+
+    </form>
+  </mat-dialog-content>
+</div>

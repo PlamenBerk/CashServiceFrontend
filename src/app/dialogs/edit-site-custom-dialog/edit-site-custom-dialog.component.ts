@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { SiteServiceService } from '../providers/site-service.service';
+import { SiteServiceService } from '../../providers/site-service.service';
 import { FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Inject } from '@angular/core';
 import { Validators } from '@angular/forms';
-import { SiteDTO } from '../DTOs/siteDTO';
-import { FullSiteDTO } from '../DTOs/fullSiteDTO';
+import { SiteDTO } from '../../DTOs/siteDTO';
+import { FullSiteDTO } from '../../DTOs/fullSiteDTO';
 
 @Component({
   selector: 'app-edit-site-custom-dialog',
