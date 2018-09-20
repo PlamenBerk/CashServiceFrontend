@@ -32,7 +32,7 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true" class="header-table"></tr>
-        <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row" (click)="showSites(element)">
+        <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"  (click)="highlight(element)" [ngClass]="{'highlight': selectedRowIndex == element.id}" class="example-element-row" (click)="showSites(element)">
         </tr>
 
       </table>
@@ -63,7 +63,7 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="columnsToDisplay2; sticky: true" class="header-table"></tr>
-        <tr mat-row *matRowDef="let element; columns: columnsToDisplay2;" class="example-element-row" [class.example-expanded-row]="expandedElement === element">
+        <tr mat-row *matRowDef="let element; columns: columnsToDisplay2;" (click)="highlight2(element)" [ngClass]="{'highlight': selectedRowIndex2 == element.id}" class="example-element-row" [class.example-expanded-row]="expandedElement === element" (click)="showDevices(element)">
         </tr>
 
       </table>
@@ -86,8 +86,8 @@
                     <button mat-icon-button class="edit_button" (click)="editDevice(element)" (click)="$event.stopPropagation()" matTooltip="Редактиране на апарат">
                       <mat-icon svgIcon="icon_edit">home</mat-icon>
                     </button>
-                    <button mat-icon-button class="edit_button" (click)="addDeviceForSite(element.id)" (click)="$event.stopPropagation()" matTooltip="Добавяне на апарат за този обект">
-                      <mat-icon svgIcon="icon_add">home2</mat-icon>
+                    <button mat-icon-button class="edit_button" (click)="generateDocument(element.id)" (click)="$event.stopPropagation()" matTooltip="Генериране на документ">
+                      <mat-icon svgIcon="icon_doc">home2</mat-icon>
                     </button>
                   </div>
                {{element[columnDevice]}} </td>

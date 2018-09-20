@@ -1,12 +1,12 @@
 <div class="md-dialog-container">
-  <h1 mat-dialog-title>Нов обект</h1>
+  <h1 mat-dialog-title>Нов апарат</h1>
 
 
   <mat-dialog-content>
     <ol>
 
       <li>
-        <mat-select placeholder="Favorite food" [(ngModel)]="selectedValue" name="model">
+        <mat-select placeholder="Модел на апарата" [(ngModel)]="selectedValue" name="model">
           <mat-option *ngFor="let modelD of deviceModels" [value]="modelD.id">
               {{modelD.model}}
           </mat-option>
@@ -20,7 +20,7 @@
 
         <li>
           <mat-form-field>
-            <input matInput formControlName="SIM" placeholder="СИМ IMSI">
+            <input matInput formControlName="sim" placeholder="СИМ IMSI">
           </mat-form-field>
         </li>
 
@@ -50,14 +50,11 @@
 
       </ol>
 
-
-
-      <mat-dialog-actions>
-        <button mat-button type="submit">Добави</button>
-        <button mat-button type="close" (click)="closeDialog()">Затвори</button>
-      </mat-dialog-actions>
-
-
     </form>
   </mat-dialog-content>
+
+  <mat-dialog-actions>
+      <button mat-button type="submit" (click)="addDevice()">Добави</button>
+      <button mat-button type="close" (click)="closeDialog()">Затвори</button>
+    </mat-dialog-actions>
 </div>

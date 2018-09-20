@@ -32,7 +32,7 @@ export class AddDeviceCustomDialogComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      SIM: ['', Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
+      sim: ['', Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
       deviceNumPostfix: ['', Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
       fiscalNumPostfix: ['', Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
       napNumber: ['', Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
@@ -43,22 +43,23 @@ export class AddDeviceCustomDialogComponent implements OnInit {
   closeDialog() {
     this.dialogRef.close();
   }
+  addDevice() {
 
-  submit(form) {
-
+    console.log('aree dee');
     if (this.form.valid) {
       let deviceDTO = new DeviceDTO(
-        this.form.controls['SIM'].value,
+        this.form.controls['sim'].value,
         this.form.controls['deviceNumPostfix'].value,
         this.form.controls['fiscalNumPostfix'].value,
         this.form.controls['napNumber'].value,
         this.form.controls['napDate'].value);
+      console.log('aree dee', deviceDTO);
 
       this.deviceService.createNewDevice(deviceDTO, this.siteId, parseInt(this.selectedValue)).subscribe(deviceResult => {
         this.deviceResult = deviceResult;
         this.dialogRef.close(this.deviceResult);
       })
     }
-  }
 
+  }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { MatTableDataSource, MatDialog } from '@angular/material';
+import { MatTableDataSource, MatDialog, MatSnackBar } from '@angular/material';
 import { CashRegisterService } from '../providers/cash-register.service';
 import { ViewChildren } from '@angular/core';
 import { ViewContainerRef } from '@angular/core';
@@ -18,6 +18,9 @@ import { DeviceModelService } from '../providers/device-model.service';
 import { AddDeviceModelDialogComponent } from '../dialogs/add-device-model-dialog/add-device-model-dialog.component';
 import { EditDeviceModelDialogComponent } from '../dialogs/edit-device-model-dialog/edit-device-model-dialog.component';
 import { AddDeviceCustomDialogComponent } from '../dialogs/add-device-custom-dialog/add-device-custom-dialog.component';
+import { DeviceService } from '../providers/device.service';
+import { EditDeviceCustomDialogComponent } from '../dialogs/edit-device-custom-dialog/edit-device-custom-dialog.component';
+import { GenerateDocumentsCustomDialogComponent } from '../dialogs/generate-documents-custom-dialog/generate-documents-custom-dialog.component';
 
 @Component({
   selector: 'client-site-component',
@@ -38,28 +41,36 @@ export class ClientSiteComponentComponent {
   clientResults: Array<any>;
   siteResults: Array<any>;
   deviceModels: Array<any>;
+  deviceDesults: Array<any>;
+
   tempRow: number;
   dataSourceClients;
   dataSourceSites;
   dataSourceDevices;
   dataSourceDevicesModels;
+  selectedRowIndex: number = -1;
+  selectedRowIndex2: number = -1;
+
   columnsToDisplay = ['name', 'bulstat', 'egn', 'address', 'tdd', 'comment', 'managerName', 'managerPhone', 'Actions'];
   columnsToDisplay2 = ['name', 'address', 'phone', 'Actions'];
-  columnsToDisplay3 = ['todo', 'todo2', 'todo3', 'todo4'];
+  columnsToDisplay3 = ['sim', 'deviceNumPostfix', 'fiscalNumPostfix', 'napNumber', 'napDate', 'Actions'];
   columnsToDisplay4 = ['manufacturer', 'model', 'certificate', 'deviceNumPrefix', 'fiscalNumPrefix', 'Actions'];
 
   columnHeaders = ['Име', 'Бул', 'ЕГН', 'Адрес', 'ТДД', 'Коментар', 'Мениджър', 'Телефон', 'Действия'];
   columnHeadersSites = ['Име', 'Адрес', 'телефон', 'Действия'];
-  columnHeadersDevices = ['asdas', 'asdasd', 'asdasd', 'asdasd'];
+  columnHeadersDevices = ['СИМ', 'Сериен номер', 'Фискална памет', 'НАП номер', 'НАП дата', 'Действия'];
   columnHeadersDevicesModels = ['Производител', 'Модел', 'Свидетелство', 'Сериен номер префикс', 'Фискален номер префикс', 'Действия'];
 
-  constructor(private clientService: CashRegisterService, private deviceModelService: DeviceModelService ,private siteService: SiteServiceService, private matIconRegistry: MatIconRegistry, sanitizer: DomSanitizer, public dialogEditClient: MatDialog, private dialogNewClient: MatDialog, private dialogNewSite: MatDialog, private dialogEditSite: MatDialog, private dialogAddNewDeviceModel: MatDialog, private dialogEditDeviceModel: MatDialog, private dialogEditDevice: MatDialog, private dialogAddDevice: MatDialog) {
+  constructor(public snackBar: MatSnackBar, private deviceService: DeviceService, private clientService: CashRegisterService, private deviceModelService: DeviceModelService, private siteService: SiteServiceService, private matIconRegistry: MatIconRegistry, sanitizer: DomSanitizer, public dialogEditClient: MatDialog, private dialogNewClient: MatDialog, private dialogNewSite: MatDialog, private dialogEditSite: MatDialog, private dialogAddNewDeviceModel: MatDialog, private dialogEditDeviceModel: MatDialog, private dialogEditDevice: MatDialog, private dialogAddDevice: MatDialog, private dialogGenerateDocument: MatDialog) {
     this.matIconRegistry.addSvgIcon(
       'icon_add',
       sanitizer.bypassSecurityTrustResourceUrl('../../assets/icons/client_add_icon.svg'),
     ).addSvgIcon(
       'icon_edit',
       sanitizer.bypassSecurityTrustResourceUrl('../../assets/icons/Edit_Icon.svg'),
+    ).addSvgIcon(
+      'icon_doc',
+      sanitizer.bypassSecurityTrustResourceUrl('../../assets/icons/document_icon.svg'),
     );
 
   }
@@ -70,6 +81,14 @@ export class ClientSiteComponentComponent {
       this.clientResults = clientResults;
       this.dataSourceClients = new MatTableDataSource(this.clientResults);
     })
+  }
+
+  highlight(row) {
+    this.selectedRowIndex = row.id;
+  }
+
+  highlight2(row) {
+    this.selectedRowIndex2 = row.id;
   }
 
   applyFilter(filterValue: string) {
@@ -89,12 +108,13 @@ export class ClientSiteComponentComponent {
   }
 
   showSites(row: any) {
-
+    console.log('rowwww', row);
     this.siteResults = [];
     this.siteService.getSitesForClient(row.id).subscribe(siteResults => {
       this.siteResults = siteResults;
       this.dataSourceSites = new MatTableDataSource(this.siteResults);
     })
+    this.dataSourceDevices = [];
   }
 
   // --------- Client functionality ----------------
@@ -174,12 +194,12 @@ export class ClientSiteComponentComponent {
 
   // ------- DeviceModel functonality
   tabChanged(tabChangeEvent: MatTabChangeEvent): void {
-    if(tabChangeEvent.index == 1){
+    if (tabChangeEvent.index == 1) {
       this.loadDeviceModelData();
     }
   }
 
-  loadDeviceModelData(){
+  loadDeviceModelData() {
     this.deviceModels = [];
     this.deviceModelService.getAllDeviceModels().subscribe(deviceModels => {
       this.deviceModels = deviceModels;
@@ -187,7 +207,7 @@ export class ClientSiteComponentComponent {
     })
   }
 
-  addNewDeviceModel(){
+  addNewDeviceModel() {
     const dialogRef = this.dialogAddNewDeviceModel.open(AddDeviceModelDialogComponent, {
 
     });
@@ -203,7 +223,7 @@ export class ClientSiteComponentComponent {
     });
   }
 
-  editDeviceModel(element: any){
+  editDeviceModel(element: any) {
     var copy = Object.assign({}, element);
 
     const dialogRef = this.dialogEditDeviceModel.open(EditDeviceModelDialogComponent, {
@@ -222,7 +242,33 @@ export class ClientSiteComponentComponent {
   }
 
   // ------- Device functionality ----------
-  addDeviceForSite(siteId: any){
+  showDevices(element: any) {
+    this.deviceDesults = [];
+    this.deviceService.getDevicesForSite(element.id).subscribe(deviceDesults => {
+      this.deviceDesults = deviceDesults;
+      this.dataSourceDevices = new MatTableDataSource(this.deviceDesults);
+    })
+  }
+
+  editDevice(element: any) {
+    var copy = Object.assign({}, element);
+
+    const dialogRef = this.dialogEditDevice.open(EditDeviceCustomDialogComponent, {
+      data: {
+        elementCopy: copy
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
+        console.log('close edit site dialog');
+      } else {
+        Object.assign(element, result);
+      }
+    });
+  }
+
+  addDeviceForSite(siteId: any) {
     const dialogRef = this.dialogAddDevice.open(AddDeviceCustomDialogComponent, {
       data: {
         element: siteId
@@ -238,6 +284,23 @@ export class ClientSiteComponentComponent {
         this.dataSourceDevices.data = tempData;
       }
     });
+  }
 
+  generateDocument(elementId: any) {
+    const dialogRef = this.dialogGenerateDocument.open(GenerateDocumentsCustomDialogComponent, {
+      data: {
+        id: elementId
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'closed') {
+        console.log('closedDialog');
+      } else {
+        this.snackBar.open(result, '', {
+          duration: 3000,
+        });
+      }
+    });
   }
 }

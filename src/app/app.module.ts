@@ -25,6 +25,9 @@ import { AddDeviceCustomDialogComponent } from './dialogs/add-device-custom-dial
 import { EditDeviceCustomDialogComponent } from './dialogs/edit-device-custom-dialog/edit-device-custom-dialog.component';
 import {MatSelectModule} from '@angular/material/select';
 import { DeviceService } from './providers/device.service';
+import { GenerateDocumentsCustomDialogComponent } from './dialogs/generate-documents-custom-dialog/generate-documents-custom-dialog.component';
+import { DocumentGeneratorService } from './providers/document-generator.service';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -39,9 +42,10 @@ import { DeviceService } from './providers/device.service';
     EditDeviceModelDialogComponent,
     AddDeviceCustomDialogComponent,
     EditDeviceCustomDialogComponent,
+    GenerateDocumentsCustomDialogComponent
     
   ],
-  entryComponents: [CustomDialogComponent,AddClientCustomDialogComponent,AddSiteCustomDialogComponent,EditSiteCustomDialogComponent,AddDeviceModelDialogComponent,EditDeviceModelDialogComponent,AddDeviceCustomDialogComponent,EditDeviceCustomDialogComponent],
+  entryComponents: [GenerateDocumentsCustomDialogComponent,CustomDialogComponent,AddClientCustomDialogComponent,AddSiteCustomDialogComponent,EditSiteCustomDialogComponent,AddDeviceModelDialogComponent,EditDeviceModelDialogComponent,AddDeviceCustomDialogComponent,EditDeviceCustomDialogComponent],
   imports: [
     BrowserModule,
     MatTableModule,
@@ -58,9 +62,10 @@ import { DeviceService } from './providers/device.service';
     FormsModule,
     ReactiveFormsModule,
     MatTooltipModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSnackBarModule
   ],
-  providers: [CashRegisterService, SiteServiceService, DeviceModelService, DeviceService],
+  providers: [DocumentGeneratorService, CashRegisterService, SiteServiceService, DeviceModelService, DeviceService],
   bootstrap: [ClientSiteComponentComponent]
 })
 export class AppModule { }
