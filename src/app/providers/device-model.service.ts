@@ -63,7 +63,6 @@ export class DeviceModelService {
     return this.http.put(apiURL,deviceModel).pipe(
       map(res => {
         var result = res.json();
-        console.log('resulttttttt',result);
         return new FullDeviceModel(
           result.id,
           result.manufacturer,

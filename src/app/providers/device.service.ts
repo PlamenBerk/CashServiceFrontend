@@ -33,7 +33,6 @@ export class DeviceService {
   
   createNewDevice(newDevice: DeviceDTO,siteId: number,modelId: number):Observable<FullDeviceDTO>{
     let apiURL = 'http://localhost:8080/device-management/device/'+ siteId + '/' + modelId;
-    console.log('apiurl',apiURL);
     return this.http.post(apiURL,newDevice).pipe(
       map(res => {
         var result = res.json();

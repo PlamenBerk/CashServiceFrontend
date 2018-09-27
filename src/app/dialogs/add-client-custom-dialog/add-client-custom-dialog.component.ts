@@ -42,7 +42,6 @@ export class AddClientCustomDialogComponent implements OnInit {
   submit(form) {
 
     if (this.form.valid) {
-      console.log('vleznah vuv valid');
       let clientManagerDto = new ClientManagerDTO(
         new Client(
           this.form.controls['clientAddress'].value,

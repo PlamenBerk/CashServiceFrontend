@@ -44,8 +44,6 @@ export class AddDeviceCustomDialogComponent implements OnInit {
     this.dialogRef.close();
   }
   addDevice() {
-
-    console.log('aree dee');
     if (this.form.valid) {
       let deviceDTO = new DeviceDTO(
         this.form.controls['sim'].value,
@@ -53,7 +51,6 @@ export class AddDeviceCustomDialogComponent implements OnInit {
         this.form.controls['fiscalNumPostfix'].value,
         this.form.controls['napNumber'].value,
         this.form.controls['napDate'].value);
-      console.log('aree dee', deviceDTO);
 
       this.deviceService.createNewDevice(deviceDTO, this.siteId, parseInt(this.selectedValue)).subscribe(deviceResult => {
         this.deviceResult = deviceResult;

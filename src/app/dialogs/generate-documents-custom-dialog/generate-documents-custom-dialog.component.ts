@@ -33,7 +33,6 @@ export class GenerateDocumentsCustomDialogComponent implements OnInit {
       });
     }else{
       let docDTO = new DocumentDTO(this.id,this.selectedValue);
-      console.log(docDTO);
   
       this.documentGenerator.generateDocument(docDTO).subscribe(docResult => {
         this.docResult = docResult;

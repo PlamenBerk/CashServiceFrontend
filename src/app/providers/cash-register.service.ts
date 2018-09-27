@@ -18,7 +18,6 @@ export class CashRegisterService {
     return this.http.post(apiURL,newClient).pipe(
       map(res => {
         var result = res.json();
-        console.log('in service',result);
           return new ClientDTO(
             result.id,
             result.name,
