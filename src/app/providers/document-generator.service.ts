@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from "rxjs/operators";
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { DocumentDTO } from '../DTOs/documentDTO';
+import { DocumentDTOdata } from '../DTOs/documentDTO2';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class DocumentGeneratorService {
     return this.http.post(apiURL,documentDTO).pipe(map(response => response.text()));
   }
 
-  searchExpiredDocuments(startDate:Date, endDate: Date):Observable<string>{
+  searchExpiredDocuments(startDate:Date, endDate: Date):Observable<DocumentDTOdata[]>{
     let apiURL = 'http://localhost:8080/document-management/document';
 
     var dayOfMonthStart = startDate.getDate() < 10 ? "0"+startDate.getDate() : startDate.getDate();
@@ -29,11 +30,21 @@ export class DocumentGeneratorService {
     var yearStart = startDate.getFullYear();
     var yearEnd = endDate.getFullYear();
 
-    var startDateS = dayOfMonthStart + "-" + monthOfYearStart + "-" + yearStart;
-    var endDateS = dayOfMonthEnd + "-" + monthOfYearEnd + "-" + yearEnd;
+    var startDateS =yearStart + "-" + monthOfYearStart + "-" + dayOfMonthStart;
+    var endDateS = yearEnd + "-" + monthOfYearEnd + "-" + dayOfMonthEnd;
 
     var params = {"docStartDate": startDateS,"docEndDate":endDateS};
 
-    return this.http.get(apiURL,{params: params}).pipe(map(response => response.text()));
+    return this.http.get(apiURL,{params: params}).pipe(map(res => {
+      return res.json().map(item => {
+        return new DocumentDTOdata(
+          item.id,
+          item.documentName,
+          item.startDate,
+          item.endDate
+        );
+      });
+      
+    }));
   }
 }

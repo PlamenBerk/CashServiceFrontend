@@ -158,7 +158,7 @@
         </button>
 
       <div class="example-container mat-elevation-z8">
-        <table mat-table [dataSource]="dataSourceSites" multiTemplateDataRows class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSourceDocuments" multiTemplateDataRows class="mat-elevation-z8">
 
           <ng-container matColumnDef="{{columnDocument}}" *ngFor="let columnDocument of columnsToDisplay5; let i=index">
             <th mat-header-cell *matHeaderCellDef> {{columnHeadersDocuments[i]}}</th>

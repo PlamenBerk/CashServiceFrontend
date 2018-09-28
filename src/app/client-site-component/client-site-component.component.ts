@@ -43,6 +43,7 @@ export class ClientSiteComponentComponent {
   siteResults: Array<any>;
   deviceModels: Array<any>;
   deviceDesults: Array<any>;
+  documentResults: Array<any>;
 
   dateFrom: Date;
   dateTo: Date;
@@ -52,6 +53,7 @@ export class ClientSiteComponentComponent {
   dataSourceSites;
   dataSourceDevices;
   dataSourceDevicesModels;
+  dataSourceDocuments;
   selectedRowIndex: number = -1;
   selectedRowIndex2: number = -1;
 
@@ -318,10 +320,10 @@ export class ClientSiteComponentComponent {
   searchDocuments(){
     var dateF = new Date(this.dateFrom);
     var dateT = new Date(this.dateTo);
-    this.docGeneratorService.searchExpiredDocuments(dateF,dateT).subscribe(docResult => {
-      this.snackBar.open(docResult, '', {
-        duration: 3000,
-      });
+    this.documentResults = [];
+    this.docGeneratorService.searchExpiredDocuments(dateF,dateT).subscribe(documentResults => {
+      this.documentResults = documentResults;
+      this.dataSourceDocuments = new MatTableDataSource(this.documentResults);
     })
   }
 
