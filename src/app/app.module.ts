@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { ClientSiteComponentComponent } from './client-site-component/client-site-component.component';
 import {MatTableModule} from '@angular/material/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatRippleModule, MatInputModule, MatFormFieldModule, MatButtonModule, MatIconModule } from '@angular/material';
+import { MatRippleModule, MatInputModule, MatFormFieldModule, MatButtonModule, MatIconModule, MatNativeDateModule } from '@angular/material';
 import { CashRegisterService } from './providers/cash-register.service';
 import {HttpClientModule} from '@angular/common/http';
 import {MatTabsModule} from '@angular/material/tabs';
@@ -28,6 +28,8 @@ import { DeviceService } from './providers/device.service';
 import { GenerateDocumentsCustomDialogComponent } from './dialogs/generate-documents-custom-dialog/generate-documents-custom-dialog.component';
 import { DocumentGeneratorService } from './providers/document-generator.service';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MomentModule } from 'angular2-moment';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
   ],
   entryComponents: [GenerateDocumentsCustomDialogComponent,CustomDialogComponent,AddClientCustomDialogComponent,AddSiteCustomDialogComponent,EditSiteCustomDialogComponent,AddDeviceModelDialogComponent,EditDeviceModelDialogComponent,AddDeviceCustomDialogComponent,EditDeviceCustomDialogComponent],
   imports: [
+    MomentModule,
     BrowserModule,
     MatTableModule,
     BrowserAnimationsModule,
@@ -63,9 +66,12 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     ReactiveFormsModule,
     MatTooltipModule,
     MatSelectModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDatepickerModule,
+    MatDatepickerModule,
+    MatNativeDateModule 
   ],
-  providers: [DocumentGeneratorService, CashRegisterService, SiteServiceService, DeviceModelService, DeviceService],
+  providers: [MatDatepickerModule,DocumentGeneratorService, CashRegisterService, SiteServiceService, DeviceModelService, DeviceService],
   bootstrap: [ClientSiteComponentComponent]
 })
 export class AppModule { }

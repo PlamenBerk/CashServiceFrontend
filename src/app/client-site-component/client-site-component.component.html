@@ -1,102 +1,103 @@
-
 <mat-tab-group (selectedTabChange)="tabChanged($event)">
   <mat-tab label="Клиенти-Обекти">
-<div class="centerr">
+    <div class="centerr">
 
-    <button mat-icon-button class="add_client_button" (click)="addClient()" (click)="$event.stopPropagation()" matTooltip="Добавяне на нов клиент">
-      <mat-icon svgIcon="icon_add">home2</mat-icon>
-      Добави нов клиент
-    </button>
+      <button mat-icon-button class="add_client_button" (click)="addClient()" (click)="$event.stopPropagation()" matTooltip="Добавяне на нов клиент">
+        <mat-icon svgIcon="icon_add">home2</mat-icon>
+        Добави нов клиент
+      </button>
 
-    <mat-form-field class="filter">
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Филтър">
-    </mat-form-field>
+      <mat-form-field class="filter">
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Филтър">
+      </mat-form-field>
 
-    <div class="example-container mat-elevation-z8">
-      <table mat-table [dataSource]="dataSourceClients" multiTemplateDataRows>
+      <div class="example-container mat-elevation-z8">
+        <table mat-table [dataSource]="dataSourceClients" multiTemplateDataRows>
 
-        <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay; let i=index">
-          <th mat-header-cell *matHeaderCellDef> {{columnHeaders[i]}}</th>
-          <td mat-cell *matCellDef="let element">
-            <div *ngIf="column == 'Actions'">
-              <button mat-icon-button class="edit_button" (click)="editClient(element)" (click)="$event.stopPropagation()" matTooltip="Редактиране на клиент">
-                <mat-icon svgIcon="icon_edit">home</mat-icon>
-              </button>
-              <button mat-icon-button class="edit_button" (click)="addSiteForClient(element.id)" (click)="$event.stopPropagation()" matTooltip="Добавяне на обект за този клиент">
-                <mat-icon svgIcon="icon_add">home2</mat-icon>
-              </button>
-            </div>
-            {{element[column]}}
-          </td>
+          <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay; let i=index">
+            <th mat-header-cell *matHeaderCellDef> {{columnHeaders[i]}}</th>
+            <td mat-cell *matCellDef="let element">
+              <div *ngIf="column == 'Actions'">
+                <button mat-icon-button class="edit_button" (click)="editClient(element)" (click)="$event.stopPropagation()" matTooltip="Редактиране на клиент">
+                  <mat-icon svgIcon="icon_edit">home</mat-icon>
+                </button>
+                <button mat-icon-button class="edit_button" (click)="addSiteForClient(element.id)" (click)="$event.stopPropagation()" matTooltip="Добавяне на обект за този клиент">
+                  <mat-icon svgIcon="icon_add">home2</mat-icon>
+                </button>
+              </div>
+              {{element[column]}}
+            </td>
 
-        </ng-container>
+          </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true" class="header-table"></tr>
-        <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"  (click)="highlight(element)" [ngClass]="{'highlight': selectedRowIndex == element.id}" class="example-element-row" (click)="showSites(element)">
-        </tr>
+          <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true" class="header-table"></tr>
+          <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" (click)="highlight(element)" [ngClass]="{'highlight': selectedRowIndex == element.id}"
+            class="example-element-row" (click)="showSites(element)">
+          </tr>
 
-      </table>
+        </table>
+      </div>
     </div>
-  </div>
 
 
 
-  <div class="centerr">
-    <mat-form-field class="input-field">
-      <input matInput (keyup)="applyFilter2($event.target.value)" placeholder="Филтър">
-    </mat-form-field>
-    <div class="example-container mat-elevation-z8">
-      <table mat-table [dataSource]="dataSourceSites" multiTemplateDataRows class="mat-elevation-z8">
+    <div class="centerr">
+      <mat-form-field class="input-field">
+        <input matInput (keyup)="applyFilter2($event.target.value)" placeholder="Филтър">
+      </mat-form-field>
+      <div class="example-container mat-elevation-z8">
+        <table mat-table [dataSource]="dataSourceSites" multiTemplateDataRows class="mat-elevation-z8">
 
-        <ng-container matColumnDef="{{columnSite}}" *ngFor="let columnSite of columnsToDisplay2; let i=index">
-          <th mat-header-cell *matHeaderCellDef> {{columnHeadersSites[i]}}</th>
-          <td mat-cell *matCellDef="let element">
+          <ng-container matColumnDef="{{columnSite}}" *ngFor="let columnSite of columnsToDisplay2; let i=index">
+            <th mat-header-cell *matHeaderCellDef> {{columnHeadersSites[i]}}</th>
+            <td mat-cell *matCellDef="let element">
               <div *ngIf="columnSite == 'Actions'">
-                  <button mat-icon-button class="edit_button" (click)="editSite(element)" (click)="$event.stopPropagation()" matTooltip="Редактиране на обект">
-                    <mat-icon svgIcon="icon_edit">home</mat-icon>
-                  </button>
-                  <button mat-icon-button class="edit_button" (click)="addDeviceForSite(element.id)" (click)="$event.stopPropagation()" matTooltip="Добавяне на апарат за този обект">
-                    <mat-icon svgIcon="icon_add">home2</mat-icon>
-                  </button>
-                </div>
-             {{element[columnSite]}} </td>
-        </ng-container>
+                <button mat-icon-button class="edit_button" (click)="editSite(element)" (click)="$event.stopPropagation()" matTooltip="Редактиране на обект">
+                  <mat-icon svgIcon="icon_edit">home</mat-icon>
+                </button>
+                <button mat-icon-button class="edit_button" (click)="addDeviceForSite(element.id)" (click)="$event.stopPropagation()" matTooltip="Добавяне на апарат за този обект">
+                  <mat-icon svgIcon="icon_add">home2</mat-icon>
+                </button>
+              </div>
+              {{element[columnSite]}} </td>
+          </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="columnsToDisplay2; sticky: true" class="header-table"></tr>
-        <tr mat-row *matRowDef="let element; columns: columnsToDisplay2;" (click)="highlight2(element)" [ngClass]="{'highlight': selectedRowIndex2 == element.id}" class="example-element-row" [class.example-expanded-row]="expandedElement === element" (click)="showDevices(element)">
-        </tr>
+          <tr mat-header-row *matHeaderRowDef="columnsToDisplay2; sticky: true" class="header-table"></tr>
+          <tr mat-row *matRowDef="let element; columns: columnsToDisplay2;" (click)="highlight2(element)" [ngClass]="{'highlight': selectedRowIndex2 == element.id}"
+            class="example-element-row" [class.example-expanded-row]="expandedElement === element" (click)="showDevices(element)">
+          </tr>
 
-      </table>
+        </table>
+      </div>
     </div>
-  </div>
 
 
 
-  <div class="centerr">
+    <div class="centerr">
       <mat-form-field class="input-field">
         <input matInput (keyup)="applyFilter3($event.target.value)" placeholder="Филтър">
       </mat-form-field>
       <div class="example-container mat-elevation-z8">
         <table mat-table [dataSource]="dataSourceDevices" multiTemplateDataRows class="mat-elevation-z8">
-  
+
           <ng-container matColumnDef="{{columnDevice}}" *ngFor="let columnDevice of columnsToDisplay3; let i=index">
             <th mat-header-cell *matHeaderCellDef> {{columnHeadersDevices[i]}}</th>
             <td mat-cell *matCellDef="let element">
-                <div *ngIf="columnDevice == 'Actions'">
-                    <button mat-icon-button class="edit_button" (click)="editDevice(element)" (click)="$event.stopPropagation()" matTooltip="Редактиране на апарат">
-                      <mat-icon svgIcon="icon_edit">home</mat-icon>
-                    </button>
-                    <button mat-icon-button class="edit_button" (click)="generateDocument(element.id)" (click)="$event.stopPropagation()" matTooltip="Генериране на документ">
-                      <mat-icon svgIcon="icon_doc">home2</mat-icon>
-                    </button>
-                  </div>
-               {{element[columnDevice]}} </td>
+              <div *ngIf="columnDevice == 'Actions'">
+                <button mat-icon-button class="edit_button" (click)="editDevice(element)" (click)="$event.stopPropagation()" matTooltip="Редактиране на апарат">
+                  <mat-icon svgIcon="icon_edit">home</mat-icon>
+                </button>
+                <button mat-icon-button class="edit_button" (click)="generateDocument(element.id)" (click)="$event.stopPropagation()" matTooltip="Генериране на документ">
+                  <mat-icon svgIcon="icon_doc">home2</mat-icon>
+                </button>
+              </div>
+              {{element[columnDevice]}} </td>
           </ng-container>
-  
+
           <tr mat-header-row *matHeaderRowDef="columnsToDisplay3; sticky: true" class="header-table"></tr>
           <tr mat-row *matRowDef="let element; columns: columnsToDisplay3;" class="example-element-row" [class.example-expanded-row]="expandedElement === element">
           </tr>
-  
+
         </table>
       </div>
     </div>
@@ -104,37 +105,83 @@
   </mat-tab>
 
   <mat-tab (click)="test()" label="Апарати-Модели">
-      <div class="centerr">
-          <button mat-icon-button class="add_client_button" (click)="addNewDeviceModel()" (click)="$event.stopPropagation()" matTooltip="Добавяне на нов клиент">
-              <mat-icon svgIcon="icon_add">home2</mat-icon>
-              Добави нов модел
-            </button>
-          <mat-form-field class="filter">
-            <input matInput (keyup)="applyFilter4($event.target.value)" placeholder="Филтър">
-          </mat-form-field>
-          <div class="example-container mat-elevation-z8">
-            <table mat-table [dataSource]="dataSourceDevicesModels" multiTemplateDataRows class="mat-elevation-z8">
-      
-              <ng-container matColumnDef="{{columnDeviceModel}}" *ngFor="let columnDeviceModel of columnsToDisplay4; let i=index">
-                <th mat-header-cell *matHeaderCellDef> {{columnHeadersDevicesModels[i]}}</th>
-                <td mat-cell *matCellDef="let element">
-                    <div *ngIf="columnDeviceModel == 'Actions'">
-                        <button mat-icon-button class="edit_button" (click)="editDeviceModel(element)" (click)="$event.stopPropagation()" matTooltip="Редактиране на модел">
-                          <mat-icon svgIcon="icon_edit">home</mat-icon>
-                        </button>
-                      </div>
-                   {{element[columnDeviceModel]}} </td>
-              </ng-container>
-      
-              <tr mat-header-row *matHeaderRowDef="columnsToDisplay4; sticky: true" class="header-table"></tr>
-              <tr mat-row *matRowDef="let element; columns: columnsToDisplay4;" class="example-element-row" [class.example-expanded-row]="expandedElement === element">
-              </tr>
-      
-            </table>
-          </div>
-        </div>
+    <div class="centerr">
+      <button mat-icon-button class="add_client_button" (click)="addNewDeviceModel()" (click)="$event.stopPropagation()" matTooltip="Добавяне на нов клиент">
+        <mat-icon svgIcon="icon_add">home2</mat-icon>
+        Добави нов модел
+      </button>
+      <mat-form-field class="filter">
+        <input matInput (keyup)="applyFilter4($event.target.value)" placeholder="Филтър">
+      </mat-form-field>
+      <div class="example-container mat-elevation-z8">
+        <table mat-table [dataSource]="dataSourceDevicesModels" multiTemplateDataRows class="mat-elevation-z8">
+
+          <ng-container matColumnDef="{{columnDeviceModel}}" *ngFor="let columnDeviceModel of columnsToDisplay4; let i=index">
+            <th mat-header-cell *matHeaderCellDef> {{columnHeadersDevicesModels[i]}}</th>
+            <td mat-cell *matCellDef="let element">
+              <div *ngIf="columnDeviceModel == 'Actions'">
+                <button mat-icon-button class="edit_button" (click)="editDeviceModel(element)" (click)="$event.stopPropagation()" matTooltip="Редактиране на модел">
+                  <mat-icon svgIcon="icon_edit">home</mat-icon>
+                </button>
+              </div>
+              {{element[columnDeviceModel]}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="columnsToDisplay4; sticky: true" class="header-table"></tr>
+          <tr mat-row *matRowDef="let element; columns: columnsToDisplay4;" class="example-element-row" [class.example-expanded-row]="expandedElement === element">
+          </tr>
+
+        </table>
+      </div>
+    </div>
   </mat-tab>
 
 
-  <mat-tab label="Документи"> Content 3 </mat-tab>
+  <mat-tab label="Документи">
+
+    <div class="centerr">
+
+        <mat-form-field>
+          <input matInput [matDatepicker]="pickerFrom" placeholder="От дата" [(ngModel)]="dateFrom">
+          <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+          <mat-datepicker #pickerFrom></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="margin_dates">
+          <input matInput [matDatepicker]="pickerTo" placeholder="До дата" [(ngModel)]="dateTo">
+          <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+          <mat-datepicker #pickerTo></mat-datepicker>
+        </mat-form-field>
+
+        <button mat-icon-button class="edit_button" (click)="searchDocuments()"  matTooltip="Търсене на изтичащи договори">
+            <mat-icon svgIcon="search_icon">home</mat-icon>
+        </button>
+
+      <div class="example-container mat-elevation-z8">
+        <table mat-table [dataSource]="dataSourceSites" multiTemplateDataRows class="mat-elevation-z8">
+
+          <ng-container matColumnDef="{{columnDocument}}" *ngFor="let columnDocument of columnsToDisplay5; let i=index">
+            <th mat-header-cell *matHeaderCellDef> {{columnHeadersDocuments[i]}}</th>
+            <td mat-cell *matCellDef="let element">
+              <!-- <div *ngIf="columnDocument == 'Actions'">
+                        <button mat-icon-button class="edit_button" (click)="editSite(element)" (click)="$event.stopPropagation()" matTooltip="Редактиране на обект">
+                          <mat-icon svgIcon="icon_edit">home</mat-icon>
+                        </button>
+                        <button mat-icon-button class="edit_button" (click)="addDeviceForSite(element.id)" (click)="$event.stopPropagation()" matTooltip="Добавяне на апарат за този обект">
+                          <mat-icon svgIcon="icon_add">home2</mat-icon>
+                        </button>
+                      </div> -->
+              {{element[columnDocument]}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="columnsToDisplay5; sticky: true" class="header-table"></tr>
+          <tr mat-row *matRowDef="let element; columns: columnsToDisplay5;" (click)="highlight2(element)" [ngClass]="{'highlight': selectedRowIndex2 == element.id}"
+            class="example-element-row" [class.example-expanded-row]="expandedElement === element" (click)="showDevices(element)">
+          </tr>
+
+        </table>
+      </div>
+    </div>
+
+  </mat-tab>
 </mat-tab-group>

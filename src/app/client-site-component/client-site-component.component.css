@@ -22,6 +22,11 @@ table {
     color: #000000;
   }
 
+  .margin_dates{
+    margin-left: 10px;
+    
+  }
+
   .add_client_button{
     color: #000000;
     margin-left: 10px;

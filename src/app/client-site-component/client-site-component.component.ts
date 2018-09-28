@@ -21,6 +21,7 @@ import { AddDeviceCustomDialogComponent } from '../dialogs/add-device-custom-dia
 import { DeviceService } from '../providers/device.service';
 import { EditDeviceCustomDialogComponent } from '../dialogs/edit-device-custom-dialog/edit-device-custom-dialog.component';
 import { GenerateDocumentsCustomDialogComponent } from '../dialogs/generate-documents-custom-dialog/generate-documents-custom-dialog.component';
+import { DocumentGeneratorService } from '../providers/document-generator.service';
 
 @Component({
   selector: 'client-site-component',
@@ -43,6 +44,9 @@ export class ClientSiteComponentComponent {
   deviceModels: Array<any>;
   deviceDesults: Array<any>;
 
+  dateFrom: Date;
+  dateTo: Date;
+
   tempRow: number;
   dataSourceClients;
   dataSourceSites;
@@ -55,13 +59,15 @@ export class ClientSiteComponentComponent {
   columnsToDisplay2 = ['name', 'address', 'phone', 'Actions'];
   columnsToDisplay3 = ['sim', 'deviceNumPostfix', 'fiscalNumPostfix', 'napNumber', 'napDate', 'Actions'];
   columnsToDisplay4 = ['manufacturer', 'model', 'certificate', 'deviceNumPrefix', 'fiscalNumPrefix', 'Actions'];
+  columnsToDisplay5 = ['documentName', 'startDate', 'endDate', 'Actions'];
 
   columnHeaders = ['Име', 'Бул', 'ЕГН', 'Адрес', 'ТДД', 'Коментар', 'Мениджър', 'Телефон', 'Действия'];
   columnHeadersSites = ['Име', 'Адрес', 'телефон', 'Действия'];
   columnHeadersDevices = ['СИМ', 'Сериен номер', 'Фискална памет', 'НАП номер', 'НАП дата', 'Действия'];
   columnHeadersDevicesModels = ['Производител', 'Модел', 'Свидетелство', 'Сериен номер префикс', 'Фискален номер префикс', 'Действия'];
+  columnHeadersDocuments = ['Име на документа', 'Начална дата', 'Крайна дата', 'Действия'];
 
-  constructor(public snackBar: MatSnackBar, private deviceService: DeviceService, private clientService: CashRegisterService, private deviceModelService: DeviceModelService, private siteService: SiteServiceService, private matIconRegistry: MatIconRegistry, sanitizer: DomSanitizer, public dialogEditClient: MatDialog, private dialogNewClient: MatDialog, private dialogNewSite: MatDialog, private dialogEditSite: MatDialog, private dialogAddNewDeviceModel: MatDialog, private dialogEditDeviceModel: MatDialog, private dialogEditDevice: MatDialog, private dialogAddDevice: MatDialog, private dialogGenerateDocument: MatDialog) {
+  constructor(private docGeneratorService: DocumentGeneratorService,public snackBar: MatSnackBar, private deviceService: DeviceService, private clientService: CashRegisterService, private deviceModelService: DeviceModelService, private siteService: SiteServiceService, private matIconRegistry: MatIconRegistry, sanitizer: DomSanitizer, public dialogEditClient: MatDialog, private dialogNewClient: MatDialog, private dialogNewSite: MatDialog, private dialogEditSite: MatDialog, private dialogAddNewDeviceModel: MatDialog, private dialogEditDeviceModel: MatDialog, private dialogEditDevice: MatDialog, private dialogAddDevice: MatDialog, private dialogGenerateDocument: MatDialog) {
     this.matIconRegistry.addSvgIcon(
       'icon_add',
       sanitizer.bypassSecurityTrustResourceUrl('../../assets/icons/client_add_icon.svg'),
@@ -71,6 +77,9 @@ export class ClientSiteComponentComponent {
     ).addSvgIcon(
       'icon_doc',
       sanitizer.bypassSecurityTrustResourceUrl('../../assets/icons/document_icon.svg'),
+    ).addSvgIcon(
+      'search_icon',
+      sanitizer.bypassSecurityTrustResourceUrl('../../assets/icons/search_icon.svg'),
     );
 
   }
@@ -81,6 +90,7 @@ export class ClientSiteComponentComponent {
       this.clientResults = clientResults;
       this.dataSourceClients = new MatTableDataSource(this.clientResults);
     })
+
   }
 
   highlight(row) {
@@ -303,4 +313,16 @@ export class ClientSiteComponentComponent {
       }
     });
   }
+
+  // ----- Document functionality
+  searchDocuments(){
+    var dateF = new Date(this.dateFrom);
+    var dateT = new Date(this.dateTo);
+    this.docGeneratorService.searchExpiredDocuments(dateF,dateT).subscribe(docResult => {
+      this.snackBar.open(docResult, '', {
+        duration: 3000,
+      });
+    })
+  }
+
 }
