@@ -36,6 +36,7 @@ export class DeviceService {
     return this.http.post(apiURL,newDevice).pipe(
       map(res => {
         var result = res.json();
+        console.log('res',result);
           return new FullDeviceDTO(
             result.id,
             result.sim,

@@ -44,7 +44,9 @@
 
         <li>
           <mat-form-field>
-            <input matInput formControlName="napDate" placeholder="НАП дата">
+              <input matInput [matDatepicker]="pickerNapDateP" placeholder="НАП дата" [(ngModel)]="napDateP" formControlName="napDate">
+              <mat-datepicker-toggle matSuffix [for]="pickerNapDateP"></mat-datepicker-toggle>
+              <mat-datepicker #pickerNapDateP></mat-datepicker>
           </mat-form-field>
         </li>
 

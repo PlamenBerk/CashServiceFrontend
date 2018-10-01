@@ -141,21 +141,21 @@
 
     <div class="centerr">
 
-        <mat-form-field>
-          <input matInput [matDatepicker]="pickerFrom" placeholder="От дата" [(ngModel)]="dateFrom">
-          <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
-          <mat-datepicker #pickerFrom></mat-datepicker>
-        </mat-form-field>
+      <mat-form-field>
+        <input matInput [matDatepicker]="pickerFrom" placeholder="От дата" [(ngModel)]="dateFrom">
+        <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+        <mat-datepicker #pickerFrom></mat-datepicker>
+      </mat-form-field>
 
-        <mat-form-field class="margin_dates">
-          <input matInput [matDatepicker]="pickerTo" placeholder="До дата" [(ngModel)]="dateTo">
-          <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
-          <mat-datepicker #pickerTo></mat-datepicker>
-        </mat-form-field>
+      <mat-form-field class="margin_dates">
+        <input matInput [matDatepicker]="pickerTo" placeholder="До дата" [(ngModel)]="dateTo">
+        <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+        <mat-datepicker #pickerTo></mat-datepicker>
+      </mat-form-field>
 
-        <button mat-icon-button class="edit_button" (click)="searchDocuments()"  matTooltip="Търсене на изтичащи договори">
-            <mat-icon svgIcon="search_icon">home</mat-icon>
-        </button>
+      <button mat-icon-button class="edit_button" (click)="searchDocuments()" matTooltip="Търсене на изтичащи договори">
+        <mat-icon svgIcon="search_icon">home</mat-icon>
+      </button>
 
       <div class="example-container mat-elevation-z8">
         <table mat-table [dataSource]="dataSourceDocuments" multiTemplateDataRows class="mat-elevation-z8">
@@ -163,14 +163,11 @@
           <ng-container matColumnDef="{{columnDocument}}" *ngFor="let columnDocument of columnsToDisplay5; let i=index">
             <th mat-header-cell *matHeaderCellDef> {{columnHeadersDocuments[i]}}</th>
             <td mat-cell *matCellDef="let element">
-              <!-- <div *ngIf="columnDocument == 'Actions'">
-                        <button mat-icon-button class="edit_button" (click)="editSite(element)" (click)="$event.stopPropagation()" matTooltip="Редактиране на обект">
-                          <mat-icon svgIcon="icon_edit">home</mat-icon>
-                        </button>
-                        <button mat-icon-button class="edit_button" (click)="addDeviceForSite(element.id)" (click)="$event.stopPropagation()" matTooltip="Добавяне на апарат за този обект">
-                          <mat-icon svgIcon="icon_add">home2</mat-icon>
-                        </button>
-                      </div> -->
+              <div *ngIf="columnDocument == 'Actions'">
+                <button mat-icon-button class="edit_button" (click)="previewDocument(docId)" (click)="$event.stopPropagation()" matTooltip="Преглед на документа">
+                  <mat-icon svgIcon="preview_icon">home</mat-icon>
+                </button>
+              </div>
               {{element[columnDocument]}} </td>
           </ng-container>
 

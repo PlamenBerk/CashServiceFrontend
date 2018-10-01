@@ -65,7 +65,7 @@ export class ClientSiteComponentComponent {
 
   columnHeaders = ['Име', 'Бул', 'ЕГН', 'Адрес', 'ТДД', 'Коментар', 'Мениджър', 'Телефон', 'Действия'];
   columnHeadersSites = ['Име', 'Адрес', 'телефон', 'Действия'];
-  columnHeadersDevices = ['СИМ', 'Сериен номер', 'Фискална памет', 'НАП номер', 'НАП дата', 'Действия'];
+  columnHeadersDevices = ['СИМ', 'Сериен номер', 'Фискална памет', 'НАП номер', 'НАП дата (yyyy/MM/dd)', 'Действия'];
   columnHeadersDevicesModels = ['Производител', 'Модел', 'Свидетелство', 'Сериен номер префикс', 'Фискален номер префикс', 'Действия'];
   columnHeadersDocuments = ['Име на документа', 'Начална дата', 'Крайна дата', 'Действия'];
 
@@ -82,6 +82,9 @@ export class ClientSiteComponentComponent {
     ).addSvgIcon(
       'search_icon',
       sanitizer.bypassSecurityTrustResourceUrl('../../assets/icons/search_icon.svg'),
+    ).addSvgIcon(
+      'preview_icon',
+      sanitizer.bypassSecurityTrustResourceUrl('../../assets/icons/preview_icon.svg'),
     );
 
   }

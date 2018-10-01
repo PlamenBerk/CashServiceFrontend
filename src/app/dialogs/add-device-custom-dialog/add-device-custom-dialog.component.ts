@@ -22,6 +22,7 @@ export class AddDeviceCustomDialogComponent implements OnInit {
   deviceModels: any[];
   deviceResult: FullDeviceDTO;
   siteId: number;
+  napDateP: Date;
 
   constructor(private deviceService: DeviceService, private deviceModelService: DeviceModelService, private formBuilder: FormBuilder, private dialogRef: MatDialogRef<AddDeviceCustomDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
     this.siteId = this.data.element;
@@ -36,7 +37,7 @@ export class AddDeviceCustomDialogComponent implements OnInit {
       deviceNumPostfix: ['', Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
       fiscalNumPostfix: ['', Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
       napNumber: ['', Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
-      napDate: ['', Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я- ]+')])]
+      napDate: ['', Validators.compose([Validators.required, Validators.maxLength(30)])]
     })
   }
 
@@ -50,8 +51,8 @@ export class AddDeviceCustomDialogComponent implements OnInit {
         this.form.controls['deviceNumPostfix'].value,
         this.form.controls['fiscalNumPostfix'].value,
         this.form.controls['napNumber'].value,
-        this.form.controls['napDate'].value);
-
+        this.napDateP);
+        
       this.deviceService.createNewDevice(deviceDTO, this.siteId, parseInt(this.selectedValue)).subscribe(deviceResult => {
         this.deviceResult = deviceResult;
         this.dialogRef.close(this.deviceResult);
