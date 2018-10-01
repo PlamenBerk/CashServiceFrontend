@@ -164,7 +164,7 @@
             <th mat-header-cell *matHeaderCellDef> {{columnHeadersDocuments[i]}}</th>
             <td mat-cell *matCellDef="let element">
               <div *ngIf="columnDocument == 'Actions'">
-                <button mat-icon-button class="edit_button" (click)="previewDocument(docId)" (click)="$event.stopPropagation()" matTooltip="Преглед на документа">
+                <button mat-icon-button class="edit_button" (click)="previewDocument(element)" (click)="$event.stopPropagation()" matTooltip="Преглед на документа">
                   <mat-icon svgIcon="preview_icon">home</mat-icon>
                 </button>
               </div>

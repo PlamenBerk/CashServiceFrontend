@@ -330,4 +330,11 @@ export class ClientSiteComponentComponent {
     })
   }
 
+  previewDocument(doc: any){
+    var docId = doc.id;
+    this.docGeneratorService.previewDocument(docId).subscribe(documentResults => {
+      console.log(documentResults);
+    })
+  }
+
 }
