@@ -18,11 +18,6 @@ export class DocumentGeneratorService {
     return this.http.post(apiURL,documentDTO).pipe(map(response => response.text()));
   }
 
-  previewDocument(docId: any): Observable<String>{
-    let apiURL = 'http://localhost:8080/document-management/document/' + docId;
-    return this.http.get(apiURL).pipe(map(response => response.text()));
-  }
-
   searchExpiredDocuments(startDate:Date, endDate: Date):Observable<DocumentDTOdata[]>{
     let apiURL = 'http://localhost:8080/document-management/document';
 

@@ -332,9 +332,13 @@ export class ClientSiteComponentComponent {
 
   previewDocument(doc: any){
     var docId = doc.id;
-    this.docGeneratorService.previewDocument(docId).subscribe(documentResults => {
-      console.log(documentResults);
-    })
+    window.open("http://localhost:8080/document-management/document/"+docId, "_blank");
+  }
+
+  downloadFile(data: Response){
+    var blob = new Blob([data], { type: 'text/csv' });
+    var url= window.URL.createObjectURL(blob);
+    window.open(url);
   }
 
 }
