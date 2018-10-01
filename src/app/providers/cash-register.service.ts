@@ -54,8 +54,15 @@ export class CashRegisterService {
   }
 
   getAllClients(): Observable<ClientDTO[]> {
+    let username: string = 'learn';
+      let password: string = 'share';
+    let headers: Headers = new Headers();
+    headers.append("Authorization", "Basic " + btoa(username + ":" + password));
+    headers.append("Content-Type", "application/json");
+    headers.append('Access-Control-Allow-Origin','*');
+
     let apiURL = `http://localhost:8080/client-management/client`;
-    return this.http.get(apiURL).pipe(
+    return this.http.get(apiURL,{headers: headers}).pipe(
       map(res => {
         return res.json().map(item => {
           return new ClientDTO(
