@@ -22,6 +22,9 @@ import { DeviceService } from '../providers/device.service';
 import { EditDeviceCustomDialogComponent } from '../dialogs/edit-device-custom-dialog/edit-device-custom-dialog.component';
 import { GenerateDocumentsCustomDialogComponent } from '../dialogs/generate-documents-custom-dialog/generate-documents-custom-dialog.component';
 import { DocumentGeneratorService } from '../providers/document-generator.service';
+import { AuthDialogComponent } from '../dialogs/auth-dialog/auth-dialog.component';
+import { saveAs } from 'file-saver';
+import * as fileSaver from 'file-saver';
 
 @Component({
   selector: 'client-site-component',
@@ -69,7 +72,7 @@ export class ClientSiteComponentComponent {
   columnHeadersDevicesModels = ['Производител', 'Модел', 'Свидетелство', 'Сериен номер префикс', 'Фискален номер префикс', 'Действия'];
   columnHeadersDocuments = ['Име на документа', 'Начална дата', 'Крайна дата', 'Действия'];
 
-  constructor(private docGeneratorService: DocumentGeneratorService,public snackBar: MatSnackBar, private deviceService: DeviceService, private clientService: CashRegisterService, private deviceModelService: DeviceModelService, private siteService: SiteServiceService, private matIconRegistry: MatIconRegistry, sanitizer: DomSanitizer, public dialogEditClient: MatDialog, private dialogNewClient: MatDialog, private dialogNewSite: MatDialog, private dialogEditSite: MatDialog, private dialogAddNewDeviceModel: MatDialog, private dialogEditDeviceModel: MatDialog, private dialogEditDevice: MatDialog, private dialogAddDevice: MatDialog, private dialogGenerateDocument: MatDialog) {
+  constructor(private docGeneratorService: DocumentGeneratorService,public snackBar: MatSnackBar, private deviceService: DeviceService, private clientService: CashRegisterService, private deviceModelService: DeviceModelService, private siteService: SiteServiceService, private matIconRegistry: MatIconRegistry, sanitizer: DomSanitizer, public dialogEditClient: MatDialog, private dialogNewClient: MatDialog, private dialogNewSite: MatDialog, private dialogEditSite: MatDialog, private dialogAddNewDeviceModel: MatDialog, private dialogEditDeviceModel: MatDialog, private dialogEditDevice: MatDialog, private dialogAddDevice: MatDialog, private dialogGenerateDocument: MatDialog, private dialogAuth: MatDialog) {
     this.matIconRegistry.addSvgIcon(
       'icon_add',
       sanitizer.bypassSecurityTrustResourceUrl('../../assets/icons/client_add_icon.svg'),
@@ -90,12 +93,28 @@ export class ClientSiteComponentComponent {
   }
 
   ngOnInit() {
-    this.clientResults = [];
-    this.clientService.getAllClients().subscribe(clientResults => {
-      this.clientResults = clientResults;
-      this.dataSourceClients = new MatTableDataSource(this.clientResults);
-    })
+    const dialogRef = this.dialogAuth.open(AuthDialogComponent, {
+      
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
+        console.log('closedDialogAuth');
+      } else {
+
+        this.clientResults = [];
+        this.clientService.getAllClients(result).subscribe(clientResults => {
+          this.clientResults = clientResults;
+          this.dataSourceClients = new MatTableDataSource(this.clientResults);
+        },
+          (error) => {
+            this.snackBar.open('Достъпът е отказан. Презаредете страницата и опитайте отново.', '', {
+              duration: 5000,
+            });
+          })
+
+      }
+    });
   }
 
   highlight(row) {
@@ -332,13 +351,26 @@ export class ClientSiteComponentComponent {
 
   previewDocument(doc: any){
     var docId = doc.id;
-    window.open("http://localhost:8080/document-management/document/"+docId, "_blank");
-  }
+    const dialogRef = this.dialogAuth.open(AuthDialogComponent, {
+      
+    });
 
-  downloadFile(data: Response){
-    var blob = new Blob([data], { type: 'text/csv' });
-    var url= window.URL.createObjectURL(blob);
-    window.open(url);
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
+        console.log('closedDialogAuth');
+      } else {
+        this.docGeneratorService.previewDocument(docId,result).subscribe(documentResults => {
+          var myData = new Blob([documentResults], { type: 'text/plain;charset=utf-8' });
+          fileSaver.saveAs(myData, doc.documentName);
+        },
+        (error) => {
+          this.snackBar.open('Достъпът е отказан. Oпитайте отново.', '', {
+            duration: 5000,
+          });
+        })
+      }
+    });
+
   }
 
 }

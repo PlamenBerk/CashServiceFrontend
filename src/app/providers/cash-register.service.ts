@@ -1,10 +1,13 @@
 import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from "rxjs/operators";
+import { map,catchError } from "rxjs/operators";
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { ClientDTO } from '../DTOs/clientDTO';
 import { ClientManagerDTO } from '../DTOs/clientManagerDTO';
+import { throwError, Observable } from 'rxjs';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
+import 'rxjs/Observable';
 
 @Injectable({
   providedIn: 'root'
@@ -53,16 +56,18 @@ export class CashRegisterService {
     );
   }
 
-  getAllClients(): Observable<ClientDTO[]> {
-    let username: string = 'learn';
-      let password: string = 'share';
+  getAllClients(data: any): Observable<ClientDTO[]> {
+    let username: string = data.user;
+    let password: string = data.pass;
     let headers: Headers = new Headers();
     headers.append("Authorization", "Basic " + btoa(username + ":" + password));
-    headers.append("Content-Type", "application/json");
     headers.append('Access-Control-Allow-Origin','*');
 
     let apiURL = `http://localhost:8080/client-management/client`;
-    return this.http.get(apiURL,{headers: headers}).pipe(
+    return this.http.get(apiURL,{headers:headers}).pipe(
+      catchError((error) => {
+        return Observable.throw(error);  
+      }),
       map(res => {
         return res.json().map(item => {
           return new ClientDTO(

@@ -1,0 +1,30 @@
+<div class="md-dialog-container">
+    <form [formGroup]="form" (ngSubmit)="submit(form)">
+      <h1 mat-dialog-title>Моля въведете потребителското си име и парола</h1>
+  
+      <mat-dialog-content>
+        <ol>
+          <li>
+            <mat-form-field>
+              <input matInput formControlName="username" placeholder="Потребител">
+            </mat-form-field>
+          </li>
+  
+          <li>
+            <mat-form-field>
+              <input matInput formControlName="password" placeholder="Парола">
+            </mat-form-field>
+          </li>
+
+        </ol>
+      </mat-dialog-content>
+  
+  
+      <mat-dialog-actions>
+        <button mat-button type="submit">ОК</button>
+        <button mat-button type="close" (click)="closeDialog()">Затвори</button>
+      </mat-dialog-actions>
+  
+  
+    </form>
+  </div>

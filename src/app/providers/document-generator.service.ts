@@ -1,10 +1,13 @@
 import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from "rxjs/operators";
+import { map, catchError } from "rxjs/operators";
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { DocumentDTO } from '../DTOs/documentDTO';
 import { DocumentDTOdata } from '../DTOs/documentDTO2';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
+import 'rxjs/Observable';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +19,22 @@ export class DocumentGeneratorService {
   generateDocument(documentDTO: DocumentDTO):Observable<string>{
     let apiURL = 'http://localhost:8080/document-management/document';
     return this.http.post(apiURL,documentDTO).pipe(map(response => response.text()));
+  }
+
+  previewDocument(docId: any,data: any): Observable<String>{
+    let username: string = data.user;
+    let password: string = data.pass;
+    let headers: Headers = new Headers();
+    headers.append("Authorization", "Basic " + btoa(username + ":" + password));
+    headers.append('Access-Control-Allow-Origin','*');
+
+    let apiURL = 'http://localhost:8080/document-management/document/' + docId;
+    return this.http.get(apiURL,{headers:headers}).pipe(
+      map(response => response.text()),
+      catchError((error) => {
+        return Observable.throw(error);  
+      }),
+    );
   }
 
   searchExpiredDocuments(startDate:Date, endDate: Date):Observable<DocumentDTOdata[]>{

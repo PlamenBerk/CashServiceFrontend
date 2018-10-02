@@ -30,6 +30,7 @@ import { DocumentGeneratorService } from './providers/document-generator.service
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MomentModule } from 'angular2-moment';
+import { AuthDialogComponent } from './dialogs/auth-dialog/auth-dialog.component';
 
 @NgModule({
   declarations: [
@@ -44,10 +45,11 @@ import { MomentModule } from 'angular2-moment';
     EditDeviceModelDialogComponent,
     AddDeviceCustomDialogComponent,
     EditDeviceCustomDialogComponent,
-    GenerateDocumentsCustomDialogComponent
+    GenerateDocumentsCustomDialogComponent,
+    AuthDialogComponent
     
   ],
-  entryComponents: [GenerateDocumentsCustomDialogComponent,CustomDialogComponent,AddClientCustomDialogComponent,AddSiteCustomDialogComponent,EditSiteCustomDialogComponent,AddDeviceModelDialogComponent,EditDeviceModelDialogComponent,AddDeviceCustomDialogComponent,EditDeviceCustomDialogComponent],
+  entryComponents: [AuthDialogComponent, GenerateDocumentsCustomDialogComponent,CustomDialogComponent,AddClientCustomDialogComponent,AddSiteCustomDialogComponent,EditSiteCustomDialogComponent,AddDeviceModelDialogComponent,EditDeviceModelDialogComponent,AddDeviceCustomDialogComponent,EditDeviceCustomDialogComponent],
   imports: [
     MomentModule,
     BrowserModule,
