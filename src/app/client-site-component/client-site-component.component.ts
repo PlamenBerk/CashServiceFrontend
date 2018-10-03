@@ -360,13 +360,13 @@ export class ClientSiteComponentComponent {
         console.log('closedDialogAuth');
       } else {
         this.docGeneratorService.previewDocument(docId,result).subscribe(documentResults => {
-          var myData = new Blob([documentResults], { type: 'text/plain;charset=utf-8' });
-          fileSaver.saveAs(myData, doc.documentName);
+          fileSaver.saveAs(documentResults, doc.documentName);
         },
         (error) => {
           this.snackBar.open('Достъпът е отказан. Oпитайте отново.', '', {
             duration: 5000,
           });
+          console.error('zzzzzzzzz',error);
         })
       }
     });
