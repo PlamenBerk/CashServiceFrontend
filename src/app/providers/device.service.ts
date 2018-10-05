@@ -5,6 +5,7 @@ import { map } from "rxjs/operators";
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { FullDeviceDTO } from '../DTOs/fullDeviceDTO';
 import { DeviceDTO } from '../DTOs/deviceDTO';
+import { UrlHelper } from '../client-site-component/Utils';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class DeviceService {
   constructor(private http: Http) { }
 
   editDevice(deviceDTO: DeviceDTO,deviceId:number): Observable<FullDeviceDTO>{
-    let apiURL = 'http://localhost:8080/device-management/device/'+ deviceId;
+    let apiURL = UrlHelper.url + 'device-management/device/'+ deviceId;
     return this.http.put(apiURL,deviceDTO).pipe(
       map(res => {
         var result = res.json();
@@ -32,7 +33,7 @@ export class DeviceService {
   }
   
   createNewDevice(newDevice: DeviceDTO,siteId: number,modelId: number):Observable<FullDeviceDTO>{
-    let apiURL = 'http://localhost:8080/device-management/device/'+ siteId + '/' + modelId;
+    let apiURL = UrlHelper.url + 'device-management/device/'+ siteId + '/' + modelId;
     return this.http.post(apiURL,newDevice).pipe(
       map(res => {
         var result = res.json();
@@ -52,7 +53,7 @@ export class DeviceService {
   getDevicesForSite(siteId: number): Observable<FullDeviceDTO[]> {
     this.siteId = siteId;
     var params = {"siteId": this.siteId.toString()};
-    let apiURL = `http://localhost:8080/device-management/device`;
+    let apiURL = UrlHelper.url + `device-management/device`;
     return this.http.get(apiURL,{params: params}).pipe(
       map(res => {
         return res.json().map(item => {

@@ -8,6 +8,7 @@ import { DocumentDTOdata } from '../DTOs/documentDTO2';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { ResponseContentType } from '@angular/http';
+import { UrlHelper } from '../client-site-component/Utils';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class DocumentGeneratorService {
   constructor(private http: Http) { }
 
   generateDocument(documentDTO: DocumentDTO):Observable<string>{
-    let apiURL = 'http://localhost:8080/document-management/document';
+    let apiURL = UrlHelper.url + 'document-management/document';
     return this.http.post(apiURL,documentDTO).pipe(map(response => response.text()));
   }
 
@@ -29,7 +30,7 @@ export class DocumentGeneratorService {
     headers.append('Access-Control-Allow-Origin','*');
     headers.append('Content-Type' , 'application/json; charset=UTF-8');
 
-    let apiURL = 'http://localhost:8080/document-management/document/' + docId;
+    let apiURL = UrlHelper.url + 'document-management/document/' + docId;
     return this.http.get(apiURL,{ responseType: ResponseContentType.Blob,headers:headers }).pipe(
       map(this.showRes),
       catchError((error) => {
@@ -43,7 +44,7 @@ export class DocumentGeneratorService {
   }
 
   searchExpiredDocuments(startDate:Date, endDate: Date):Observable<DocumentDTOdata[]>{
-    let apiURL = 'http://localhost:8080/document-management/document';
+    let apiURL = UrlHelper.url + 'document-management/document';
 
     var dayOfMonthStart = startDate.getDate() < 10 ? "0"+startDate.getDate() : startDate.getDate();
     var dayOfMonthEnd = endDate.getDate() < 10 ? "0" + endDate.getDate() : endDate.getDate();

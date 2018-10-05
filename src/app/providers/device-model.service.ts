@@ -5,6 +5,7 @@ import { map } from "rxjs/operators";
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { FullDeviceModel } from '../DTOs/fullDeviceModel';
 import { DeviceModel } from '../DTOs/deviceModel';
+import { UrlHelper } from '../client-site-component/Utils';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class DeviceModelService {
   constructor(private http: Http) { }
 
   getAllDeviceModels(): Observable<FullDeviceModel[]>{
-    let apiURL = 'http://localhost:8080/device-model-management/device-model';
+    let apiURL = UrlHelper.url + 'device-model-management/device-model';
     return this.http.get(apiURL).pipe(
       map(res => {
         return res.json().map(item => {
@@ -33,7 +34,7 @@ export class DeviceModelService {
   }
 
   getAllDeviceModelsJSON(): Observable<FullDeviceModel[]>{
-    let apiURL = 'http://localhost:8080/device-model-management/device-model';
+    let apiURL = UrlHelper.url + 'device-model-management/device-model';
     return this.http.get(apiURL).pipe(
       map(res => {
         return res.json();
@@ -42,7 +43,7 @@ export class DeviceModelService {
   }
 
   addNewDeviceModel(deviceModelDTO: DeviceModel): Observable<FullDeviceModel>{
-    let apiURL = 'http://localhost:8080/device-model-management/device-model';
+    let apiURL = UrlHelper.url + 'device-model-management/device-model';
     return this.http.post(apiURL,deviceModelDTO).pipe(
       map(res => {
         var result = res.json();
@@ -59,7 +60,7 @@ export class DeviceModelService {
   }
 
   updateDeviceModelInfo(deviceModel: DeviceModel,id : number ):Observable<FullDeviceModel>{
-    let apiURL = 'http://localhost:8080/device-model-management/device-model/'+id;
+    let apiURL = UrlHelper.url + 'device-model-management/device-model/'+id;
     return this.http.put(apiURL,deviceModel).pipe(
       map(res => {
         var result = res.json();

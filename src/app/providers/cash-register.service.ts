@@ -8,6 +8,7 @@ import { throwError, Observable } from 'rxjs';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import 'rxjs/Observable';
+import { UrlHelper } from '../client-site-component/Utils';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class CashRegisterService {
   constructor(private http: Http) { }
 
   createNewClient(newClient: ClientManagerDTO):Observable<ClientDTO>{
-    let apiURL = 'http://localhost:8080/client-management/client';
+    let apiURL = UrlHelper.url + 'client-management/client';
     return this.http.post(apiURL,newClient).pipe(
       map(res => {
         var result = res.json();
@@ -37,7 +38,7 @@ export class CashRegisterService {
   }
 
   updateClientInfo(editedClient: ClientManagerDTO,id : number ):Observable<ClientDTO>{
-    let apiURL = 'http://localhost:8080/client-management/client/'+id;
+    let apiURL = UrlHelper.url + 'client-management/client/'+id;
     return this.http.put(apiURL,editedClient).pipe(
       map(res => {
         var result = res.json();
@@ -63,7 +64,7 @@ export class CashRegisterService {
     headers.append("Authorization", "Basic " + btoa(username + ":" + password));
     headers.append('Access-Control-Allow-Origin','*');
 
-    let apiURL = `http://localhost:8080/client-management/client`;
+    let apiURL = UrlHelper.url + `client-management/client`;
     return this.http.get(apiURL,{headers:headers}).pipe(
       catchError((error) => {
         return Observable.throw(error);  

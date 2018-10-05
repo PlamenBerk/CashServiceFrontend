@@ -31,6 +31,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MomentModule } from 'angular2-moment';
 import { AuthDialogComponent } from './dialogs/auth-dialog/auth-dialog.component';
+import { TabGroupBasicExampleComponent } from './tab-group-basic-example/tab-group-basic-example.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { AuthDialogComponent } from './dialogs/auth-dialog/auth-dialog.component
     AddDeviceCustomDialogComponent,
     EditDeviceCustomDialogComponent,
     GenerateDocumentsCustomDialogComponent,
-    AuthDialogComponent
+    AuthDialogComponent,
+    TabGroupBasicExampleComponent
     
   ],
   entryComponents: [AuthDialogComponent, GenerateDocumentsCustomDialogComponent,CustomDialogComponent,AddClientCustomDialogComponent,AddSiteCustomDialogComponent,EditSiteCustomDialogComponent,AddDeviceModelDialogComponent,EditDeviceModelDialogComponent,AddDeviceCustomDialogComponent,EditDeviceCustomDialogComponent],

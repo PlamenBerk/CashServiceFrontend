@@ -5,6 +5,7 @@ import { map } from "rxjs/operators";
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { SiteDTO } from '../DTOs/SiteDTO';
 import { FullSiteDTO } from '../DTOs/fullSiteDTO';
+import { UrlHelper } from '../client-site-component/Utils';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class SiteServiceService {
   constructor(private http: Http) { }
 
   editSite(siteDTO: SiteDTO,siteId:number): Observable<FullSiteDTO>{
-    let apiURL = 'http://localhost:8080/site-management/site/'+siteId;
+    let apiURL = UrlHelper.url + 'site-management/site/'+siteId;
     return this.http.put(apiURL,siteDTO).pipe(
       map(res => {
         var result = res.json();
@@ -29,7 +30,7 @@ export class SiteServiceService {
   }
   
   createNewSite(newSite: SiteDTO,clientId: number):Observable<FullSiteDTO>{
-    let apiURL = 'http://localhost:8080/site-management/site/'+ clientId;
+    let apiURL = UrlHelper.url + 'site-management/site/'+ clientId;
     return this.http.post(apiURL,newSite).pipe(
       map(res => {
         var result = res.json();
@@ -46,7 +47,7 @@ export class SiteServiceService {
   getSitesForClient(id: number): Observable<FullSiteDTO[]> {
     this.id = id;
     var params = {"clientId": this.id.toString()};
-    let apiURL = `http://localhost:8080/site-management/site`;
+    let apiURL = UrlHelper.url + 'site-management/site';
     return this.http.get(apiURL,{params: params}).pipe(
       map(res => {
         return res.json().map(item => {
