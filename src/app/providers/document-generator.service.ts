@@ -19,7 +19,12 @@ export class DocumentGeneratorService {
 
   generateDocument(documentDTO: DocumentDTO):Observable<string>{
     let apiURL = UrlHelper.url + 'document-management/document';
-    return this.http.post(apiURL,documentDTO).pipe(map(response => response.text()));
+    return this.http.post(apiURL,documentDTO,{ responseType: ResponseContentType.Blob}).pipe(
+      map(this.showRes),
+      catchError((error) => {
+        return Observable.throw(error);  
+      }),
+    );
   }
 
   previewDocument(docId: any,data: any): Observable<Response>{

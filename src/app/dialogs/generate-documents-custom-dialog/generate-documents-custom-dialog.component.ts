@@ -3,6 +3,8 @@ import { DocumentGeneratorService } from '../../providers/document-generator.ser
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { Inject } from '@angular/core';
 import { DocumentDTO } from '../../DTOs/documentDTO';
+import { saveAs } from 'file-saver';
+import * as fileSaver from 'file-saver';
 
 @Component({
   selector: 'app-generate-documents-custom-dialog',
@@ -35,8 +37,9 @@ export class GenerateDocumentsCustomDialogComponent implements OnInit {
       let docDTO = new DocumentDTO(this.id,this.selectedValue);
   
       this.documentGenerator.generateDocument(docDTO).subscribe(docResult => {
-        this.docResult = docResult;
-        this.dialogRef.close(this.docResult);
+        console.log('docresult',docResult);
+        fileSaver.saveAs(docResult);
+        this.dialogRef.close('Документът е запазен!');
       })
     } 
   }
