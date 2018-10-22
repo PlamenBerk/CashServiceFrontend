@@ -20,7 +20,7 @@ export class AddSiteCustomDialogComponent implements OnInit {
     this.form = this.formBuilder.group({
       siteName: ['', Validators.compose([Validators.required,Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
       siteAddress: ['', Validators.compose([Validators.required,Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
-      sitePhone: ['', Validators.compose([Validators.required,Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])]
+      sitePhone: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[0-9 ]+')])]
     })
   }
 

@@ -18,19 +18,19 @@ export class AddClientCustomDialogComponent implements OnInit {
   clientResult: ClientDTO;
 
   constructor(private clientService: CashRegisterService, private formBuilder: FormBuilder, private dialogRef: MatDialogRef<AddClientCustomDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
-    
-   }
+
+  }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      clientName: ['', Validators.compose([Validators.required,Validators.minLength(2),Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
-      clientBulstat: ['', Validators.compose([Validators.minLength(2),Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
-      clientEgn: ['', Validators.compose([Validators.minLength(2),Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
-      clientAddress: ['', Validators.compose([Validators.required,Validators.minLength(2),Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
-      clientTDD: ['', Validators.compose([Validators.required,Validators.minLength(2),Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
+      clientName: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
+      clientBulstat: ['', Validators.compose([Validators.minLength(2), Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
+      clientEgn: ['', Validators.compose([Validators.minLength(2), Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
+      clientAddress: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
+      clientTDD: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
       clientComment: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
-      manName: ['', Validators.compose([Validators.required,Validators.minLength(2),Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
-      manPhone: ['', Validators.compose([Validators.required,Validators.minLength(2),Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
+      manName: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
+      manPhone: ['', Validators.compose([Validators.minLength(2), Validators.maxLength(30), Validators.pattern('[0-9 ]+')])],
     })
     this.form.setErrors({ 'invalid': true });
   }
@@ -54,12 +54,12 @@ export class AddClientCustomDialogComponent implements OnInit {
           this.form.controls['manName'].value,
           this.form.controls['manPhone'].value)
       );
-      
+
       this.clientService.createNewClient(clientManagerDto).subscribe(clientResult => {
         this.clientResult = clientResult;
         this.dialogRef.close(this.clientResult);
       })
-    }else{
+    } else {
       this.dialogRef.close(this.form.valid);
     }
 
