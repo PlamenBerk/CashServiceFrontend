@@ -32,6 +32,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MomentModule } from 'angular2-moment';
 import { AuthDialogComponent } from './dialogs/auth-dialog/auth-dialog.component';
 import { TabGroupBasicExampleComponent } from './tab-group-basic-example/tab-group-basic-example.component';
+import { GenerateCertificateCustomDialogComponent } from './dialogs/generate-certificate-custom-dialog/generate-certificate-custom-dialog.component';
 
 @NgModule({
   declarations: [
@@ -47,11 +48,13 @@ import { TabGroupBasicExampleComponent } from './tab-group-basic-example/tab-gro
     AddDeviceCustomDialogComponent,
     EditDeviceCustomDialogComponent,
     GenerateDocumentsCustomDialogComponent,
+    GenerateCertificateCustomDialogComponent,
     AuthDialogComponent,
-    TabGroupBasicExampleComponent
+    TabGroupBasicExampleComponent,
+    GenerateCertificateCustomDialogComponent
     
   ],
-  entryComponents: [AuthDialogComponent, GenerateDocumentsCustomDialogComponent,CustomDialogComponent,AddClientCustomDialogComponent,AddSiteCustomDialogComponent,EditSiteCustomDialogComponent,AddDeviceModelDialogComponent,EditDeviceModelDialogComponent,AddDeviceCustomDialogComponent,EditDeviceCustomDialogComponent],
+  entryComponents: [AuthDialogComponent, GenerateCertificateCustomDialogComponent, GenerateDocumentsCustomDialogComponent,CustomDialogComponent,AddClientCustomDialogComponent,AddSiteCustomDialogComponent,EditSiteCustomDialogComponent,AddDeviceModelDialogComponent,EditDeviceModelDialogComponent,AddDeviceCustomDialogComponent,EditDeviceCustomDialogComponent],
   imports: [
     MomentModule,
     BrowserModule,

@@ -13,20 +13,16 @@ import * as fileSaver from 'file-saver';
 })
 export class GenerateDocumentsCustomDialogComponent implements OnInit {
 
-  selectedValue: string;
+  selectedValue = 'contract';
   selectedValueValidy: number;
-  contractNumber: number;
+  contractNumber: string;
   fromDate: string;
   toDate: string;
   price: string;
 
   id: string;
   docResult: string;
-  documentTypes: any[] = [
-      {value: 'contract', viewValue: 'Договор'},
-      {value: 'certificate', viewValue: 'Сертификат'},
-      {value: 'protocol', viewValue: 'Протокол'}
-    ];
+
     documentTimeValid: any[] = [
       {value: '6', viewValue: '6'},
       {value: '12', viewValue: '12'}

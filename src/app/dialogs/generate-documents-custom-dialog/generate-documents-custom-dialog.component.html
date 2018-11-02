@@ -4,14 +4,7 @@
 
   <mat-dialog-content>
     <ol>
-      <li>
-        <mat-select placeholder="Вид на документа" [(ngModel)]="selectedValue" name="model">
-          <mat-option *ngFor="let type of documentTypes" [value]="type.value">
-            {{type.viewValue}}
-          </mat-option>
-        </mat-select>
-      </li>
-
+      
       <li>
         <mat-select placeholder="Валидност" [(ngModel)]="selectedValueValidy" name="model2">
           <mat-option *ngFor="let type2 of documentTimeValid" [value]="type2.value">

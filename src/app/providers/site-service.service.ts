@@ -18,7 +18,7 @@ export class SiteServiceService {
     let apiURL = UrlHelper.url + 'site-management/site/'+siteId;
     return this.http.put(apiURL,siteDTO).pipe(
       map(res => {
-        var result = res.json();
+        let result = res.json();
           return new FullSiteDTO(
             result.id,
             result.name,
@@ -33,7 +33,7 @@ export class SiteServiceService {
     let apiURL = UrlHelper.url + 'site-management/site/'+ clientId;
     return this.http.post(apiURL,newSite).pipe(
       map(res => {
-        var result = res.json();
+        let result = res.json();
           return new FullSiteDTO(
             result.id,
             result.name,
@@ -46,7 +46,7 @@ export class SiteServiceService {
 
   getSitesForClient(id: number): Observable<FullSiteDTO[]> {
     this.id = id;
-    var params = {"clientId": this.id.toString()};
+    let params = {"clientId": this.id.toString()};
     let apiURL = UrlHelper.url + 'site-management/site';
     return this.http.get(apiURL,{params: params}).pipe(
       map(res => {

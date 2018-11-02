@@ -25,6 +25,7 @@ import { DocumentGeneratorService } from '../providers/document-generator.servic
 import { AuthDialogComponent } from '../dialogs/auth-dialog/auth-dialog.component';
 import { saveAs } from 'file-saver';
 import * as fileSaver from 'file-saver';
+import { GenerateCertificateCustomDialogComponent } from '../dialogs/generate-certificate-custom-dialog/generate-certificate-custom-dialog.component';
 
 @Component({
   selector: 'client-site-component',
@@ -63,16 +64,16 @@ export class ClientSiteComponentComponent {
   columnsToDisplay = ['name', 'bulstat', 'egn', 'address', 'tdd', 'comment', 'managerName', 'managerPhone', 'Actions'];
   columnsToDisplay2 = ['name', 'address', 'phone', 'Actions'];
   columnsToDisplay3 = ['sim', 'deviceNumPostfix', 'fiscalNumPostfix', 'napNumber', 'napDate', 'Actions'];
-  columnsToDisplay4 = ['manufacturer', 'model', 'certificate', 'deviceNumPrefix', 'fiscalNumPrefix', 'Actions'];
+  columnsToDisplay4 = ['manufacturer', 'model', 'certificate', 'deviceNumPrefix', 'fiscalNumPrefix', 'eik', 'Actions'];
   columnsToDisplay5 = ['documentName', 'startDate', 'endDate', 'Actions'];
 
   columnHeaders = ['Име', 'Бул', 'ЕГН', 'Адрес', 'ТДД', 'Коментар', 'Мениджър', 'Телефон', 'Действия'];
   columnHeadersSites = ['Име', 'Адрес', 'телефон', 'Действия'];
   columnHeadersDevices = ['СИМ', 'Сериен номер', 'Фискална памет', 'НАП номер', 'НАП дата (yyyy/MM/dd)', 'Действия'];
-  columnHeadersDevicesModels = ['Производител', 'Модел', 'Свидетелство', 'Сериен номер префикс', 'Фискален номер префикс', 'Действия'];
+  columnHeadersDevicesModels = ['Производител', 'Модел', 'Свидетелство', 'Сериен номер префикс', 'Фискален номер префикс', 'Булстат', 'Действия'];
   columnHeadersDocuments = ['Име на документа', 'Начална дата', 'Крайна дата', 'Действия'];
 
-  constructor(private docGeneratorService: DocumentGeneratorService,public snackBar: MatSnackBar, private deviceService: DeviceService, private clientService: CashRegisterService, private deviceModelService: DeviceModelService, private siteService: SiteServiceService, private matIconRegistry: MatIconRegistry, sanitizer: DomSanitizer, public dialogEditClient: MatDialog, private dialogNewClient: MatDialog, private dialogNewSite: MatDialog, private dialogEditSite: MatDialog, private dialogAddNewDeviceModel: MatDialog, private dialogEditDeviceModel: MatDialog, private dialogEditDevice: MatDialog, private dialogAddDevice: MatDialog, private dialogGenerateDocument: MatDialog, private dialogAuth: MatDialog) {
+  constructor(private docGeneratorService: DocumentGeneratorService,public snackBar: MatSnackBar, private deviceService: DeviceService, private clientService: CashRegisterService, private deviceModelService: DeviceModelService, private siteService: SiteServiceService, private matIconRegistry: MatIconRegistry, sanitizer: DomSanitizer, public dialogEditClient: MatDialog, private dialogNewClient: MatDialog, private dialogNewSite: MatDialog, private dialogEditSite: MatDialog, private dialogAddNewDeviceModel: MatDialog, private dialogEditDeviceModel: MatDialog, private dialogEditDevice: MatDialog, private dialogAddDevice: MatDialog, private dialogGenerateDocument: MatDialog, private dialogGenerateCert: MatDialog, private dialogAuth: MatDialog) {
     this.matIconRegistry.addSvgIcon(
       'icon_add',
       sanitizer.bypassSecurityTrustResourceUrl('../../assets/icons/client_add_icon.svg'),
@@ -322,6 +323,25 @@ export class ClientSiteComponentComponent {
 
   generateDocument(elementId: any) {
     const dialogRef = this.dialogGenerateDocument.open(GenerateDocumentsCustomDialogComponent, {
+      data: {
+        id: elementId
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'closed') {
+        console.log('closedDialog');
+      } else {
+        this.snackBar.open(result, '', {
+          duration: 3000,
+        });
+      }
+    });
+  }
+
+  
+ generateCertificate(elementId: any) {
+    const dialogRef = this.dialogGenerateCert.open(GenerateCertificateCustomDialogComponent, {
       data: {
         id: elementId
       }

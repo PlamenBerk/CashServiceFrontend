@@ -25,7 +25,8 @@ export class DeviceModelService {
             item.model,
             item.certificate,
             item.deviceNumPrefix,
-            item.fiscalNumPrefix
+            item.fiscalNumPrefix,
+            item.eik
           );
         });
         
@@ -53,7 +54,8 @@ export class DeviceModelService {
             result.model,
             result.certificate,
             result.deviceNumPrefix,
-            result.fiscalNumPrefix
+            result.fiscalNumPrefix,
+            result.eik
           );
       })
     );
@@ -70,7 +72,8 @@ export class DeviceModelService {
           result.model,
           result.certificate,
           result.deviceNumPrefix,
-          result.fiscalNumPrefix
+          result.fiscalNumPrefix,
+          result.eik
         );
       })
     );

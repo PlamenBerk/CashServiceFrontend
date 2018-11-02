@@ -25,7 +25,8 @@ export class EditDeviceModelDialogComponent implements OnInit {
       model: [this.data.elementCopy.model, Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
       certificate: [this.data.elementCopy.certificate, Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
       deviceNumPrefix: [this.data.elementCopy.deviceNumPrefix, Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
-      fiscalNumPrefix: [this.data.elementCopy.fiscalNumPrefix, Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])]
+      fiscalNumPrefix: [this.data.elementCopy.fiscalNumPrefix, Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
+      eik: [this.data.elementCopy.eik, Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])]
     })
   }
 
@@ -41,7 +42,8 @@ export class EditDeviceModelDialogComponent implements OnInit {
         this.form.controls['model'].value,
         this.form.controls['certificate'].value,
         this.form.controls['deviceNumPrefix'].value,
-        this.form.controls['fiscalNumPrefix'].value);
+        this.form.controls['fiscalNumPrefix'].value,
+        this.form.controls['eik'].value);
 
       this.deviceModelService.updateDeviceModelInfo(deviceModelDTO, this.data.elementCopy.id).subscribe(deviceModelResult => {
         this.deviceModelResult = deviceModelResult;

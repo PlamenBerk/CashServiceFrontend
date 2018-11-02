@@ -36,7 +36,7 @@ export class AddSiteCustomDialogComponent implements OnInit {
         this.form.controls['siteAddress'].value,
         this.form.controls['sitePhone'].value);
 
-      this.siteService.createNewSite(siteDTO,this.data.clientId).subscribe(siteResult => {
+      this.siteService.createNewSite(siteDTO, this.data.clientId).subscribe(siteResult => {
         this.siteResult = siteResult;
         this.dialogRef.close(this.siteResult);
       })

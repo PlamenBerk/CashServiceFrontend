@@ -87,7 +87,13 @@
                 <button mat-icon-button class="edit_button" (click)="editDevice(element)" (click)="$event.stopPropagation()" matTooltip="Редактиране на апарат">
                   <mat-icon svgIcon="icon_edit">home</mat-icon>
                 </button>
-                <button mat-icon-button class="edit_button" (click)="generateDocument(element.id)" (click)="$event.stopPropagation()" matTooltip="Генериране на документ">
+                <button mat-icon-button class="edit_button" (click)="generateDocument(element.id)" (click)="$event.stopPropagation()" matTooltip="Генериране на договор">
+                  <mat-icon svgIcon="icon_doc">home2</mat-icon>
+                </button>
+                <button mat-icon-button class="edit_button" (click)="generateCertificate(element.id)" (click)="$event.stopPropagation()" matTooltip="Генериране на свидетелство">
+                  <mat-icon svgIcon="icon_doc">home2</mat-icon>
+                </button>
+                <button mat-icon-button class="edit_button" (click)="generateProtocol(element.id)" (click)="$event.stopPropagation()" matTooltip="Генериране на протокол">
                   <mat-icon svgIcon="icon_doc">home2</mat-icon>
                 </button>
               </div>

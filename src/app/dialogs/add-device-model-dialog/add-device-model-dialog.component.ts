@@ -25,7 +25,8 @@ export class AddDeviceModelDialogComponent implements OnInit {
       model: ['', Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
       certificate: ['', Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
       deviceNumPrefix: ['', Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
-      fiscalNumPrefix: ['', Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])]
+      fiscalNumPrefix: ['', Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
+      eik: ['', Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])]
     })
   }
 
@@ -41,7 +42,8 @@ export class AddDeviceModelDialogComponent implements OnInit {
         this.form.controls['model'].value,
         this.form.controls['certificate'].value,
         this.form.controls['deviceNumPrefix'].value,
-        this.form.controls['fiscalNumPrefix'].value);
+        this.form.controls['fiscalNumPrefix'].value,
+        this.form.controls['eik'].value);
 
       this.deviceModelService.addNewDeviceModel(deviceModelDTO).subscribe(deviceModelResult => {
         this.deviceModelResult = deviceModelResult;
