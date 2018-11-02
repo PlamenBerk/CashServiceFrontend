@@ -33,6 +33,7 @@ import { MomentModule } from 'angular2-moment';
 import { AuthDialogComponent } from './dialogs/auth-dialog/auth-dialog.component';
 import { TabGroupBasicExampleComponent } from './tab-group-basic-example/tab-group-basic-example.component';
 import { GenerateCertificateCustomDialogComponent } from './dialogs/generate-certificate-custom-dialog/generate-certificate-custom-dialog.component';
+import { GenerateProtocolCustomDialogComponent } from './dialogs/generate-protocol-custom-dialog/generate-protocol-custom-dialog.component';
 
 @NgModule({
   declarations: [
@@ -49,12 +50,14 @@ import { GenerateCertificateCustomDialogComponent } from './dialogs/generate-cer
     EditDeviceCustomDialogComponent,
     GenerateDocumentsCustomDialogComponent,
     GenerateCertificateCustomDialogComponent,
+    GenerateProtocolCustomDialogComponent,
     AuthDialogComponent,
     TabGroupBasicExampleComponent,
-    GenerateCertificateCustomDialogComponent
+    GenerateCertificateCustomDialogComponent,
+    GenerateProtocolCustomDialogComponent
     
   ],
-  entryComponents: [AuthDialogComponent, GenerateCertificateCustomDialogComponent, GenerateDocumentsCustomDialogComponent,CustomDialogComponent,AddClientCustomDialogComponent,AddSiteCustomDialogComponent,EditSiteCustomDialogComponent,AddDeviceModelDialogComponent,EditDeviceModelDialogComponent,AddDeviceCustomDialogComponent,EditDeviceCustomDialogComponent],
+  entryComponents: [AuthDialogComponent, GenerateProtocolCustomDialogComponent ,GenerateCertificateCustomDialogComponent, GenerateDocumentsCustomDialogComponent,CustomDialogComponent,AddClientCustomDialogComponent,AddSiteCustomDialogComponent,EditSiteCustomDialogComponent,AddDeviceModelDialogComponent,EditDeviceModelDialogComponent,AddDeviceCustomDialogComponent,EditDeviceCustomDialogComponent],
   imports: [
     MomentModule,
     BrowserModule,

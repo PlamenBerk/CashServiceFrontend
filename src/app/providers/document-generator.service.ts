@@ -10,6 +10,7 @@ import 'rxjs/add/observable/throw';
 import { ResponseContentType } from '@angular/http';
 import { UrlHelper } from '../client-site-component/Utils';
 import { CertificateDTO } from '../DTOs/certificateDTO';
+import { ProtocolDTO } from '../DTOs/protocolDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,16 @@ export class DocumentGeneratorService {
   generateCertificate(certificateDTO: CertificateDTO):Observable<string>{
     let apiURL = UrlHelper.url + 'document-management/document-cert';
     return this.http.post(apiURL,certificateDTO,{ responseType: ResponseContentType.Blob}).pipe(
+      map(this.showRes),
+      catchError((error) => {
+        return Observable.throw(error);  
+      }),
+    );
+  }
+
+  generateProtocol(protocolDTO: ProtocolDTO):Observable<string>{
+      let apiURL = UrlHelper.url + 'document-management/document-protocol';
+       return this.http.post(apiURL,protocolDTO,{ responseType: ResponseContentType.Blob}).pipe(
       map(this.showRes),
       catchError((error) => {
         return Observable.throw(error);  

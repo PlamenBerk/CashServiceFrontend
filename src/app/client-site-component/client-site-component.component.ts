@@ -26,6 +26,7 @@ import { AuthDialogComponent } from '../dialogs/auth-dialog/auth-dialog.componen
 import { saveAs } from 'file-saver';
 import * as fileSaver from 'file-saver';
 import { GenerateCertificateCustomDialogComponent } from '../dialogs/generate-certificate-custom-dialog/generate-certificate-custom-dialog.component';
+import { GenerateProtocolCustomDialogComponent } from '../dialogs/generate-protocol-custom-dialog/generate-protocol-custom-dialog.component';
 
 @Component({
   selector: 'client-site-component',
@@ -342,6 +343,24 @@ export class ClientSiteComponentComponent {
   
  generateCertificate(elementId: any) {
     const dialogRef = this.dialogGenerateCert.open(GenerateCertificateCustomDialogComponent, {
+      data: {
+        id: elementId
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'closed') {
+        console.log('closedDialog');
+      } else {
+        this.snackBar.open(result, '', {
+          duration: 3000,
+        });
+      }
+    });
+  }
+
+  generateProtocol(elementId: any) {
+    const dialogRef = this.dialogGenerateCert.open(GenerateProtocolCustomDialogComponent, {
       data: {
         id: elementId
       }
