@@ -21,8 +21,8 @@ export class EditSiteCustomDialogComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      siteName: [this.data.elementCopy.name, Validators.compose([Validators.required,Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
-      siteAddress: [this.data.elementCopy.address, Validators.compose([Validators.required,Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
+      siteName: [this.data.elementCopy.name, Validators.compose([Validators.required,Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я-." ]+')])],
+      siteAddress: [this.data.elementCopy.address, Validators.compose([Validators.required,Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я-." ]+')])],
       sitePhone: [this.data.elementCopy.phone, Validators.compose([Validators.maxLength(30), Validators.pattern('[0-9 ]+')])]
     })
   }

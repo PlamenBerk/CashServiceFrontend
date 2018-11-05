@@ -70,22 +70,22 @@ export class DocumentGeneratorService {
     return new Blob([res.blob()], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' })
   }
 
-  searchExpiredDocuments(startDate:Date, endDate: Date):Observable<DocumentDTOdata[]>{
+  searchExpiredDocuments(startDate:string, endDate: string):Observable<DocumentDTOdata[]>{
     let apiURL = UrlHelper.url + 'document-management/document';
 
-    var dayOfMonthStart = startDate.getDate() < 10 ? "0"+startDate.getDate() : startDate.getDate();
-    var dayOfMonthEnd = endDate.getDate() < 10 ? "0" + endDate.getDate() : endDate.getDate();
+    // var dayOfMonthStart = startDate.getDate() < 10 ? "0"+startDate.getDate() : startDate.getDate();
+    // var dayOfMonthEnd = endDate.getDate() < 10 ? "0" + endDate.getDate() : endDate.getDate();
     
-    var monthOfYearStart = (startDate.getMonth()+1) < 10 ? "0"+(startDate.getMonth()+1) : (startDate.getMonth()+1);
-    var monthOfYearEnd = (endDate.getMonth()+1) < 10 ? "0"+(endDate.getMonth()+1) : (endDate.getMonth()+1);
+    // var monthOfYearStart = (startDate.getMonth()+1) < 10 ? "0"+(startDate.getMonth()+1) : (startDate.getMonth()+1);
+    // var monthOfYearEnd = (endDate.getMonth()+1) < 10 ? "0"+(endDate.getMonth()+1) : (endDate.getMonth()+1);
 
-    var yearStart = startDate.getFullYear();
-    var yearEnd = endDate.getFullYear();
+    // var yearStart = startDate.getFullYear();
+    // var yearEnd = endDate.getFullYear();
 
-    var startDateS =yearStart + "-" + monthOfYearStart + "-" + dayOfMonthStart;
-    var endDateS = yearEnd + "-" + monthOfYearEnd + "-" + dayOfMonthEnd;
+    // var startDateS =yearStart + "-" + monthOfYearStart + "-" + dayOfMonthStart;
+    // var endDateS = yearEnd + "-" + monthOfYearEnd + "-" + dayOfMonthEnd;
 
-    var params = {"docStartDate": startDateS,"docEndDate":endDateS};
+    var params = {"docStartDate": startDate,"docEndDate":endDate};
 
     return this.http.get(apiURL,{params: params}).pipe(map(res => {
       return res.json().map(item => {

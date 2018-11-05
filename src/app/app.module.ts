@@ -79,7 +79,7 @@ import { GenerateProtocolCustomDialogComponent } from './dialogs/generate-protoc
     MatSnackBarModule,
     MatDatepickerModule,
     MatDatepickerModule,
-    MatNativeDateModule 
+    MatNativeDateModule
   ],
   providers: [MatDatepickerModule,DocumentGeneratorService, CashRegisterService, SiteServiceService, DeviceModelService, DeviceService],
   bootstrap: [ClientSiteComponentComponent]

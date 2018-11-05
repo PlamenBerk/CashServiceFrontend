@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, LOCALE_ID } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Inject } from '@angular/core';
@@ -8,6 +8,7 @@ import { DeviceService } from '../../providers/device.service';
 import { Validators } from '@angular/forms';
 import { DeviceDTO } from '../../DTOs/deviceDTO';
 import { FullDeviceDTO } from '../../DTOs/fullDeviceDTO';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-edit-device-custom-dialog',
@@ -18,7 +19,7 @@ export class EditDeviceCustomDialogComponent implements OnInit {
   form: FormGroup;
   deviceResult: FullDeviceDTO;
   
-  constructor(private deviceService: DeviceService, private deviceModelService: DeviceModelService, private formBuilder: FormBuilder, private dialogRef: MatDialogRef<EditDeviceCustomDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
+  constructor(@Inject(LOCALE_ID) private locale: string,private deviceService: DeviceService, private deviceModelService: DeviceModelService, private formBuilder: FormBuilder, private dialogRef: MatDialogRef<EditDeviceCustomDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -26,12 +27,16 @@ export class EditDeviceCustomDialogComponent implements OnInit {
       deviceNumPostfix: [this.data.elementCopy.deviceNumPostfix, Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
       fiscalNumPostfix: [this.data.elementCopy.fiscalNumPostfix, Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
       napNumber: [this.data.elementCopy.napNumber, Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
-      napDate: [this.data.elementCopy.napDate, Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я- ]+')])]
+      napDate: [this.transformDate(this.data.elementCopy.napDate), Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я- ]+')])]
     })
   }
 
   closeDialog() {
     this.dialogRef.close();
+  }
+
+  transformDate(date) {
+    return formatDate(date, 'dd-MM-yyyy', this.locale);
   }
 
   editDevice() {

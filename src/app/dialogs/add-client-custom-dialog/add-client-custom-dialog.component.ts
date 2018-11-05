@@ -23,13 +23,13 @@ export class AddClientCustomDialogComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      clientName: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
+      clientName: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я- ]+')])],
       clientBulstat: ['', Validators.compose([Validators.minLength(2), Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
       clientEgn: ['', Validators.compose([Validators.minLength(2), Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
-      clientAddress: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
-      clientTDD: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
-      clientComment: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
-      manName: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
+      clientAddress: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я-." ]+')])],
+      clientTDD: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я-." ]+')])],
+      clientComment: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я-." ]+')])],
+      manName: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я-." ]+')])],
       manPhone: ['', Validators.compose([Validators.minLength(2), Validators.maxLength(30), Validators.pattern('[0-9 ]+')])],
     })
     this.form.setErrors({ 'invalid': true });

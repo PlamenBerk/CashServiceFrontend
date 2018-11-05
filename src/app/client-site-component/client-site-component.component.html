@@ -97,7 +97,13 @@
                   <mat-icon svgIcon="icon_doc">home2</mat-icon>
                 </button>
               </div>
-              {{element[columnDevice]}} </td>
+                <div *ngIf="columnDevice == 'napDate';else other">
+                  {{element[columnDevice] | date:'dd-MM-yyyy'}} 
+              </div>
+              <ng-template #other>
+                  {{element[columnDevice]}} 
+              </ng-template>
+              </td>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="columnsToDisplay3; sticky: true" class="header-table"></tr>
@@ -174,7 +180,13 @@
                   <mat-icon svgIcon="preview_icon">home</mat-icon>
                 </button>
               </div>
-              {{element[columnDocument]}} </td>
+              <div *ngIf="columnDocument == 'startDate' || columnDocument == 'endDate';else docName">
+                  {{element[columnDocument] | date:'dd-MM-yyyy'}} 
+              </div>
+              <ng-template #docName>
+                  {{element[columnDocument]}} 
+              </ng-template>
+            </td>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="columnsToDisplay5; sticky: true" class="header-table"></tr>

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, LOCALE_ID } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { MatTableDataSource, MatDialog, MatSnackBar } from '@angular/material';
+import { MatTableDataSource, MatDialog, MatSnackBar, DateAdapter, MAT_DATE_FORMATS } from '@angular/material';
 import { CashRegisterService } from '../providers/cash-register.service';
 import { ViewChildren } from '@angular/core';
 import { ViewContainerRef } from '@angular/core';
@@ -27,6 +27,21 @@ import { saveAs } from 'file-saver';
 import * as fileSaver from 'file-saver';
 import { GenerateCertificateCustomDialogComponent } from '../dialogs/generate-certificate-custom-dialog/generate-certificate-custom-dialog.component';
 import { GenerateProtocolCustomDialogComponent } from '../dialogs/generate-protocol-custom-dialog/generate-protocol-custom-dialog.component';
+import { MyDateAdapter } from '../DTOs/MyDateAdapter';
+import { formatDate } from '@angular/common';
+
+const MY_DATE_FORMATS = {
+   parse: {
+       dateInput: {month: 'short', year: 'numeric', day: 'numeric'}
+   },
+   display: {
+       // dateInput: { month: 'short', year: 'numeric', day: 'numeric' },
+       dateInput: 'input',
+       monthYearLabel: {year: 'numeric', month: 'short'},
+       dateA11yLabel: {year: 'numeric', month: 'long', day: 'numeric'},
+       monthYearA11yLabel: {year: 'numeric', month: 'long'},
+   }
+};
 
 @Component({
   selector: 'client-site-component',
@@ -39,6 +54,10 @@ import { GenerateProtocolCustomDialogComponent } from '../dialogs/generate-proto
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ],
+  providers: [
+    {provide: DateAdapter, useClass: MyDateAdapter},
+    {provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS},
+],
 })
 @Injectable()
 export class ClientSiteComponentComponent {
@@ -70,11 +89,11 @@ export class ClientSiteComponentComponent {
 
   columnHeaders = ['Име', 'Бул', 'ЕГН', 'Адрес', 'ТДД', 'Коментар', 'Мениджър', 'Телефон', 'Действия'];
   columnHeadersSites = ['Име', 'Адрес', 'телефон', 'Действия'];
-  columnHeadersDevices = ['СИМ', 'Сериен номер', 'Фискална памет', 'НАП номер', 'НАП дата (yyyy/MM/dd)', 'Действия'];
+  columnHeadersDevices = ['СИМ', 'Сериен номер', 'Фискална памет', 'НАП номер', 'НАП дата', 'Действия'];
   columnHeadersDevicesModels = ['Производител', 'Модел', 'Свидетелство', 'Сериен номер префикс', 'Фискален номер префикс', 'Булстат', 'Действия'];
   columnHeadersDocuments = ['Име на документа', 'Начална дата', 'Крайна дата', 'Действия'];
 
-  constructor(private docGeneratorService: DocumentGeneratorService,public snackBar: MatSnackBar, private deviceService: DeviceService, private clientService: CashRegisterService, private deviceModelService: DeviceModelService, private siteService: SiteServiceService, private matIconRegistry: MatIconRegistry, sanitizer: DomSanitizer, public dialogEditClient: MatDialog, private dialogNewClient: MatDialog, private dialogNewSite: MatDialog, private dialogEditSite: MatDialog, private dialogAddNewDeviceModel: MatDialog, private dialogEditDeviceModel: MatDialog, private dialogEditDevice: MatDialog, private dialogAddDevice: MatDialog, private dialogGenerateDocument: MatDialog, private dialogGenerateCert: MatDialog, private dialogAuth: MatDialog) {
+  constructor(@Inject(LOCALE_ID) private locale: string,private docGeneratorService: DocumentGeneratorService,public snackBar: MatSnackBar, private deviceService: DeviceService, private clientService: CashRegisterService, private deviceModelService: DeviceModelService, private siteService: SiteServiceService, private matIconRegistry: MatIconRegistry, sanitizer: DomSanitizer, public dialogEditClient: MatDialog, private dialogNewClient: MatDialog, private dialogNewSite: MatDialog, private dialogEditSite: MatDialog, private dialogAddNewDeviceModel: MatDialog, private dialogEditDeviceModel: MatDialog, private dialogEditDevice: MatDialog, private dialogAddDevice: MatDialog, private dialogGenerateDocument: MatDialog, private dialogGenerateCert: MatDialog, private dialogAuth: MatDialog) {
     this.matIconRegistry.addSvgIcon(
       'icon_add',
       sanitizer.bypassSecurityTrustResourceUrl('../../assets/icons/client_add_icon.svg'),
@@ -381,8 +400,12 @@ export class ClientSiteComponentComponent {
   searchDocuments(){
     var dateF = new Date(this.dateFrom);
     var dateT = new Date(this.dateTo);
+
+    var dateFStr = this.transformDate(dateF);
+    var dateTstr = this.transformDate(dateT);
+
     this.documentResults = [];
-    this.docGeneratorService.searchExpiredDocuments(dateF,dateT).subscribe(documentResults => {
+    this.docGeneratorService.searchExpiredDocuments(dateFStr,dateTstr).subscribe(documentResults => {
       this.documentResults = documentResults;
       this.dataSourceDocuments = new MatTableDataSource(this.documentResults);
     })
@@ -410,6 +433,10 @@ export class ClientSiteComponentComponent {
       }
     });
 
+  }
+
+  transformDate(date) {
+    return formatDate(date, 'dd-MM-yyyy', this.locale);
   }
 
 }
