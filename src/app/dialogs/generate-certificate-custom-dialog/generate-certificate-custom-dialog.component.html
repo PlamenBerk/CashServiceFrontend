@@ -10,6 +10,14 @@
           <input matInput [(ngModel)]="certNumber" placeholder="Номер на свидетелството">
         </mat-form-field>
       </li>
+      
+      <li>
+        <mat-form-field>
+          <input matInput [matDatepicker]="pickerFromDate" placeholder="От дата" [(ngModel)]="fromDate">
+          <mat-datepicker-toggle matSuffix [for]="pickerFromDate"></mat-datepicker-toggle>
+          <mat-datepicker #pickerFromDate></mat-datepicker>
+        </mat-form-field>
+      </li>
 
     </ol>
 

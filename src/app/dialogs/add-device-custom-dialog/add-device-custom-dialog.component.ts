@@ -52,8 +52,8 @@ export class AddDeviceCustomDialogComponent implements OnInit {
   ngOnInit() {
     this.form = this.formBuilder.group({
       sim: ['', Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
-      deviceNumPostfix: ['', Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
-      fiscalNumPostfix: ['', Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
+      deviceNumPostfix: ['', Validators.compose([Validators.required, Validators.maxLength(30), Validators.minLength(6),Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
+      fiscalNumPostfix: ['', Validators.compose([Validators.required, Validators.maxLength(6),Validators.minLength(6), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
       napNumber: ['', Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
       napDate: ['', Validators.compose([Validators.required, Validators.maxLength(30)])]
     })

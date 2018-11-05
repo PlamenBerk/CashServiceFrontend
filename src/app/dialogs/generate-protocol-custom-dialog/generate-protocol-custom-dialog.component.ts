@@ -15,10 +15,10 @@ export class GenerateProtocolCustomDialogComponent implements OnInit {
   id: string;
   reason: string;
   price: string;
-  aprice: string;
-  bprice: string;
-  vprice: string;
-  gprice: string;
+  aprice: string = "0";
+  bprice: string = "0";
+  vprice: string = "0";
+  gprice: string = "0";
 
   constructor(public snackBar: MatSnackBar,private documentGenerator: DocumentGeneratorService,private dialogRef: MatDialogRef<GenerateProtocolCustomDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 

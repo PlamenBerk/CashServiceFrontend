@@ -1,3 +1,3 @@
 export class CertificateDTO{
-    constructor(public deviceId: string,public docType: string, public certNumber: string){}
+    constructor(public deviceId: string,public fromDateStr: string, public certNumber: string){}
 }
