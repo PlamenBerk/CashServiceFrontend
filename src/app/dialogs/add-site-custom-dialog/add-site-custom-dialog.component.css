@@ -1,4 +1,15 @@
-.md-dialog-container {
+.window{    
     width: 300px;
-    height: 350px
+    overflow-y:hidden;
+}
+
+.button-text{
+    font-size: 18px;
+    background-color:#d8cab2a2;
+    border-radius: 15px;
+}
+
+.mat-dialog-title{
+    text-align: center;
+    font-size: 27px;
 }

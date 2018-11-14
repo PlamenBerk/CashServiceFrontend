@@ -1,54 +1,49 @@
-<div class="md-dialog-container">
-  <h1 mat-dialog-title>Генериране на протокол</h1>
+<h1 mat-dialog-title>Генериране</h1>
 
+<mat-dialog-content class="window">
+  <ol>
 
-  <mat-dialog-content>
-    <ol>
+    <li>
+      <mat-form-field>
+        <input matInput [(ngModel)]="reason" placeholder="Причина за демонтаж">
+      </mat-form-field>
+    </li>
 
-      <li>
-        <mat-form-field>
-          <input matInput [(ngModel)]="reason" placeholder="Причина за демонтаж">
-        </mat-form-field>
-      </li>
+    <li>
+      <mat-form-field>
+        <input matInput [(ngModel)]="price" placeholder="Сума (цифром и словом)">
+      </mat-form-field>
+    </li>
 
-      <li>
-        <mat-form-field>
-          <input matInput [(ngModel)]="price" placeholder="Сума (цифром и словом)">
-        </mat-form-field>
-      </li>
+    <li>
+      <mat-form-field>
+        <input matInput [(ngModel)]="aprice" placeholder="Сума (A)">
+      </mat-form-field>
+    </li>
 
-      <li>
-        <mat-form-field>
-          <input matInput [(ngModel)]="aprice" placeholder="Сума (A)">
-        </mat-form-field>
-      </li>
-      
-      <li>
-        <mat-form-field>
-          <input matInput [(ngModel)]="bprice" placeholder="Сума (Б)">
-        </mat-form-field>
-      </li>
+    <li>
+      <mat-form-field>
+        <input matInput [(ngModel)]="bprice" placeholder="Сума (Б)">
+      </mat-form-field>
+    </li>
 
-      <li>
-        <mat-form-field>
-          <input matInput [(ngModel)]="vprice" placeholder="Сума (В)">
-        </mat-form-field>
-      </li>
+    <li>
+      <mat-form-field>
+        <input matInput [(ngModel)]="vprice" placeholder="Сума (В)">
+      </mat-form-field>
+    </li>
 
-      <li>
-        <mat-form-field>
-          <input matInput [(ngModel)]="gprice" placeholder="Сума (Г)">
-        </mat-form-field>
-      </li>
+    <li>
+      <mat-form-field>
+        <input matInput [(ngModel)]="gprice" placeholder="Сума (Г)">
+      </mat-form-field>
+    </li>
 
-    </ol>
+  </ol>
 
-  </mat-dialog-content>
+</mat-dialog-content>
 
-  <mat-dialog-actions>
-    <button mat-button type="submit" (click)="generate()">Генерирай и отвори</button>
-    <button mat-button type="close" (click)="closeDialog()">Затвори</button>
-  </mat-dialog-actions>
-
-</div>
-
+<mat-dialog-actions align="start">
+  <button mat-button type="submit" (click)="generate()" class="button-text">Генерирай и отвори</button>
+  <button mat-button type="close" (click)="closeDialog()" class="button-text">Затвори</button>
+</mat-dialog-actions>

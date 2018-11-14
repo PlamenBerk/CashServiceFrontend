@@ -1,50 +1,48 @@
-<div class="md-dialog-container">
-    <h1 mat-dialog-title>Редактиране на апарат</h1>
-  
-  
-    <mat-dialog-content>
-     
-      <form [formGroup]="form" >
-  
-        <ol>
-  
-          <li>
-            <mat-form-field>
-              <input matInput formControlName="sim" placeholder="СИМ IMSI">
-            </mat-form-field>
-          </li>
-  
-          <li>
-            <mat-form-field>
-              <input matInput formControlName="deviceNumPostfix" placeholder="Сериен номер">
-            </mat-form-field>
-          </li>
-  
-          <li>
-            <mat-form-field>
-              <input matInput formControlName="fiscalNumPostfix" placeholder="Фискална памет">
-            </mat-form-field>
-          </li>
-  
-          <li>
-            <mat-form-field>
-              <input matInput formControlName="napNumber" placeholder="НАП номер">
-            </mat-form-field>
-          </li>
-  
-          <li>
-            <mat-form-field>
-              <input matInput formControlName="napDate" placeholder="НАП дата">
-            </mat-form-field>
-          </li>
-  
-        </ol>
-    
-      </form>
-    </mat-dialog-content>
+<h1 mat-dialog-title>Редактиране на апарат</h1>
+<form [formGroup]="form">
 
-    <mat-dialog-actions>
-        <button mat-button type="submit" (click)="editDevice()">Добави</button>
-        <button mat-button type="close" (click)="closeDialog()">Затвори</button>
-      </mat-dialog-actions>
-  </div>
+  <mat-dialog-content class="window">
+
+
+    <ol>
+
+      <li>
+        <mat-form-field>
+          <input matInput formControlName="sim" placeholder="СИМ IMSI">
+        </mat-form-field>
+      </li>
+
+      <li>
+        <mat-form-field>
+          <input matInput formControlName="deviceNumPostfix" placeholder="Сериен номер">
+        </mat-form-field>
+      </li>
+
+      <li>
+        <mat-form-field>
+          <input matInput formControlName="fiscalNumPostfix" placeholder="Фискална памет">
+        </mat-form-field>
+      </li>
+
+      <li>
+        <mat-form-field>
+          <input matInput formControlName="napNumber" placeholder="НАП номер">
+        </mat-form-field>
+      </li>
+
+      <li>
+        <mat-form-field>
+          <input matInput formControlName="napDate" placeholder="НАП дата">
+        </mat-form-field>
+      </li>
+
+    </ol>
+
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="start">
+    <button mat-button type="submit" (click)="editDevice()" class="button-text">Редактирай</button>
+    <button mat-button type="close" (click)="closeDialog()" class="button-text">Затвори</button>
+  </mat-dialog-actions>
+</form>

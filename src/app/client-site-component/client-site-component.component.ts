@@ -31,16 +31,16 @@ import { MyDateAdapter } from '../DTOs/MyDateAdapter';
 import { formatDate } from '@angular/common';
 
 const MY_DATE_FORMATS = {
-   parse: {
-       dateInput: {month: 'short', year: 'numeric', day: 'numeric'}
-   },
-   display: {
-       // dateInput: { month: 'short', year: 'numeric', day: 'numeric' },
-       dateInput: 'input',
-       monthYearLabel: {year: 'numeric', month: 'short'},
-       dateA11yLabel: {year: 'numeric', month: 'long', day: 'numeric'},
-       monthYearA11yLabel: {year: 'numeric', month: 'long'},
-   }
+  parse: {
+    dateInput: { month: 'short', year: 'numeric', day: 'numeric' }
+  },
+  display: {
+    // dateInput: { month: 'short', year: 'numeric', day: 'numeric' },
+    dateInput: 'input',
+    monthYearLabel: { year: 'numeric', month: 'short' },
+    dateA11yLabel: { year: 'numeric', month: 'long', day: 'numeric' },
+    monthYearA11yLabel: { year: 'numeric', month: 'long' },
+  }
 };
 
 @Component({
@@ -55,9 +55,9 @@ const MY_DATE_FORMATS = {
     ]),
   ],
   providers: [
-    {provide: DateAdapter, useClass: MyDateAdapter},
-    {provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS},
-],
+    { provide: DateAdapter, useClass: MyDateAdapter },
+    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
+  ],
 })
 @Injectable()
 export class ClientSiteComponentComponent {
@@ -93,7 +93,7 @@ export class ClientSiteComponentComponent {
   columnHeadersDevicesModels = ['Производител', 'Модел', 'Свидетелство', 'Сериен номер префикс', 'Фискален номер префикс', 'Булстат', 'Действия'];
   columnHeadersDocuments = ['Име на документа', 'Начална дата', 'Крайна дата', 'Действия'];
 
-  constructor(@Inject(LOCALE_ID) private locale: string,private docGeneratorService: DocumentGeneratorService,public snackBar: MatSnackBar, private deviceService: DeviceService, private clientService: CashRegisterService, private deviceModelService: DeviceModelService, private siteService: SiteServiceService, private matIconRegistry: MatIconRegistry, sanitizer: DomSanitizer, public dialogEditClient: MatDialog, private dialogNewClient: MatDialog, private dialogNewSite: MatDialog, private dialogEditSite: MatDialog, private dialogAddNewDeviceModel: MatDialog, private dialogEditDeviceModel: MatDialog, private dialogEditDevice: MatDialog, private dialogAddDevice: MatDialog, private dialogGenerateDocument: MatDialog, private dialogGenerateCert: MatDialog, private dialogAuth: MatDialog) {
+  constructor(@Inject(LOCALE_ID) private locale: string, private docGeneratorService: DocumentGeneratorService, public snackBar: MatSnackBar, private deviceService: DeviceService, private clientService: CashRegisterService, private deviceModelService: DeviceModelService, private siteService: SiteServiceService, private matIconRegistry: MatIconRegistry, sanitizer: DomSanitizer, public dialogEditClient: MatDialog, private dialogNewClient: MatDialog, private dialogNewSite: MatDialog, private dialogEditSite: MatDialog, private dialogAddNewDeviceModel: MatDialog, private dialogEditDeviceModel: MatDialog, private dialogEditDevice: MatDialog, private dialogAddDevice: MatDialog, private dialogGenerateDocument: MatDialog, private dialogGenerateCert: MatDialog, private dialogAuth: MatDialog) {
     this.matIconRegistry.addSvgIcon(
       'icon_add',
       sanitizer.bypassSecurityTrustResourceUrl('../../assets/icons/client_add_icon.svg'),
@@ -115,7 +115,7 @@ export class ClientSiteComponentComponent {
 
   ngOnInit() {
     const dialogRef = this.dialogAuth.open(AuthDialogComponent, {
-      
+      panelClass: 'dialog-background'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -176,7 +176,7 @@ export class ClientSiteComponentComponent {
   addClient() {
 
     const dialogRef = this.dialogNewClient.open(AddClientCustomDialogComponent, {
-
+      panelClass: 'dialog-background'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -195,7 +195,7 @@ export class ClientSiteComponentComponent {
     this.tempRow = element.id;
 
     const dialogRef = this.dialogEditClient.open(CustomDialogComponent, {
-
+      panelClass: 'dialog-background',
       data: {
         elementCopy: copy
       }
@@ -212,6 +212,7 @@ export class ClientSiteComponentComponent {
   // --------------- Site functionality
   addSiteForClient(clientId: number) {
     const dialogRef = this.dialogNewSite.open(AddSiteCustomDialogComponent, {
+      panelClass: 'dialog-background',
       data: {
         clientId: clientId
       }
@@ -231,7 +232,7 @@ export class ClientSiteComponentComponent {
   editSite(element: any) {
     var copy = Object.assign({}, element);
     const dialogRef = this.dialogEditSite.open(EditSiteCustomDialogComponent, {
-
+      panelClass: 'dialog-background',
       data: {
         elementCopy: copy
       }
@@ -264,7 +265,7 @@ export class ClientSiteComponentComponent {
 
   addNewDeviceModel() {
     const dialogRef = this.dialogAddNewDeviceModel.open(AddDeviceModelDialogComponent, {
-
+      panelClass: 'dialog-background'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -282,6 +283,7 @@ export class ClientSiteComponentComponent {
     var copy = Object.assign({}, element);
 
     const dialogRef = this.dialogEditDeviceModel.open(EditDeviceModelDialogComponent, {
+      panelClass: 'dialog-background',
       data: {
         elementCopy: copy
       }
@@ -309,6 +311,7 @@ export class ClientSiteComponentComponent {
     var copy = Object.assign({}, element);
 
     const dialogRef = this.dialogEditDevice.open(EditDeviceCustomDialogComponent, {
+      panelClass: 'dialog-background',
       data: {
         elementCopy: copy
       }
@@ -325,6 +328,7 @@ export class ClientSiteComponentComponent {
 
   addDeviceForSite(siteId: any) {
     const dialogRef = this.dialogAddDevice.open(AddDeviceCustomDialogComponent, {
+      panelClass: 'dialog-background',
       data: {
         element: siteId
       }
@@ -343,6 +347,7 @@ export class ClientSiteComponentComponent {
 
   generateDocument(elementId: any) {
     const dialogRef = this.dialogGenerateDocument.open(GenerateDocumentsCustomDialogComponent, {
+      panelClass: 'dialog-background',
       data: {
         id: elementId
       }
@@ -359,9 +364,10 @@ export class ClientSiteComponentComponent {
     });
   }
 
-  
- generateCertificate(elementId: any) {
+
+  generateCertificate(elementId: any) {
     const dialogRef = this.dialogGenerateCert.open(GenerateCertificateCustomDialogComponent, {
+      panelClass: 'dialog-background',
       data: {
         id: elementId
       }
@@ -380,6 +386,7 @@ export class ClientSiteComponentComponent {
 
   generateProtocol(elementId: any) {
     const dialogRef = this.dialogGenerateCert.open(GenerateProtocolCustomDialogComponent, {
+      panelClass: 'dialog-background',
       data: {
         id: elementId
       }
@@ -397,7 +404,7 @@ export class ClientSiteComponentComponent {
   }
 
   // ----- Document functionality
-  searchDocuments(){
+  searchDocuments() {
     var dateF = new Date(this.dateFrom);
     var dateT = new Date(this.dateTo);
 
@@ -405,31 +412,31 @@ export class ClientSiteComponentComponent {
     var dateTstr = this.transformDate(dateT);
 
     this.documentResults = [];
-    this.docGeneratorService.searchExpiredDocuments(dateFStr,dateTstr).subscribe(documentResults => {
+    this.docGeneratorService.searchExpiredDocuments(dateFStr, dateTstr).subscribe(documentResults => {
       this.documentResults = documentResults;
       this.dataSourceDocuments = new MatTableDataSource(this.documentResults);
     })
   }
 
-  previewDocument(doc: any){
+  previewDocument(doc: any) {
     var docId = doc.id;
     const dialogRef = this.dialogAuth.open(AuthDialogComponent, {
-      
+
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (!result) {
         console.log('closedDialogAuth');
       } else {
-        this.docGeneratorService.previewDocument(docId,result).subscribe(documentResults => {
+        this.docGeneratorService.previewDocument(docId, result).subscribe(documentResults => {
           fileSaver.saveAs(documentResults, doc.documentName);
         },
-        (error) => {
-          this.snackBar.open('Достъпът е отказан. Oпитайте отново.', '', {
-            duration: 5000,
-          });
-          console.error('zzzzzzzzz',error);
-        })
+          (error) => {
+            this.snackBar.open('Достъпът е отказан. Oпитайте отново.', '', {
+              duration: 5000,
+            });
+            console.error('zzzzzzzzz', error);
+          })
       }
     });
 

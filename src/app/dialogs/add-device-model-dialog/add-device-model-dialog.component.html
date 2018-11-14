@@ -1,54 +1,52 @@
-<div class="md-dialog-container">
-  <form [formGroup]="form" (ngSubmit)="submit(form)">
-    <h1 mat-dialog-title>Нов обект</h1>
+<h1 mat-dialog-title>Нов модел</h1>
+<form [formGroup]="form" (ngSubmit)="submit(form)">
 
-    <mat-dialog-content>
-      <ol>
-        <li>
-          <mat-form-field>
-            <input matInput formControlName="manufacturer" placeholder="Производител">
-          </mat-form-field>
-        </li>
+  <mat-dialog-content class="window">
+    <ol>
+      <li>
+        <mat-form-field>
+          <input matInput formControlName="manufacturer" placeholder="Производител">
+        </mat-form-field>
+      </li>
 
-        <li>
-          <mat-form-field>
-            <input matInput formControlName="model" placeholder="Модел">
-          </mat-form-field>
-        </li>
+      <li>
+        <mat-form-field>
+          <input matInput formControlName="model" placeholder="Модел">
+        </mat-form-field>
+      </li>
 
-        <li>
-          <mat-form-field>
-            <input matInput formControlName="certificate" placeholder="Сертификат">
-          </mat-form-field>
-        </li>
+      <li>
+        <mat-form-field>
+          <input matInput formControlName="certificate" placeholder="Сертификат">
+        </mat-form-field>
+      </li>
 
-        <li>
-          <mat-form-field>
-            <input matInput formControlName="deviceNumPrefix" placeholder="Сериен номер префикс">
-          </mat-form-field>
-        </li>
+      <li>
+        <mat-form-field>
+          <input matInput formControlName="deviceNumPrefix" placeholder="Сериен номер префикс">
+        </mat-form-field>
+      </li>
 
-        <li>
-          <mat-form-field>
-            <input matInput formControlName="fiscalNumPrefix" placeholder="Фискален номер префикс">
-          </mat-form-field>
-        </li>
+      <li>
+        <mat-form-field>
+          <input matInput formControlName="fiscalNumPrefix" placeholder="Фискален номер префикс">
+        </mat-form-field>
+      </li>
 
-        <li>
-          <mat-form-field>
-            <input matInput formControlName="eik" placeholder="Булстат">
-          </mat-form-field>
-        </li>
+      <li>
+        <mat-form-field>
+          <input matInput formControlName="eik" placeholder="Булстат">
+        </mat-form-field>
+      </li>
 
-      </ol>
-    </mat-dialog-content>
-
-
-    <mat-dialog-actions>
-      <button mat-button type="submit">Добави</button>
-      <button mat-button type="close" (click)="closeDialog()">Затвори</button>
-    </mat-dialog-actions>
+    </ol>
+  </mat-dialog-content>
 
 
-  </form>
-</div>
+  <mat-dialog-actions align="start">
+    <button mat-button type="submit" class="button-text">Добави</button>
+    <button mat-button type="close" (click)="closeDialog()" class="button-text">Затвори</button>
+  </mat-dialog-actions>
+
+
+</form>

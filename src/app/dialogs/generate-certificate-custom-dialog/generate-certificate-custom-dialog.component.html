@@ -1,32 +1,26 @@
-<div class="md-dialog-container">
-  <h1 mat-dialog-title>Генериране на сертификат</h1>
+<h1 mat-dialog-title>Генериране</h1>
+<mat-dialog-content class="window">
+  <ol>
 
+    <li>
+      <mat-form-field>
+        <input matInput [(ngModel)]="certNumber" placeholder="Номер на свидетелството">
+      </mat-form-field>
+    </li>
 
-  <mat-dialog-content>
-    <ol>
+    <li>
+      <mat-form-field>
+        <input matInput [matDatepicker]="pickerFromDate" placeholder="От дата" [(ngModel)]="fromDate">
+        <mat-datepicker-toggle matSuffix [for]="pickerFromDate"></mat-datepicker-toggle>
+        <mat-datepicker #pickerFromDate></mat-datepicker>
+      </mat-form-field>
+    </li>
 
-      <li>
-        <mat-form-field>
-          <input matInput [(ngModel)]="certNumber" placeholder="Номер на свидетелството">
-        </mat-form-field>
-      </li>
-      
-      <li>
-        <mat-form-field>
-          <input matInput [matDatepicker]="pickerFromDate" placeholder="От дата" [(ngModel)]="fromDate">
-          <mat-datepicker-toggle matSuffix [for]="pickerFromDate"></mat-datepicker-toggle>
-          <mat-datepicker #pickerFromDate></mat-datepicker>
-        </mat-form-field>
-      </li>
+  </ol>
 
-    </ol>
+</mat-dialog-content>
 
-  </mat-dialog-content>
-
-  <mat-dialog-actions>
-    <button mat-button type="submit" (click)="generate()">Генерирай и отвори</button>
-    <button mat-button type="close" (click)="closeDialog()">Затвори</button>
-  </mat-dialog-actions>
-
-</div>
-
+<mat-dialog-actions align="start">
+  <button mat-button type="submit" (click)="generate()" class="button-text">Генерирай и отвори</button>
+  <button mat-button type="close" (click)="closeDialog()" class="button-text">Затвори</button>
+</mat-dialog-actions>

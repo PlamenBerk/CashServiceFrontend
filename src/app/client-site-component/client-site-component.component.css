@@ -1,6 +1,16 @@
 table {
     width: 100%;
   }
+
+  .mat-header-cell{
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+  }
+
+  .mat-cell{
+    font-size: 18px;
+  }
   
   .centerr{
     margin: auto;
@@ -12,10 +22,11 @@ table {
     height: 300px;
     overflow: auto;
     width: 100%;
+    background-color: #d8cab294;
   }
 
   .header-table{
-    background: #d6d6d6;
+    background:#c99e06;
   }
 
   .edit_button{
@@ -41,11 +52,13 @@ table {
   }
   
   tr.example-element-row:not(.example-expanded-row):active {
-    background: #efefef;
+     /* hold click */
+    background: #000000;
   }
   
   .example-element-row td {
-    border-bottom-width: 0;
+    border-bottom-width: 1px;
+    background: #d8cab2ee;
   }
 
   .input-field {
@@ -80,5 +93,6 @@ table {
     opacity: 0.5;
   }
   .highlight{
-    background: rgb(131, 131, 131); /* green */
+    background: rgb(0, 0, 0);
   }
+ 
