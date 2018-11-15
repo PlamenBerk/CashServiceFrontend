@@ -24,12 +24,12 @@ export class CustomDialogComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      clientName: [this.data.elementCopy.name, Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я-." ]+')])],
+      clientName: [this.data.elementCopy.name, Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я-.", ]+')])],
       clientBulstat: [this.data.elementCopy.bulstat, Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
       clientEgn: [this.data.elementCopy.egn, Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
-      clientAddress: [this.data.elementCopy.address, Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я-." ]+')])],
-      clientTDD: [this.data.elementCopy.tdd, Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я-." ]+')])],
-      clientComment: [this.data.elementCopy.comment, Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я-." ]+')])],
+      clientAddress: [this.data.elementCopy.address, Validators.compose([Validators.maxLength(90), Validators.pattern('[a-zA-Z0-9а-яА-Я-.", ]+')])],
+      clientTDD: [this.data.elementCopy.tdd, Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я-.", ]+')])],
+      clientComment: [this.data.elementCopy.comment, Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я-.", ]+')])],
       manName: [this.data.elementCopy.managerName, Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
       manPhone: [this.data.elementCopy.managerPhone, Validators.compose([Validators.maxLength(30), Validators.pattern('[0-9 ]+')])],
     })
