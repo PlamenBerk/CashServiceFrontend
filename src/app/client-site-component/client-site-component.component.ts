@@ -30,6 +30,7 @@ import { GenerateProtocolCustomDialogComponent } from '../dialogs/generate-proto
 import { MyDateAdapter } from '../DTOs/MyDateAdapter';
 import { formatDate } from '@angular/common';
 import { DeleteClientDialogComponent } from '../dialogs/delete-client-dialog/delete-client-dialog.component';
+import { DeleteSiteDialogComponent } from '../dialogs/delete-site-dialog/delete-site-dialog.component';
 
 const MY_DATE_FORMATS = {
   parse: {
@@ -79,8 +80,8 @@ export class ClientSiteComponentComponent {
   dataSourceDevices;
   dataSourceDevicesModels;
   dataSourceDocuments;
-  selectedRowIndex: number = -1;
-  selectedRowIndex2: number = -1;
+  selectedRowIndex = -1;
+  selectedRowIndex2 = -1;
 
   columnsToDisplay = ['name', 'bulstat', 'egn', 'address', 'tdd', 'comment', 'managerName', 'managerPhone', 'Actions'];
   columnsToDisplay2 = ['name', 'address', 'phone', 'Actions'];
@@ -94,7 +95,7 @@ export class ClientSiteComponentComponent {
   columnHeadersDevicesModels = ['Производител', 'Модел', 'Свидетелство', 'Сериен номер префикс', 'Фискален номер префикс', 'Булстат', 'Действия'];
   columnHeadersDocuments = ['Име на документа', 'Начална дата', 'Крайна дата', 'Действия'];
 
-  constructor(@Inject(LOCALE_ID) private locale: string, private docGeneratorService: DocumentGeneratorService, public snackBar: MatSnackBar, private deviceService: DeviceService, private clientService: CashRegisterService, private deviceModelService: DeviceModelService, private siteService: SiteServiceService, private matIconRegistry: MatIconRegistry, sanitizer: DomSanitizer, public dialogEditClient: MatDialog, private dialogNewClient: MatDialog, private dialogNewSite: MatDialog, private dialogEditSite: MatDialog, private dialogAddNewDeviceModel: MatDialog, private dialogEditDeviceModel: MatDialog, private dialogEditDevice: MatDialog, private dialogAddDevice: MatDialog, private dialogGenerateDocument: MatDialog, private dialogGenerateCert: MatDialog, private dialogAuth: MatDialog, private dialogDeleteClient: MatDialog) {
+  constructor(@Inject(LOCALE_ID) private locale: string, private docGeneratorService: DocumentGeneratorService, public snackBar: MatSnackBar, private deviceService: DeviceService, private clientService: CashRegisterService, private deviceModelService: DeviceModelService, private siteService: SiteServiceService, private matIconRegistry: MatIconRegistry, sanitizer: DomSanitizer, public dialogEditClient: MatDialog, private dialogNewClient: MatDialog, private dialogNewSite: MatDialog, private dialogEditSite: MatDialog, private dialogAddNewDeviceModel: MatDialog, private dialogEditDeviceModel: MatDialog, private dialogEditDevice: MatDialog, private dialogAddDevice: MatDialog, private dialogGenerateDocument: MatDialog, private dialogGenerateCert: MatDialog, private dialogAuth: MatDialog, private dialogDeleteClient: MatDialog, private dialogDeleteSite: MatDialog) {
     this.matIconRegistry.addSvgIcon(
       'icon_add',
       sanitizer.bypassSecurityTrustResourceUrl('../../assets/icons/client_add_icon.svg'),
@@ -194,7 +195,7 @@ export class ClientSiteComponentComponent {
   }
 
   editClient(element: any) {
-    var copy = Object.assign({}, element);
+    let copy = Object.assign({}, element);
     this.tempRow = element.id;
 
     const dialogRef = this.dialogEditClient.open(CustomDialogComponent, {
@@ -209,7 +210,7 @@ export class ClientSiteComponentComponent {
     });
   }
 
-  deleteClient(element: any){
+  deleteClient(element: any) {
 
     const dialogRef = this.dialogDeleteClient.open(DeleteClientDialogComponent, {
       panelClass: 'dialog-background',
@@ -224,7 +225,7 @@ export class ClientSiteComponentComponent {
       } else {
         this.dataSourceDevices = [];
         this.dataSourceSites = [];
-        var index = this.dataSourceClients.data.findIndex( record => record.id === result.id );
+        let index = this.dataSourceClients.data.findIndex(record => record.id === result.id);
 
         const tempData = this.dataSourceClients.data;
         tempData.splice(index, 1);
@@ -257,7 +258,7 @@ export class ClientSiteComponentComponent {
   }
 
   editSite(element: any) {
-    var copy = Object.assign({}, element);
+    let copy = Object.assign({}, element);
     const dialogRef = this.dialogEditSite.open(EditSiteCustomDialogComponent, {
       panelClass: 'dialog-background',
       data: {
@@ -270,6 +271,29 @@ export class ClientSiteComponentComponent {
         console.log('close edit site dialog');
       } else {
         Object.assign(element, result);
+      }
+    });
+  }
+
+  deleteSite(element: any) {
+
+    const dialogRef = this.dialogDeleteSite.open(DeleteSiteDialogComponent, {
+      panelClass: 'dialog-background',
+      data: {
+        elementCopy: element
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
+        console.log('closedDialogDelete');
+      } else {
+        this.dataSourceDevices = [];
+        let index = this.dataSourceSites.data.findIndex(record => record.id === result.id);
+
+        const tempData = this.dataSourceSites.data;
+        tempData.splice(index, 1);
+        this.dataSourceSites.data = tempData;
       }
     });
   }
@@ -307,7 +331,7 @@ export class ClientSiteComponentComponent {
   }
 
   editDeviceModel(element: any) {
-    var copy = Object.assign({}, element);
+    let copy = Object.assign({}, element);
 
     const dialogRef = this.dialogEditDeviceModel.open(EditDeviceModelDialogComponent, {
       panelClass: 'dialog-background',
@@ -335,7 +359,7 @@ export class ClientSiteComponentComponent {
   }
 
   editDevice(element: any) {
-    var copy = Object.assign({}, element);
+    let copy = Object.assign({}, element);
 
     const dialogRef = this.dialogEditDevice.open(EditDeviceCustomDialogComponent, {
       panelClass: 'dialog-background',
@@ -432,11 +456,11 @@ export class ClientSiteComponentComponent {
 
   // ----- Document functionality
   searchDocuments() {
-    var dateF = new Date(this.dateFrom);
-    var dateT = new Date(this.dateTo);
+    let dateF = new Date(this.dateFrom);
+    let dateT = new Date(this.dateTo);
 
-    var dateFStr = this.transformDate(dateF);
-    var dateTstr = this.transformDate(dateT);
+    let dateFStr = this.transformDate(dateF);
+    let dateTstr = this.transformDate(dateT);
 
     this.documentResults = [];
     this.docGeneratorService.searchExpiredDocuments(dateFStr, dateTstr).subscribe(documentResults => {
@@ -446,7 +470,7 @@ export class ClientSiteComponentComponent {
   }
 
   previewDocument(doc: any) {
-    var docId = doc.id;
+    let docId = doc.id;
     const dialogRef = this.dialogAuth.open(AuthDialogComponent, {
 
     });
