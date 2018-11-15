@@ -29,6 +29,7 @@ import { GenerateCertificateCustomDialogComponent } from '../dialogs/generate-ce
 import { GenerateProtocolCustomDialogComponent } from '../dialogs/generate-protocol-custom-dialog/generate-protocol-custom-dialog.component';
 import { MyDateAdapter } from '../DTOs/MyDateAdapter';
 import { formatDate } from '@angular/common';
+import { DeleteClientDialogComponent } from '../dialogs/delete-client-dialog/delete-client-dialog.component';
 
 const MY_DATE_FORMATS = {
   parse: {
@@ -93,7 +94,7 @@ export class ClientSiteComponentComponent {
   columnHeadersDevicesModels = ['Производител', 'Модел', 'Свидетелство', 'Сериен номер префикс', 'Фискален номер префикс', 'Булстат', 'Действия'];
   columnHeadersDocuments = ['Име на документа', 'Начална дата', 'Крайна дата', 'Действия'];
 
-  constructor(@Inject(LOCALE_ID) private locale: string, private docGeneratorService: DocumentGeneratorService, public snackBar: MatSnackBar, private deviceService: DeviceService, private clientService: CashRegisterService, private deviceModelService: DeviceModelService, private siteService: SiteServiceService, private matIconRegistry: MatIconRegistry, sanitizer: DomSanitizer, public dialogEditClient: MatDialog, private dialogNewClient: MatDialog, private dialogNewSite: MatDialog, private dialogEditSite: MatDialog, private dialogAddNewDeviceModel: MatDialog, private dialogEditDeviceModel: MatDialog, private dialogEditDevice: MatDialog, private dialogAddDevice: MatDialog, private dialogGenerateDocument: MatDialog, private dialogGenerateCert: MatDialog, private dialogAuth: MatDialog) {
+  constructor(@Inject(LOCALE_ID) private locale: string, private docGeneratorService: DocumentGeneratorService, public snackBar: MatSnackBar, private deviceService: DeviceService, private clientService: CashRegisterService, private deviceModelService: DeviceModelService, private siteService: SiteServiceService, private matIconRegistry: MatIconRegistry, sanitizer: DomSanitizer, public dialogEditClient: MatDialog, private dialogNewClient: MatDialog, private dialogNewSite: MatDialog, private dialogEditSite: MatDialog, private dialogAddNewDeviceModel: MatDialog, private dialogEditDeviceModel: MatDialog, private dialogEditDevice: MatDialog, private dialogAddDevice: MatDialog, private dialogGenerateDocument: MatDialog, private dialogGenerateCert: MatDialog, private dialogAuth: MatDialog, private dialogDeleteClient: MatDialog) {
     this.matIconRegistry.addSvgIcon(
       'icon_add',
       sanitizer.bypassSecurityTrustResourceUrl('../../assets/icons/client_add_icon.svg'),
@@ -109,6 +110,9 @@ export class ClientSiteComponentComponent {
     ).addSvgIcon(
       'preview_icon',
       sanitizer.bypassSecurityTrustResourceUrl('../../assets/icons/preview_icon.svg'),
+    ).addSvgIcon(
+      'icon_delete',
+      sanitizer.bypassSecurityTrustResourceUrl('../../assets/icons/delete_icon.svg'),
     );
 
   }
@@ -163,7 +167,6 @@ export class ClientSiteComponentComponent {
   }
 
   showSites(row: any) {
-    console.log('rowwww', row);
     this.siteResults = [];
     this.siteService.getSitesForClient(row.id).subscribe(siteResults => {
       this.siteResults = siteResults;
@@ -203,6 +206,30 @@ export class ClientSiteComponentComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       Object.assign(element, result);
+    });
+  }
+
+  deleteClient(element: any){
+
+    const dialogRef = this.dialogDeleteClient.open(DeleteClientDialogComponent, {
+      panelClass: 'dialog-background',
+      data: {
+        elementCopy: element
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
+        console.log('closedDialogDelete');
+      } else {
+        this.dataSourceDevices = [];
+        this.dataSourceSites = [];
+        var index = this.dataSourceClients.data.findIndex( record => record.id === result.id );
+
+        const tempData = this.dataSourceClients.data;
+        tempData.splice(index, 1);
+        this.dataSourceClients.data = tempData;
+      }
     });
   }
   //--------------------------------------------------------------------

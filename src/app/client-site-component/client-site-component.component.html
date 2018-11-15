@@ -24,6 +24,9 @@
                 <button mat-icon-button class="edit_button" (click)="addSiteForClient(element.id)" (click)="$event.stopPropagation()" matTooltip="Добавяне на обект за този клиент">
                   <mat-icon svgIcon="icon_add">home2</mat-icon>
                 </button>
+                <button mat-icon-button class="edit_button" (click)="deleteClient(element)" (click)="$event.stopPropagation()" matTooltip="Изтриване на клиент">
+                  <mat-icon svgIcon="icon_delete">home3</mat-icon>
+                </button>
               </div>
               {{element[column]}}
             </td>

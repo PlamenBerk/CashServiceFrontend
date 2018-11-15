@@ -6,7 +6,7 @@
     background-size: cover; 
     border-radius: 15px;
     height: auto;
-    min-height: 300px;
+    min-height: 200px;
     width: 350px;
     overflow-x: hidden !important;
 }

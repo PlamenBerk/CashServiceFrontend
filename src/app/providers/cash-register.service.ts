@@ -57,6 +57,34 @@ export class CashRegisterService {
     );
   }
 
+  deleteClient(id: number):Observable<ClientDTO>{
+    let username = UrlHelper.username;
+    let password = UrlHelper.password;
+    let headers: Headers = new Headers();
+    headers.append("Authorization", "Basic " + btoa(username + ":" + password));
+    headers.append('Access-Control-Allow-Origin','*');
+    headers.append('Content-Type' , 'application/json; charset=UTF-8');
+
+    let apiURL = UrlHelper.url + `client-management/client/`+id;
+
+    return this.http.delete(apiURL,{headers:headers}).pipe(
+      map(res => {
+        var result = res.json();
+          return new ClientDTO(
+            result.id,
+            result.name,
+            result.bulstat,
+            result.address,
+            result.comment,
+            result.egn,
+            result.tdd,
+            result.manager.name,
+            result.manager.phone
+          );
+      })
+    );
+  }
+
   getAllClients(data: any): Observable<ClientDTO[]> {
     let username: string = data.user;
     let password: string = data.pass;

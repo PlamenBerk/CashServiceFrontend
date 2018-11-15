@@ -34,6 +34,7 @@ import { AuthDialogComponent } from './dialogs/auth-dialog/auth-dialog.component
 import { TabGroupBasicExampleComponent } from './tab-group-basic-example/tab-group-basic-example.component';
 import { GenerateCertificateCustomDialogComponent } from './dialogs/generate-certificate-custom-dialog/generate-certificate-custom-dialog.component';
 import { GenerateProtocolCustomDialogComponent } from './dialogs/generate-protocol-custom-dialog/generate-protocol-custom-dialog.component';
+import { DeleteClientDialogComponent } from './dialogs/delete-client-dialog/delete-client-dialog.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { GenerateProtocolCustomDialogComponent } from './dialogs/generate-protoc
     CustomDialogComponent,
     AddClientCustomDialogComponent,
     AddSiteCustomDialogComponent,
+    DeleteClientDialogComponent,
     EditSiteCustomDialogComponent,
     AddDeviceModelDialogComponent,
     EditDeviceModelDialogComponent,
@@ -54,10 +56,11 @@ import { GenerateProtocolCustomDialogComponent } from './dialogs/generate-protoc
     AuthDialogComponent,
     TabGroupBasicExampleComponent,
     GenerateCertificateCustomDialogComponent,
-    GenerateProtocolCustomDialogComponent
+    GenerateProtocolCustomDialogComponent,
+    DeleteClientDialogComponent
     
   ],
-  entryComponents: [AuthDialogComponent, GenerateProtocolCustomDialogComponent ,GenerateCertificateCustomDialogComponent, GenerateDocumentsCustomDialogComponent,CustomDialogComponent,AddClientCustomDialogComponent,AddSiteCustomDialogComponent,EditSiteCustomDialogComponent,AddDeviceModelDialogComponent,EditDeviceModelDialogComponent,AddDeviceCustomDialogComponent,EditDeviceCustomDialogComponent],
+  entryComponents: [AuthDialogComponent,DeleteClientDialogComponent, GenerateProtocolCustomDialogComponent ,GenerateCertificateCustomDialogComponent, GenerateDocumentsCustomDialogComponent,CustomDialogComponent,AddClientCustomDialogComponent,AddSiteCustomDialogComponent,EditSiteCustomDialogComponent,AddDeviceModelDialogComponent,EditDeviceModelDialogComponent,AddDeviceCustomDialogComponent,EditDeviceCustomDialogComponent],
   imports: [
     MomentModule,
     BrowserModule,
