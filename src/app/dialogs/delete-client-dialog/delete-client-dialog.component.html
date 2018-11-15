@@ -1,7 +1,22 @@
 <h1 mat-dialog-title>Изтриване!</h1>
 
+<form [formGroup]="form">
 <mat-dialog-content class="window">
     <h2>Сигурни ли сте, че искате да изтриете клиент {{clientName}}</h2>
+    <ol>
+      <li>
+        <mat-form-field>
+          <input matInput formControlName="username" placeholder="Потребител">
+        </mat-form-field>
+      </li>
+
+      <li>
+        <mat-form-field>
+          <input matInput formControlName="password" placeholder="Парола" type="password">
+        </mat-form-field>
+      </li>
+
+    </ol>
 </mat-dialog-content>
 
 
@@ -9,3 +24,4 @@
   <button mat-button (click)="delete()" class="button-text">Изтриване</button>
   <button mat-button type="close" (click)="closeDialog()" class="button-text">Отказ</button>
 </mat-dialog-actions>
+</form>

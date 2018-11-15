@@ -57,9 +57,9 @@ export class CashRegisterService {
     );
   }
 
-  deleteClient(id: number):Observable<ClientDTO>{
-    let username = UrlHelper.username;
-    let password = UrlHelper.password;
+  deleteClient(id: number,data: any):Observable<any>{
+    let username: string = data.user;
+    let password: string = data.pass;
     let headers: Headers = new Headers();
     headers.append("Authorization", "Basic " + btoa(username + ":" + password));
     headers.append('Access-Control-Allow-Origin','*');
@@ -81,6 +81,9 @@ export class CashRegisterService {
             result.manager.name,
             result.manager.phone
           );
+      }),
+      catchError((error) => {
+        return Observable.throw(error);  
       })
     );
   }
