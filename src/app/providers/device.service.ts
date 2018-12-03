@@ -26,7 +26,8 @@ export class DeviceService {
             result.deviceNumPostfix,
             result.fiscalNumPostfix,
             result.napNumber,
-            result.napDate
+            result.napDate,
+            result.modelOfDevice
           );
       })
     );
@@ -44,7 +45,8 @@ export class DeviceService {
             result.deviceNumPostfix,
             result.fiscalNumPostfix,
             result.napNumber,
-            result.napDate
+            result.napDate,
+            result.modelOfDevice
           );
       })
     );
@@ -63,7 +65,8 @@ export class DeviceService {
             item.deviceNumPostfix,
             item.fiscalNumPostfix,
             item.napNumber,
-            item.napDate
+            item.napDate,
+            item.modelOfDevice
           );
         });
         
