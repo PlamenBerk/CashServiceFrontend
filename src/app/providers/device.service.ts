@@ -22,14 +22,15 @@ export class DeviceService {
     let apiURL = UrlHelper.url + 'device-management/device/' + deviceId;
     return this.http.put(apiURL, deviceDTO).pipe(
       map(res => {
-        var result = res.json();
+        let result = res.json();
         return new FullDeviceDTO(
           result.id,
           result.sim,
           result.deviceNumPostfix,
           result.fiscalNumPostfix,
           result.napNumber,
-          result.napDate
+          result.napDate,
+          result.modelOfDevice
         );
       })
     );
@@ -54,7 +55,8 @@ export class DeviceService {
           result.deviceNumPostfix,
           result.fiscalNumPostfix,
           result.napNumber,
-          result.napDate
+          result.napDate,
+          result.modelOfDevice
         );
       }),
       catchError((error) => {
@@ -67,7 +69,7 @@ export class DeviceService {
     let apiURL = UrlHelper.url + 'device-management/device/' + siteId + '/' + modelId;
     return this.http.post(apiURL, newDevice).pipe(
       map(res => {
-        var result = res.json();
+        let result = res.json();
         console.log('res', result);
         return new FullDeviceDTO(
           result.id,
@@ -75,7 +77,8 @@ export class DeviceService {
           result.deviceNumPostfix,
           result.fiscalNumPostfix,
           result.napNumber,
-          result.napDate
+          result.napDate,
+          result.modelOfDevice
         );
       })
     );
@@ -83,7 +86,7 @@ export class DeviceService {
 
   getDevicesForSite(siteId: number): Observable<FullDeviceDTO[]> {
     this.siteId = siteId;
-    var params = { "siteId": this.siteId.toString() };
+    let params = { "siteId": this.siteId.toString() };
     let apiURL = UrlHelper.url + `device-management/device`;
     return this.http.get(apiURL, { params: params }).pipe(
       map(res => {
@@ -94,7 +97,8 @@ export class DeviceService {
             item.deviceNumPostfix,
             item.fiscalNumPostfix,
             item.napNumber,
-            item.napDate
+            item.napDate,
+            item.modelOfDevice
           );
         });
 

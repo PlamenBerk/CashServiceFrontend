@@ -36,6 +36,7 @@ import { GenerateCertificateCustomDialogComponent } from './dialogs/generate-cer
 import { GenerateProtocolCustomDialogComponent } from './dialogs/generate-protocol-custom-dialog/generate-protocol-custom-dialog.component';
 import { DeleteClientDialogComponent } from './dialogs/delete-client-dialog/delete-client-dialog.component';
 import { DeleteSiteDialogComponent } from './dialogs/delete-site-dialog/delete-site-dialog.component';
+import { DeleteDeviceDialogComponent } from './dialogs/delete-device-dialog/delete-device-dialog.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { DeleteSiteDialogComponent } from './dialogs/delete-site-dialog/delete-s
     AddSiteCustomDialogComponent,
     DeleteClientDialogComponent,
     DeleteSiteDialogComponent,
+    DeleteDeviceDialogComponent,
     EditSiteCustomDialogComponent,
     AddDeviceModelDialogComponent,
     EditDeviceModelDialogComponent,
@@ -63,7 +65,7 @@ import { DeleteSiteDialogComponent } from './dialogs/delete-site-dialog/delete-s
     DeleteSiteDialogComponent
     
   ],
-  entryComponents: [AuthDialogComponent, DeleteSiteDialogComponent, DeleteClientDialogComponent, GenerateProtocolCustomDialogComponent ,GenerateCertificateCustomDialogComponent, GenerateDocumentsCustomDialogComponent,CustomDialogComponent,AddClientCustomDialogComponent,AddSiteCustomDialogComponent,EditSiteCustomDialogComponent,AddDeviceModelDialogComponent,EditDeviceModelDialogComponent,AddDeviceCustomDialogComponent,EditDeviceCustomDialogComponent],
+  entryComponents: [AuthDialogComponent,DeleteDeviceDialogComponent, DeleteSiteDialogComponent, DeleteClientDialogComponent, GenerateProtocolCustomDialogComponent ,GenerateCertificateCustomDialogComponent, GenerateDocumentsCustomDialogComponent,CustomDialogComponent,AddClientCustomDialogComponent,AddSiteCustomDialogComponent,EditSiteCustomDialogComponent,AddDeviceModelDialogComponent,EditDeviceModelDialogComponent,AddDeviceCustomDialogComponent,EditDeviceCustomDialogComponent],
   imports: [
     MomentModule,
     BrowserModule,

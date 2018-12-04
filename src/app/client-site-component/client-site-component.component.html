@@ -102,6 +102,9 @@
                 <button mat-icon-button class="edit_button" (click)="generateProtocol(element.id)" (click)="$event.stopPropagation()" matTooltip="Генериране на протокол">
                   <mat-icon svgIcon="icon_doc">home2</mat-icon>
                 </button>
+                <button mat-icon-button class="edit_button" (click)="deleteDevice(element)" (click)="$event.stopPropagation()" matTooltip="Изтриване на апарат">
+                  <mat-icon svgIcon="icon_delete">home3</mat-icon>
+                </button>
               </div>
                 <div *ngIf="columnDevice == 'napDate';else other">
                   {{element[columnDevice] | date:'dd-MM-yyyy'}} 
