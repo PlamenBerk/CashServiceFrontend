@@ -135,7 +135,7 @@ export class ClientSiteComponentComponent {
           this.dataSourceClients = new MatTableDataSource(this.clientResults);
         },
           (error) => {
-            this.snackBar.open('До�?тъпът е отказан. Презаредете �?траницата и опитайте отново.', '', {
+            this.snackBar.open('Достъпът е отказан. Презаредете страницата и опитайте отново.', '', {
               duration: 5000,
             });
           })
@@ -506,7 +506,7 @@ export class ClientSiteComponentComponent {
           fileSaver.saveAs(documentResults, doc.documentName);
         },
           (error) => {
-            this.snackBar.open('До�?тъпът е отказан. Oпитайте отново.', '', {
+            this.snackBar.open('Достъпът е отказан. Oпитайте отново.', '', {
               duration: 5000,
             });
             console.error('zzzzzzzzz', error);
