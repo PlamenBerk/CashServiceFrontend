@@ -31,6 +31,7 @@ import { MyDateAdapter } from '../DTOs/MyDateAdapter';
 import { formatDate } from '@angular/common';
 import { DeleteClientDialogComponent } from '../dialogs/delete-client-dialog/delete-client-dialog.component';
 import { DeleteSiteDialogComponent } from '../dialogs/delete-site-dialog/delete-site-dialog.component';
+import { DeleteDeviceDialogComponent } from '../dialogs/delete-device-dialog/delete-device-dialog.component';
 
 const MY_DATE_FORMATS = {
   parse: {
@@ -85,17 +86,17 @@ export class ClientSiteComponentComponent {
 
   columnsToDisplay = ['name', 'bulstat', 'egn', 'address', 'tdd', 'comment', 'managerName', 'managerPhone', 'Actions'];
   columnsToDisplay2 = ['name', 'address', 'phone', 'Actions'];
-  columnsToDisplay3 = ['modelOfDevice', 'sim', 'deviceNumPostfix', 'fiscalNumPostfix', 'napNumber', 'napDate', 'Actions'];
+  columnsToDisplay3 = ['sim', 'deviceNumPostfix', 'fiscalNumPostfix', 'napNumber', 'napDate', 'Actions'];
   columnsToDisplay4 = ['manufacturer', 'model', 'certificate', 'deviceNumPrefix', 'fiscalNumPrefix', 'eik', 'Actions'];
   columnsToDisplay5 = ['documentName', 'startDate', 'endDate', 'Actions'];
 
-  columnHeaders = ['Име', 'Бул', 'ЕГН', 'Адрес', 'ТДД', 'Коментар', 'Мениджър', 'Телефон', 'Действия'];
-  columnHeadersSites = ['Име', 'Адрес', 'телефон', 'Действия'];
-  columnHeadersDevices = ['Модел', 'СИМ', 'Сериен номер', 'Фискална памет', 'НАП номер', 'НАП дата', 'Действия'];
-  columnHeadersDevicesModels = ['Производител', 'Модел', 'Свидетелство', 'Сериен номер префикс', 'Фискален номер префикс', 'Булстат', 'Действия'];
-  columnHeadersDocuments = ['Име на документа', 'Начална дата', 'Крайна дата', 'Действия'];
+  columnHeaders = ['Име', 'Бул', 'ЕГ�?', '�?дре�?', 'ТДД', 'Коментар', 'Мениджър', 'Телефон', 'Дей�?тви�?'];
+  columnHeadersSites = ['Име', '�?дре�?', 'телефон', 'Дей�?тви�?'];
+  columnHeadersDevices = ['СИМ', 'Сериен номер', 'Фи�?кална памет', '�?�?П номер', '�?�?П дата', 'Дей�?тви�?'];
+  columnHeadersDevicesModels = ['Производител', 'Модел', 'Свидетел�?тво', 'Сериен номер префик�?', 'Фи�?кален номер префик�?', 'Бул�?тат', 'Дей�?тви�?'];
+  columnHeadersDocuments = ['Име на документа', '�?ачална дата', 'Крайна дата', 'Дей�?тви�?'];
 
-  constructor(@Inject(LOCALE_ID) private locale: string, private docGeneratorService: DocumentGeneratorService, public snackBar: MatSnackBar, private deviceService: DeviceService, private clientService: CashRegisterService, private deviceModelService: DeviceModelService, private siteService: SiteServiceService, private matIconRegistry: MatIconRegistry, sanitizer: DomSanitizer, public dialogEditClient: MatDialog, private dialogNewClient: MatDialog, private dialogNewSite: MatDialog, private dialogEditSite: MatDialog, private dialogAddNewDeviceModel: MatDialog, private dialogEditDeviceModel: MatDialog, private dialogEditDevice: MatDialog, private dialogAddDevice: MatDialog, private dialogGenerateDocument: MatDialog, private dialogGenerateCert: MatDialog, private dialogAuth: MatDialog, private dialogDeleteClient: MatDialog, private dialogDeleteSite: MatDialog) {
+  constructor(@Inject(LOCALE_ID) private locale: string, private docGeneratorService: DocumentGeneratorService, public snackBar: MatSnackBar, private deviceService: DeviceService, private clientService: CashRegisterService, private deviceModelService: DeviceModelService, private siteService: SiteServiceService, private matIconRegistry: MatIconRegistry, sanitizer: DomSanitizer, public dialogEditClient: MatDialog, private dialogNewClient: MatDialog, private dialogNewSite: MatDialog, private dialogEditSite: MatDialog, private dialogAddNewDeviceModel: MatDialog, private dialogEditDeviceModel: MatDialog, private dialogEditDevice: MatDialog, private dialogAddDevice: MatDialog, private dialogGenerateDocument: MatDialog, private dialogGenerateCert: MatDialog, private dialogAuth: MatDialog, private dialogDeleteClient: MatDialog, private dialogDeleteSite: MatDialog, private dialogDeleteDevice: MatDialog) {
     this.matIconRegistry.addSvgIcon(
       'icon_add',
       sanitizer.bypassSecurityTrustResourceUrl('../../assets/icons/client_add_icon.svg'),
@@ -134,7 +135,7 @@ export class ClientSiteComponentComponent {
           this.dataSourceClients = new MatTableDataSource(this.clientResults);
         },
           (error) => {
-            this.snackBar.open('Достъпът е отказан. Презаредете страницата и опитайте отново.', '', {
+            this.snackBar.open('До�?тъпът е отказан. Презаредете �?траницата и опитайте отново.', '', {
               duration: 5000,
             });
           })
@@ -358,8 +359,31 @@ export class ClientSiteComponentComponent {
     })
   }
 
+  deleteDevice(element: any) {
+
+    const dialogRef = this.dialogDeleteDevice.open(DeleteDeviceDialogComponent, {
+      panelClass: 'dialog-background',
+      data: {
+        elementCopy: element
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
+        console.log('closedDialogDelete');
+      } else {
+        let index = this.dataSourceDevices.data.findIndex(record => record.id === result.id);
+
+        const tempData = this.dataSourceDevices.data;
+        tempData.splice(index, 1);
+        this.dataSourceDevices.data = tempData;
+      }
+    });
+  }
+
   editDevice(element: any) {
     let copy = Object.assign({}, element);
+
     const dialogRef = this.dialogEditDevice.open(EditDeviceCustomDialogComponent, {
       panelClass: 'dialog-background',
       data: {
@@ -482,7 +506,7 @@ export class ClientSiteComponentComponent {
           fileSaver.saveAs(documentResults, doc.documentName);
         },
           (error) => {
-            this.snackBar.open('Достъпът е отказан. Oпитайте отново.', '', {
+            this.snackBar.open('До�?тъпът е отказан. Oпитайте отново.', '', {
               duration: 5000,
             });
             console.error('zzzzzzzzz', error);
