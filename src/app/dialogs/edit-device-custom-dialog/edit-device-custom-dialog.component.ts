@@ -27,7 +27,8 @@ export class EditDeviceCustomDialogComponent implements OnInit {
       deviceNumPostfix: [this.data.elementCopy.deviceNumPostfix, Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
       fiscalNumPostfix: [this.data.elementCopy.fiscalNumPostfix, Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
       napNumber: [this.data.elementCopy.napNumber, Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
-      napDate: [this.transformDate(this.data.elementCopy.napDate), Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я- ]+')])]
+      napDate: [this.transformDate(this.data.elementCopy.napDate), Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я- ]+')])],
+      napPhone: [this.data.elementCopy.napPhone, Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[0-9+ ]+')])],
     })
   }
 
@@ -46,7 +47,8 @@ export class EditDeviceCustomDialogComponent implements OnInit {
         this.form.controls['deviceNumPostfix'].value,
         this.form.controls['fiscalNumPostfix'].value,
         this.form.controls['napNumber'].value,
-        this.form.controls['napDate'].value);
+        this.form.controls['napDate'].value,
+        this.form.controls['napPhone'].value);
 
       this.deviceService.editDevice(deviceDTO,this.data.elementCopy.id).subscribe(deviceResult => {
         this.deviceResult = deviceResult;

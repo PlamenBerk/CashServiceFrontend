@@ -86,13 +86,13 @@ export class ClientSiteComponentComponent {
 
   columnsToDisplay = ['name', 'bulstat', 'egn', 'address', 'tdd', 'comment', 'managerName', 'managerPhone', 'Actions'];
   columnsToDisplay2 = ['name', 'address', 'phone', 'Actions'];
-  columnsToDisplay3 = ['modelOfDevice', 'sim', 'deviceNumPostfix', 'fiscalNumPostfix', 'napNumber', 'napDate', 'Actions'];
+  columnsToDisplay3 = ['modelOfDevice', 'sim', 'deviceNumPostfix', 'fiscalNumPostfix', 'napNumber', 'napPhone', 'napDate', 'Actions'];
   columnsToDisplay4 = ['manufacturer', 'model', 'certificate', 'deviceNumPrefix', 'fiscalNumPrefix', 'eik', 'Actions'];
   columnsToDisplay5 = ['documentName', 'startDate', 'endDate', 'Actions'];
 
   columnHeaders = ['Име', 'Бул', 'ЕГН', 'Адрес', 'ТДД', 'Коментар', 'Мениджър', 'Телефон', 'Действия'];
   columnHeadersSites = ['Име', 'Адрес', 'телефон', 'Действия'];
-  columnHeadersDevices = ['Модел', 'СИМ', 'Сериен номер', 'Фискална памет', 'НАП номер', 'НАП дата', 'Действия'];
+  columnHeadersDevices = ['Модел', 'СИМ', 'Сериен номер', 'Фискална памет', 'НАП номер', 'НАП телефон', 'НАП дата', 'Действия'];
   columnHeadersDevicesModels = ['Производител', 'Модел', 'Свидетелство', 'Сериен номер префикс', 'Фискален номер префикс', 'Булстат', 'Действия'];
   columnHeadersDocuments = ['Име на документа', 'Начална дата', 'Крайна дата', 'Действия'];
 

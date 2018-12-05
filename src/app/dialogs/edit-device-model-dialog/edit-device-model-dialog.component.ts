@@ -21,9 +21,9 @@ export class EditDeviceModelDialogComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      manufacturer: [this.data.elementCopy.manufacturer, Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
-      model: [this.data.elementCopy.model, Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
-      certificate: [this.data.elementCopy.certificate, Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
+      manufacturer: [this.data.elementCopy.manufacturer, Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я-."/ ]+')])],
+      model: [this.data.elementCopy.model, Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я-."/ ]+')])],
+      certificate: [this.data.elementCopy.certificate, Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я-."/ ]+')])],
       deviceNumPrefix: [this.data.elementCopy.deviceNumPrefix, Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
       fiscalNumPrefix: [this.data.elementCopy.fiscalNumPrefix, Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
       eik: [this.data.elementCopy.eik, Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])]

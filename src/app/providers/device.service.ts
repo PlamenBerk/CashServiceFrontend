@@ -30,7 +30,8 @@ export class DeviceService {
           result.fiscalNumPostfix,
           result.napNumber,
           result.napDate,
-          result.modelOfDevice
+          result.modelOfDevice,
+          result.napPhone
         );
       })
     );
@@ -56,7 +57,8 @@ export class DeviceService {
           result.fiscalNumPostfix,
           result.napNumber,
           result.napDate,
-          result.modelOfDevice
+          result.modelOfDevice,
+          result.napPhone
         );
       }),
       catchError((error) => {
@@ -78,7 +80,8 @@ export class DeviceService {
           result.fiscalNumPostfix,
           result.napNumber,
           result.napDate,
-          result.modelOfDevice
+          result.modelOfDevice,
+          result.napPhone
         );
       })
     );
@@ -98,7 +101,8 @@ export class DeviceService {
             item.fiscalNumPostfix,
             item.napNumber,
             item.napDate,
-            item.modelOfDevice
+            item.modelOfDevice,
+            item.napPhone
           );
         });
 
