@@ -31,7 +31,7 @@ export class DeviceService {
           result.napNumber,
           result.napDate,
           result.modelOfDevice,
-          result.napPhone
+          result.simPhone
         );
       })
     );
@@ -58,7 +58,7 @@ export class DeviceService {
           result.napNumber,
           result.napDate,
           result.modelOfDevice,
-          result.napPhone
+          result.simPhone
         );
       }),
       catchError((error) => {
@@ -81,7 +81,7 @@ export class DeviceService {
           result.napNumber,
           result.napDate,
           result.modelOfDevice,
-          result.napPhone
+          result.simPhone
         );
       })
     );
@@ -102,7 +102,7 @@ export class DeviceService {
             item.napNumber,
             item.napDate,
             item.modelOfDevice,
-            item.napPhone
+            item.simPhone
           );
         });
 

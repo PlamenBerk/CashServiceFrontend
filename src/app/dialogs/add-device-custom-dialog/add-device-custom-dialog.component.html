@@ -23,6 +23,12 @@
 
       <li>
         <mat-form-field>
+          <input matInput formControlName="simPhone" placeholder="СИМ номер">
+        </mat-form-field>
+      </li>
+
+      <li>
+        <mat-form-field>
           <input matInput formControlName="deviceNumPostfix" placeholder="Сериен номер">
         </mat-form-field>
       </li>
@@ -41,13 +47,7 @@
 
       <li>
         <mat-form-field>
-          <input matInput formControlName="napPhone" placeholder="НАП телефонен номер">
-        </mat-form-field>
-      </li>
-
-      <li>
-        <mat-form-field>
-          <input matInput [matDatepicker]="pickerNapDateP" placeholder="НАП дата" [(ngModel)]="napDateP"
+          <input matInput readonly [matDatepicker]="pickerNapDateP" placeholder="НАП дата" [(ngModel)]="napDateP"
             formControlName="napDate">
           <mat-datepicker-toggle matSuffix [for]="pickerNapDateP"></mat-datepicker-toggle>
           <mat-datepicker #pickerNapDateP></mat-datepicker>

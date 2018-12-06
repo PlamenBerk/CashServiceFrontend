@@ -56,7 +56,7 @@ export class AddDeviceCustomDialogComponent implements OnInit {
       fiscalNumPostfix: ['', Validators.compose([Validators.required, Validators.maxLength(6),Validators.minLength(6), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
       napNumber: ['', Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9а-яА-Я ]+')])],
       napDate: ['', Validators.compose([Validators.required, Validators.maxLength(30)])],
-      napPhone: ['', Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[0-9+ ]+')])],
+      simPhone: ['', Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[0-9+ ]+')])],
     })
   }
 
@@ -77,7 +77,7 @@ export class AddDeviceCustomDialogComponent implements OnInit {
         this.form.controls['fiscalNumPostfix'].value,
         this.form.controls['napNumber'].value,
         napDateString,
-        this.form.controls['napPhone'].value);
+        this.form.controls['simPhone'].value);
         
       this.deviceService.createNewDevice(deviceDTO, this.siteId, parseInt(this.selectedValue)).subscribe(deviceResult => {
         this.deviceResult = deviceResult;
