@@ -7,10 +7,6 @@ table {
     font-weight: bold;
     color: black;
   }
-
-  .mat-cell{
-    font-size: 18px;
-  }
   
   .centerr{
     margin: auto;
@@ -96,3 +92,16 @@ table {
     background: rgb(0, 0, 0);
   }
  
+ .mat-icon-button {
+    padding: 0 !important;
+    min-width: 0 !important;
+    width: 30px !important;
+    height: 30px !important;
+    flex-shrink: 0 !important;
+    line-height: 40px !important;
+    border-radius: 50% !important;
+}
+
+.divBtns{
+  display: flex;
+}
