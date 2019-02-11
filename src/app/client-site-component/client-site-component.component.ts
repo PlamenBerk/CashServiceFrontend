@@ -96,7 +96,7 @@ export class ClientSiteComponentComponent {
   columnHeadersDevicesModels = ['Производител', 'Модел', 'Свидетелство', 'Сериен номер префикс', 'Фискален номер префикс', 'Булстат', 'Действия'];
   columnHeadersDocuments = ['Име на документа', 'Начална дата', 'Крайна дата', 'Действия'];
 
-  constructor(@Inject(LOCALE_ID) private locale: string, private docGeneratorService: DocumentGeneratorService, public snackBar: MatSnackBar, private deviceService: DeviceService, private clientService: CashRegisterService, private deviceModelService: DeviceModelService, private siteService: SiteServiceService, private matIconRegistry: MatIconRegistry, sanitizer: DomSanitizer, public dialogEditClient: MatDialog, private dialogNewClient: MatDialog, private dialogNewSite: MatDialog, private dialogEditSite: MatDialog, private dialogAddNewDeviceModel: MatDialog, private dialogEditDeviceModel: MatDialog, private dialogEditDevice: MatDialog, private dialogAddDevice: MatDialog, private dialogGenerateDocument: MatDialog, private dialogGenerateCert: MatDialog, private dialogAuth: MatDialog, private dialogDeleteClient: MatDialog, private dialogDeleteSite: MatDialog, private dialogDeleteDevice: MatDialog) {
+  constructor(private documentGeneratorService: DocumentGeneratorService, @Inject(LOCALE_ID) private locale: string, private docGeneratorService: DocumentGeneratorService, public snackBar: MatSnackBar, private deviceService: DeviceService, private clientService: CashRegisterService, private deviceModelService: DeviceModelService, private siteService: SiteServiceService, private matIconRegistry: MatIconRegistry, sanitizer: DomSanitizer, public dialogEditClient: MatDialog, private dialogNewClient: MatDialog, private dialogNewSite: MatDialog, private dialogEditSite: MatDialog, private dialogAddNewDeviceModel: MatDialog, private dialogEditDeviceModel: MatDialog, private dialogEditDevice: MatDialog, private dialogAddDevice: MatDialog, private dialogGenerateDocument: MatDialog, private dialogGenerateCert: MatDialog, private dialogAuth: MatDialog, private dialogDeleteClient: MatDialog, private dialogDeleteSite: MatDialog, private dialogDeleteDevice: MatDialog) {
     this.matIconRegistry.addSvgIcon(
       'icon_add',
       sanitizer.bypassSecurityTrustResourceUrl('../../assets/icons/client_add_icon.svg'),
@@ -476,6 +476,12 @@ export class ClientSiteComponentComponent {
       }
     });
   }
+
+  generateRequest(elementId: any){
+    this.documentGeneratorService.generateRequest(elementId).subscribe(docResult => {
+      fileSaver.saveAs(docResult);
+    })
+  } 
 
   // ----- Document functionality
   searchDocuments() {

@@ -49,6 +49,16 @@ export class DocumentGeneratorService {
     );
   }
 
+  generateRequest(deviceId: string):Observable<string>{
+    let apiURL = UrlHelper.url + 'document-management/document-request/' + deviceId;
+    return this.http.get(apiURL,{ responseType: ResponseContentType.Blob}).pipe(
+      map(this.showRes),
+      catchError((error) => {
+        return Observable.throw(error);  
+      })
+    );
+  }
+
   previewDocument(docId: any,data: any): Observable<Response>{
     let username: string = data.user;
     let password: string = data.pass;
