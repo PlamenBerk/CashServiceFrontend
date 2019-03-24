@@ -80,13 +80,22 @@ export class GenerateDocumentsCustomDialogComponent implements OnInit {
         duration: 2000,
       });
     } else {
-      let fromDateToString = this.transformDate(this.fromDate);
-      let docDTO = new DocumentDTO(this.id,this.selectedValue,this.selectedValueValidy,this.contractNumber,fromDateToString,this.price);
+      if(this.data.type == "new"){
+        let fromDateToString = this.transformDate(this.fromDate);
+        let docDTO = new DocumentDTO(this.id,this.selectedValue,this.selectedValueValidy,this.contractNumber,fromDateToString,this.price);
 
-      this.documentGenerator.generateDocument(docDTO).subscribe(docResult => {
-        fileSaver.saveAs(docResult);
-        this.dialogRef.close('Документът е запазен!');
-      })
+        this.documentGenerator.generateDocument(docDTO).subscribe(docResult => {
+          fileSaver.saveAs(docResult);
+          this.dialogRef.close('Документът е запазен!');
+        })
+      }else if(this.data.type == "rewrite"){
+        let fromDateToString = this.transformDate(this.fromDate);
+        let docDTO = new DocumentDTO(null,this.selectedValue,this.selectedValueValidy,this.contractNumber,fromDateToString,this.price);
+        this.documentGenerator.rewriteExpiredDocument(docDTO,this.id).subscribe(result => {
+          fileSaver.saveAs(result);
+          this.dialogRef.close(this.id);
+        });
+      }
     } 
   }
 

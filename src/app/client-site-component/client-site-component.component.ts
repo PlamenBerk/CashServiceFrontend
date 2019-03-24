@@ -115,6 +115,9 @@ export class ClientSiteComponentComponent {
     ).addSvgIcon(
       'icon_delete',
       sanitizer.bypassSecurityTrustResourceUrl('../../assets/icons/delete_icon.svg'),
+    ).addSvgIcon(
+      'icon_rewrite',
+      sanitizer.bypassSecurityTrustResourceUrl('../../assets/icons/fountain-pen-close-up.svg'),
     );
 
   }
@@ -423,7 +426,8 @@ export class ClientSiteComponentComponent {
     const dialogRef = this.dialogGenerateDocument.open(GenerateDocumentsCustomDialogComponent, {
       panelClass: 'dialog-background',
       data: {
-        id: elementId
+        id: elementId,
+        type: 'new'
       }
     });
 
@@ -520,6 +524,30 @@ export class ClientSiteComponentComponent {
       }
     });
 
+  }
+
+  rewritedocument(document: any){
+    const dialogRef = this.dialogGenerateDocument.open(GenerateDocumentsCustomDialogComponent, {
+      panelClass: 'dialog-background',
+      data: {
+        id: document.id,
+        type: 'rewrite'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'closed') {
+        console.log('closedDialog');
+      } else {
+        let index = this.dataSourceDocuments.data.findIndex(res => res.id == document.id);
+        const tempData = this.dataSourceDocuments.data;
+        tempData.splice(index, 1);
+        this.dataSourceDocuments.data = tempData;
+        this.snackBar.open(result, '', {
+          duration: 3000,
+        });
+      }
+    });
   }
 
   transformDate(date) {

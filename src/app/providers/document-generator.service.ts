@@ -76,6 +76,16 @@ export class DocumentGeneratorService {
     );
   }
 
+  rewriteExpiredDocument(documentDTO: DocumentDTO, docId: string): Observable<string>{
+    let apiURL = UrlHelper.url + 'document-management/document/' + docId;
+    return this.http.post(apiURL,documentDTO,{ responseType: ResponseContentType.Blob}).pipe(
+      map(this.showRes),
+      catchError((error) => {
+        return Observable.throw(error);
+      }),
+    );
+  }
+
   private showRes(res:Response){
     return new Blob([res.blob()], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' })
   }
