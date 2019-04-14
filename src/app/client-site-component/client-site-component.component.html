@@ -194,6 +194,9 @@
                 <button mat-icon-button class="edit_button" (click)="rewritedocument(element)" (click)="$event.stopPropagation()" matTooltip="Преподписване на договора">
                   <mat-icon svgIcon="icon_rewrite">home</mat-icon>
                 </button>
+                <button mat-icon-button class="edit_button" (click)="deleteExpiredDevice(element)" (click)="$event.stopPropagation()" matTooltip="Изтриване">
+                  <mat-icon svgIcon="icon_delete">home3</mat-icon>
+                </button>
               </div>
               <div *ngIf="columnDocument == 'startDate' || columnDocument == 'endDate';else docName">
                   {{element[columnDocument] | date:'dd-MM-yyyy'}} 

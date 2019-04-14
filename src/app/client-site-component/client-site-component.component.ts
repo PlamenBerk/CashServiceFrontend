@@ -550,6 +550,18 @@ export class ClientSiteComponentComponent {
     });
   }
 
+  deleteExpiredDevice(element){
+    this.documentGeneratorService.removeExpiredDoc(element.id).subscribe(res => {
+      let index = this.dataSourceDocuments.data.findIndex(res => res.id == element.id);
+      const tempData = this.dataSourceDocuments.data;
+      tempData.splice(index, 1);
+      this.dataSourceDocuments.data = tempData;
+      this.snackBar.open(res, '', {
+        duration: 3000,
+      });
+    });
+  }
+
   transformDate(date) {
     return formatDate(date, 'dd-MM-yyyy', this.locale);
   }

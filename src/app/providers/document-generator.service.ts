@@ -29,6 +29,13 @@ export class DocumentGeneratorService {
     );
   }
 
+  removeExpiredDoc(docId): Observable<string>{
+    let apiURL = UrlHelper.url + 'document-management/expired-document/' + docId;
+    return this.http.get(apiURL).pipe(
+      map(response => response.text())
+    );
+  }
+
   generateCertificate(certificateDTO: CertificateDTO):Observable<string>{
     let apiURL = UrlHelper.url + 'document-management/document-cert';
     return this.http.post(apiURL,certificateDTO,{ responseType: ResponseContentType.Blob}).pipe(
